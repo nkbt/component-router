@@ -1,0 +1,8 @@
+example
+script
+webpack.config.js
+test
+src
+.eslintrc
+.npmignore
+lib/example*

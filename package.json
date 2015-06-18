@@ -1,0 +1,50 @@
+{
+  "name": "in-flux",
+  "version": "1.0.0",
+  "description": "Flux-based app routing solution",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run build:lib && npm run build:example",
+    "build:lib": "rm -rf lib && babel -sd lib src",
+    "build:example": "rm -rf example && webpack",
+    "prepublish": "npm run build",
+    "start": "webpack-dev-server",
+    "lint": "eslint ./src ./*.js",
+    "test": "npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nkbt/in-flux.git"
+  },
+  "keywords": [
+    "component",
+    "react-component",
+    "react",
+    "in-flux",
+    "router",
+    "url-router",
+    "url-state"
+  ],
+  "author": "Nik Butenko <nik@butenko.me> (http://butenko.me/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nkbt/in-flux/issues"
+  },
+  "homepage": "https://github.com/nkbt/in-flux",
+  "dependencies": {
+    "lodash": "^3.9.3",
+    "react": "^0.13.3"
+  },
+  "devDependencies": {
+    "babel": "^5.5.8",
+    "babel-loader": "^5.1.4",
+    "eslint": "^0.23.0",
+    "eslint-loader": "^0.14.0",
+    "eslint-plugin-react": "^2.5.2",
+    "html-webpack-plugin": "^1.5.2",
+    "node-libs-browser": "^0.5.2",
+    "react-hot-loader": "^1.2.7",
+    "webpack": "^1.9.11",
+    "webpack-dev-server": "^1.9.0"
+  }
+}
