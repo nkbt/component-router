@@ -2,7 +2,7 @@
   "name": "in-flux",
   "version": "1.0.0",
   "description": "Flux-based app routing solution",
-  "main": "index.js",
+  "main": "lib/InFlux.js",
   "scripts": {
     "build": "npm run build:lib && npm run build:example",
     "build:lib": "rm -rf lib && babel -sd lib src",
@@ -32,12 +32,15 @@
   },
   "homepage": "https://github.com/nkbt/in-flux",
   "dependencies": {
+    "flux": "^2.0.3",
+    "flux-common-store": "^1.0.1",
     "lodash": "^3.9.3",
     "react": "^0.13.3"
   },
   "devDependencies": {
     "babel": "^5.5.8",
     "babel-loader": "^5.1.4",
+    "babel-plugin-object-assign": "^1.1.0",
     "eslint": "^0.23.0",
     "eslint-loader": "^0.14.0",
     "eslint-plugin-react": "^2.5.2",

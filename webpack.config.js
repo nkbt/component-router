@@ -31,7 +31,11 @@ module.exports = {
 
   module: {
     loaders: [
-      {test: /\.js$/, loaders: ['react-hot', 'babel'], include: [path.join(__dirname, 'src')]}
+      {
+        test: /\.js$/,
+        loaders: ['react-hot', 'babel?plugins=object-assign'],
+        include: [path.join(__dirname, 'src')]
+      }
     ],
     preLoaders: [
       eslintLoader

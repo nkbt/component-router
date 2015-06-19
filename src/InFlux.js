@@ -1,11 +1,14 @@
-import React from 'react';
+import Config from './Config';
+import Url from './Url';
+import ActionCreator from './ActionCreator';
+import Store from './Store';
+import Constants from './Constants';
 
 
-const InFlux = React.createClass({
-  render() {
-    return React.Children.only(this.props.children);
-  }
-});
-
-
-export default InFlux;
+export default {
+  Config,
+  Url,
+  ActionCreator,
+  Store,
+  Constants
+};
