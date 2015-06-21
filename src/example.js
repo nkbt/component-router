@@ -18,12 +18,18 @@ const Second = React.createClass({
 
 const DynamicList = React.createClass({
   propTypes: {
-    inFlux: React.PropTypes.object
+    inFlux: React.PropTypes.object,
+    values: React.PropTypes.arrayOf(React.PropTypes.number)
+  },
+
+  getDefaultProps() {
+    return {
+      values: [1, 2, 3]
+    };
   },
 
 
   render() {
-    const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
     const {namespace, value} = this.props.inFlux;
 
     const isActive = id => <b>{id === parseInt(value, 10) ? '(Active)' : ''}</b>;
@@ -36,7 +42,29 @@ const DynamicList = React.createClass({
 
     return (
       <div>
-        {values.map(item)}
+        {this.props.values.map(item)}
+      </div>
+    );
+  }
+});
+
+
+const ListContainer = React.createClass({
+  propTypes: {
+    inFlux: React.PropTypes.object,
+    values: React.PropTypes.arrayOf(React.PropTypes.number).isRequired
+  },
+
+
+  render() {
+    const {Component} = this.props.inFlux;
+
+    return (
+      <div>
+        <h3>List Container</h3>
+        <div style={{background: 'rgba(0, 0, 255, 0.2)', padding: 20}}>
+          <Component {...this.props} values={this.props.values} />
+        </div>
       </div>
     );
   }
@@ -57,7 +85,8 @@ const inFluxConfig = {
     Hello: First,
     World: Second
   },
-  list: DynamicList
+  list: DynamicList,
+  list2: DynamicList
 };
 
 
@@ -120,6 +149,11 @@ const App = React.createClass({
 
         <h2>Dynamic list example</h2>
         <InFlux config={inFluxConfig} namespace="list" />
+
+        <h2>Dynamic list with children example</h2>
+        <InFlux config={inFluxConfig} namespace="list2">
+          <ListContainer values={[1, 2, 3, 4]} />
+        </InFlux>
 
         <h2>Links examples</h2>
         <p>
