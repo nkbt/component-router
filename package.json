@@ -4,13 +4,15 @@
   "description": "Flux-based app routing solution",
   "main": "lib/InFlux.js",
   "scripts": {
-    "build": "npm run build:lib && npm run build:example",
-    "build:lib": "rm -rf lib && babel -sd lib src",
-    "build:example": "rm -rf example && webpack",
+    "build": "npm run build:clean && npm run build:lib && npm run build:example",
+    "build:clean": "rm -rf lib example",
+    "build:lib": "babel -sd lib src",
+    "build:example": "webpack",
     "prepublish": "npm run build",
     "start": "webpack-dev-server",
     "lint": "eslint ./src ./*.js",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "check": "npm run build"
   },
   "repository": {
     "type": "git",
