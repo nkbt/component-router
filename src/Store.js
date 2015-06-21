@@ -3,16 +3,23 @@ import Constants from './Constants';
 import Dispatcher from './Dispatcher';
 import LocationUtil from './LocationUtil';
 import url from 'url';
+import {isNull, isUndefined} from 'lodash';
 
 
-let {query, hash, pathname} = url.parse(LocationUtil.getUrl());
+const safeParams = params => {
+  return {
+    pathname: isNull(params.pathname) || isUndefined(params.pathname) ? '/' : params.pathname,
+    query: isNull(params.query) || isUndefined(params.query) ? {} : params.query
+  };
+};
 
+
+let {pathname, query} = safeParams(url.parse(LocationUtil.getUrl(), true));
 
 const changeState = params => {
-  pathname = typeof params.pathname === 'undefined' ? pathname : params.pathname;
-  query = typeof params.query === 'undefined' ? query : params.query;
-  hash = typeof params.hash === 'undefined' ? hash : params.hash;
-  LocationUtil.setUrl(url.format({pathname, query, hash}));
+  pathname = params.pathname;
+  query = params.query;
+  LocationUtil.setUrl(url.format(params));
 };
 
 
@@ -20,19 +27,20 @@ const Store = Object.assign({}, FluxCommonStore, {
   getQuery() {
     return query;
   },
-  getHash() {
-    return hash;
-  },
   getPathname() {
     return pathname;
   }
 });
 
 
+// We expect a large amount of links on a page, so in this case we want to remove the limit
+Store.setMaxListeners(0);
+
+
 Store.dispatchToken = Dispatcher.register(({actionType, payload}) => {
   switch (actionType) {
     case Constants.NAVIGATE_TO:
-      changeState(payload);
+      changeState(safeParams(payload));
       Store.emitChange();
       break;
 
