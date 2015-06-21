@@ -1,7 +1,7 @@
 {
   "name": "in-flux",
   "version": "0.0.0",
-  "description": "Flux-based app routing solution",
+  "description": "Flux-based partial routing solution",
   "main": "lib/InFlux.js",
   "scripts": {
     "build": "npm run build:clean && npm run build:lib && npm run build:example",
@@ -21,11 +21,14 @@
   "keywords": [
     "component",
     "react-component",
+    "flux-component",
     "react",
     "in-flux",
     "router",
     "url-router",
-    "url-state"
+    "url-state",
+    "partial routing",
+    "partial"
   ],
   "author": "Nik Butenko <nik@butenko.me> (http://butenko.me/)",
   "license": "MIT",
