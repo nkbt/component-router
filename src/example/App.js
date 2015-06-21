@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ComponentRouter, LocationHtml5, getDefault, Url} from '..';
+import {ComponentRouter, LocationHtml4, getDefault, Url} from '..';
 import styles from './App.css';
 
 import FooBar from './FooBar/FooBar';
@@ -50,7 +50,7 @@ const App = React.createClass({
   render() {
     return (
       <div className={styles.app}>
-        <LocationHtml5 />
+        <LocationHtml4 />
 
         <Header />
 
