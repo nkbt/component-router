@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
@@ -14,7 +15,7 @@ module.exports = {
   devtool: 'eval',
 
   entry: [
-    './src/example.js',
+    './src/example/Example.js',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server'
   ],
@@ -26,7 +27,8 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin('style.css', {allChunks: true})
   ],
 
   module: {
@@ -35,6 +37,11 @@ module.exports = {
         test: /\.js$/,
         loaders: ['react-hot', 'babel?plugins=object-assign'],
         include: [path.join(__dirname, 'src')]
+      },
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract('style',
+          'css?modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]')
       }
     ],
     preLoaders: [

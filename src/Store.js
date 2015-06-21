@@ -3,7 +3,8 @@ import Constants from './Constants';
 import Dispatcher from './Dispatcher';
 import LocationUtil from './LocationUtil';
 import url from 'url';
-import {isNull, isUndefined} from 'lodash';
+import isNull from 'lodash/lang/isNull';
+import isUndefined from 'lodash/lang/isUndefined';
 
 
 const safeParams = params => {
@@ -14,7 +15,7 @@ const safeParams = params => {
 };
 
 
-let {pathname, query} = safeParams(url.parse(LocationUtil.getUrl(), true));
+let {pathname, query} = safeParams(LocationUtil.parseHref(LocationUtil.getUrl()));
 
 const changeState = params => {
   pathname = params.pathname;

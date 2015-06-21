@@ -1,0 +1,11 @@
+.Example {
+}
+
+.Example a {
+  color: #06c;
+  text-decoration: none;
+}
+
+.Example :global .active {
+  color: #f00;
+}

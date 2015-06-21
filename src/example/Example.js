@@ -1,5 +1,6 @@
 import React from 'react';
-import {Url, InFlux, getDefault} from './InFlux';
+import {Url, InFlux, getDefault} from '../InFlux';
+import styles from './Example.css';
 
 
 const First = React.createClass({
@@ -135,7 +136,7 @@ const Block = React.createClass({
 const App = React.createClass({
   render() {
     return (
-      <div>
+      <div className={styles.Example}>
         <h1>In Flux</h1>
         <InFlux config={inFluxConfig} namespace="block1">
           <Block />

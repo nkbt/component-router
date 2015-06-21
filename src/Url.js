@@ -1,4 +1,5 @@
 import React from 'react';
+import classnames from 'classnames';
 import Store from './Store';
 import ActionCreator from './ActionCreator';
 import LocationUtil from './LocationUtil';
@@ -10,13 +11,17 @@ const Url = React.createClass({
     pathname: React.PropTypes.string,
     query: React.PropTypes.object,
     partial: React.PropTypes.object,
-    children: React.PropTypes.node
+    children: React.PropTypes.node,
+    isActiveClass: React.PropTypes.string,
+    className: React.PropTypes.string
   },
 
 
   getDefaultProps() {
     return {
-      partial: {}
+      partial: {},
+      isActiveClass: 'active',
+      className: ''
     };
   },
 
@@ -60,7 +65,10 @@ const Url = React.createClass({
     const oldParams = this.state;
     const newParams = this.props;
     const {href} = LocationUtil.merge(oldParams, newParams);
-    return <a {...this.props} href={href} onClick={this.onClick} />;
+    const linkClasses = classnames(this.props.className, {
+      [this.props.isActiveClass]: LocationUtil.isActive(oldParams, newParams)
+    });
+    return <a {...this.props} href={href} onClick={this.onClick} className={linkClasses} />;
   }
 });
 
