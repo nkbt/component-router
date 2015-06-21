@@ -1,6 +1,6 @@
 {
   "name": "in-flux",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Flux-based app routing solution",
   "main": "lib/InFlux.js",
   "scripts": {
