@@ -16,6 +16,33 @@ const Second = React.createClass({
 });
 
 
+const DynamicList = React.createClass({
+  propTypes: {
+    inFlux: React.PropTypes.object
+  },
+
+
+  render() {
+    const values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const {namespace, value} = this.props.inFlux;
+
+    const isActive = id => <b>{id === parseInt(value, 10) ? '(Active)' : ''}</b>;
+
+    const item = id => (
+      <p key={id}>
+        <Url partial={{[namespace]: id}}>{id} {isActive(id)}</Url>
+      </p>
+    );
+
+    return (
+      <div>
+        {values.map(item)}
+      </div>
+    );
+  }
+});
+
+
 const inFluxConfig = {
   block1: {
     [getDefault()]: First,
@@ -29,7 +56,8 @@ const inFluxConfig = {
   block3: {
     Hello: First,
     World: Second
-  }
+  },
+  list: DynamicList
 };
 
 
@@ -89,6 +117,11 @@ const App = React.createClass({
         <InFlux config={inFluxConfig} namespace="block3">
           <Block />
         </InFlux>
+
+        <h2>Dynamic list example</h2>
+        <InFlux config={inFluxConfig} namespace="list" />
+
+        <h2>Links examples</h2>
         <p>
           <Url href="/test">
             {`<Url href="/test">`}
