@@ -9,7 +9,7 @@
     "build:lib": "babel -sd lib src",
     "build:example": "webpack",
     "prepublish": "npm run build",
-    "start": "webpack-dev-server",
+    "start": "webpack-dev-server --history-api-fallback",
     "lint": "eslint ./src ./*.js",
     "test": "npm run lint",
     "check": "npm run build"
