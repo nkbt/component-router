@@ -10,7 +10,8 @@
     "prepublish": "npm run build",
     "start": "webpack-dev-server",
     "lint": "eslint ./src ./*.js",
-    "test": "npm run lint"
+    "test": "npm run lint",
+    "check": "npm run build"
   },
   "repository": {
     "type": "git",
