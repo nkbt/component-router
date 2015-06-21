@@ -5,4 +5,4 @@ test
 src
 .eslintrc
 .npmignore
-lib/example*
+lib/example/
