@@ -43,11 +43,10 @@ module.exports = function (config) {
     reporters: ['progress'],
     coverageReporter: {
       dir: './coverage/',
-      subdir: function (browser) {
-        return browser.toLowerCase().split(/[ /-]/).shift();
-      },
+      subdir: '.',
       reporters: [
-        {type: 'lcov'},
+        {type: 'html'},
+        {type: 'lcovonly'},
         {type: 'text', file: 'text.txt'},
         {type: 'text-summary', file: 'text-summary.txt'}
       ]
