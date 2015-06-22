@@ -1,13 +1,14 @@
 import React from 'react';
-import Config from './Config';
 import Url from './Url';
 import ActionCreator from './ActionCreator';
 import Store from './Store';
 import Constants from './Constants';
 import isFunction from 'lodash/lang/isFunction';
+import LocationHtml5 from './Location/Html5';
+
 
 /**
- * @returns {undefined} default routing value (undefined)
+ * @returns {String} default routing value
  */
 const getDefault = () => '__DEFAULT__';
 
@@ -89,13 +90,13 @@ const InFlux = React.createClass({
   }
 });
 
+
 export default {
   InFlux,
-  Empty,
-  Config,
   Url,
   ActionCreator,
   Store,
   Constants,
-  getDefault
+  getDefault,
+  LocationHtml5
 };

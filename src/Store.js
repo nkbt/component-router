@@ -1,8 +1,7 @@
 import FluxCommonStore from 'flux-common-store';
 import Constants from './Constants';
 import Dispatcher from './Dispatcher';
-import LocationUtil from './LocationUtil';
-import url from 'url';
+import UrlUtil from './UrlUtil';
 import isNull from 'lodash/lang/isNull';
 import isUndefined from 'lodash/lang/isUndefined';
 
@@ -15,12 +14,19 @@ const safeParams = params => {
 };
 
 
-let {pathname, query} = safeParams(LocationUtil.parseHref(LocationUtil.getUrl()));
+let location = '';
+let {pathname, query} = safeParams(UrlUtil.parseHref(location));
 
-const changeState = params => {
+
+const changeParams = params => {
   pathname = params.pathname;
   query = params.query;
-  LocationUtil.setUrl(url.format(params));
+};
+
+
+const changeLocation = url => {
+  location = url;
+  changeParams(safeParams(UrlUtil.parseHref(location)));
 };
 
 
@@ -41,7 +47,12 @@ Store.setMaxListeners(0);
 Store.dispatchToken = Dispatcher.register(({actionType, payload}) => {
   switch (actionType) {
     case Constants.NAVIGATE_TO:
-      changeState(safeParams(payload));
+      changeParams(safeParams(payload));
+      Store.emitChange();
+      break;
+
+    case Constants.RESTORE_LOCATION:
+      changeLocation(payload.location);
       Store.emitChange();
       break;
 
