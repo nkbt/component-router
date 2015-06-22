@@ -1,5 +1,5 @@
 import React from 'react';
-import {InFlux} from '../InFlux';
+import {InFlux, LocationHtml5} from '../InFlux';
 import styles from './Example.css';
 
 
@@ -13,6 +13,8 @@ const App = React.createClass({
   render() {
     return (
       <div className={styles.Example}>
+        <LocationHtml5 />
+
         <h1>In Flux</h1>
         <InFlux config={inFluxConfig} namespace="block1">
           <Block />

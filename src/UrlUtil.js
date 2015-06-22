@@ -1,15 +1,6 @@
 import url from 'url';
 
 
-const getUrl = () => window.location.href;
-
-
-const setUrl = (newUrl, state, title) => window.history.replaceState(
-  state || {},
-  title || window.document.title,
-  newUrl);
-
-
 const parseHref = (href) => {
   const {pathname, query} = url.parse(href, true);
   return {pathname, query, href};
@@ -31,16 +22,17 @@ const merge = (oldParams, newParams) => {
  * Just checks if url will be changed, if not, then this url is active.
  * TODO: Optimize speed by not rendering href to compare
  *
+ * @param {String} currentUrl current URL
  * @param {Object} oldParams Effectively, current URL state
  * @param {Object} newParams What we will have if follow the link
  * @returns {boolean} isActive
  */
-const isActive = (oldParams, newParams) => {
-  const {pathname, query} = parseHref(getUrl());
+const isActive = (currentUrl, oldParams, newParams) => {
+  const {pathname, query} = parseHref(currentUrl);
   const oldHref = url.format({pathname, query});
   const {href} = merge(oldParams, newParams);
   return oldHref === href;
 };
 
 
-export default {getUrl, parseHref, setUrl, merge, isActive};
+export default {parseHref, merge, isActive};

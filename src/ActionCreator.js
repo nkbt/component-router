@@ -8,5 +8,13 @@ export default {
       actionType: Constants.NAVIGATE_TO,
       payload: {pathname, query, hash}
     });
+  },
+
+
+  restoreLocation({location}) {
+    Dispatcher.dispatch({
+      actionType: Constants.RESTORE_LOCATION,
+      payload: {location}
+    });
   }
 };
