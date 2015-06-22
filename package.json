@@ -9,10 +9,10 @@
     "build:lib": "babel -sd lib src",
     "build:example": "webpack",
     "prepublish": "npm run build",
-    "start": "webpack-dev-server --history-api-fallback",
+    "start": "NODE_ENV='development' webpack-dev-server --history-api-fallback",
     "lint": "eslint ./src ./*.js",
     "test": "npm run lint",
-    "check": "npm run build"
+    "check": "npm run lint && npm run build"
   },
   "repository": {
     "type": "git",

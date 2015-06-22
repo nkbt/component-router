@@ -2,6 +2,7 @@ var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
+var env = process.env.NODE_ENV || 'production';
 
 
 var eslintLoader = {
@@ -15,10 +16,11 @@ module.exports = {
   devtool: 'eval',
 
   entry: [
-    './src/example/Example.js',
-    'webpack-dev-server/client?http://localhost:8080',
-    'webpack/hot/only-dev-server'
-  ],
+    './src/example/Example.js'
+  ].concat(env === 'production' ? [] : [
+      'webpack-dev-server/client?http://localhost:8080',
+      'webpack/hot/only-dev-server'
+    ]),
 
   output: {
     filename: 'index.js',
@@ -27,9 +29,15 @@ module.exports = {
 
   plugins: [
     new HtmlWebpackPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
-    new ExtractTextPlugin('style.css', {allChunks: true})
-  ],
+    new ExtractTextPlugin('style.css', {allChunks: true}),
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: '"' + env + '"'
+      }
+    })
+  ].concat(env === 'production' ? [] : [
+      new webpack.HotModuleReplacementPlugin()
+    ]),
 
   module: {
     loaders: [
@@ -44,7 +52,7 @@ module.exports = {
           'css?modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]')
       }
     ],
-    preLoaders: [
+    preLoaders: env === 'production' ? [] : [
       eslintLoader
     ]
   },
@@ -57,6 +65,7 @@ module.exports = {
   stats: {
     colors: true
   },
+
 
   eslint: {
     configFile: 'src/.eslintrc',
