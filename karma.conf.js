@@ -44,12 +44,12 @@ module.exports = function (config) {
     coverageReporter: {
       dir: './coverage/',
       subdir: function (browser) {
-        return browser.toLowerCase().split(/[ /-]/)[0];
+        return browser.toLowerCase().split(/[ /-]/).shift();
       },
       reporters: [
+        {type: 'lcov'},
         {type: 'text', file: 'text.txt'},
-        {type: 'text-summary', file: 'text-summary.txt'},
-        {type: 'html'}
+        {type: 'text-summary', file: 'text-summary.txt'}
       ]
     },
     captureTimeout: 90000,
