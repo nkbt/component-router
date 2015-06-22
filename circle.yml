@@ -5,5 +5,5 @@ machine:
 test:
   override:
     - npm run lint
-    - npm run test:cov
-    - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+    - karma start ./karma.conf.js --single-run --reporters coverage
+    - cat ${CIRCLE_ARTIFACTS}/coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
