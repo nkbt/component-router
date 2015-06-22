@@ -1,7 +1,7 @@
 # in-flux
 
 [![Circle CI](https://circleci.com/gh/nkbt/in-flux.svg?style=svg)](https://circleci.com/gh/nkbt/in-flux)
-[![Coverage Status](https://coveralls.io/repos/nkbt/in-flux/badge.svg)](https://coveralls.io/r/nkbt/in-flux)
+[![Coverage Status](https://coveralls.io/repos/nkbt/in-flux/badge.svg?branch=master)](https://coveralls.io/r/nkbt/in-flux?branch=master)
 [![Dependency Status](https://david-dm.org/nkbt/in-flux.svg)](https://david-dm.org/nkbt/in-flux)
 [![devDependency Status](https://david-dm.org/nkbt/in-flux/dev-status.svg)](https://david-dm.org/nkbt/in-flux#info=devDependencies)
 

@@ -2,9 +2,10 @@ coverage/
 example/
 src/
 test/
+.coveralls.yml
 .eslintrc
 .gitignore
 .npmignore
-.travis.yml
+circle.yml
 karma.conf.js
 webpack.config.js
