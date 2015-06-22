@@ -14,11 +14,10 @@
     "karma": "karma start ./karma.conf.js",
     "test": "npm run karma --  --single-run --reporters nyan",
     "test:dev": "npm run karma -- --no-single-run --auto-watch --reporters nyan",
-    "test:cov:clean": "rm -rf ./coverage && mkdir -p ./coverage",
-    "test:cov": "npm run test:cov:clean && npm run karma -- --single-run --reporters coverage",
-    "test:coveralls": "npm run karma -- --single-run --reporters coverage && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js",
+    "test:cov": "npm run karma -- --single-run --reporters coverage",
     "check": "npm run lint && npm run test && npm run build",
-    "ci": "npm run lint && npm run test:coveralls && npm run build"
+    "ci": "npm run lint && npm run test:cov && npm run coveralls && npm run build",
+    "coveralls": "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
   },
   "repository": {
     "type": "git",
