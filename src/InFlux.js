@@ -4,6 +4,7 @@ import ActionCreator from './ActionCreator';
 import Store from './Store';
 import Constants from './Constants';
 import isFunction from 'lodash/lang/isFunction';
+import LocationHtml4 from './Location/Html4';
 import LocationHtml5 from './Location/Html5';
 
 
@@ -98,5 +99,6 @@ export default {
   Store,
   Constants,
   getDefault,
+  LocationHtml4,
   LocationHtml5
 };
