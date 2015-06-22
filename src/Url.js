@@ -66,7 +66,7 @@ const Url = React.createClass({
     const newParams = this.props;
     const {href} = UrlUtil.merge(oldParams, newParams);
     const linkClasses = classnames(this.props.className, {
-      [this.props.isActiveClass]: UrlUtil.isActive(Store.getLocation(), oldParams, newParams)
+      [this.props.isActiveClass]: UrlUtil.isActive(oldParams, newParams)
     });
     return <a {...this.props} href={href} onClick={this.onClick} className={linkClasses} />;
   }

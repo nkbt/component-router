@@ -31,9 +31,6 @@ const changeLocation = url => {
 
 
 const Store = Object.assign({}, FluxCommonStore, {
-  getLocation() {
-    return location;
-  },
   getQuery() {
     return query;
   },
