@@ -1,0 +1,10 @@
+machine:
+  node:
+    version: v0.10.38
+
+test:
+  override:
+    - npm run lint
+    - npm run test:cov
+  post:
+    - npm run coveralls
