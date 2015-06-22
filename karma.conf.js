@@ -42,13 +42,11 @@ module.exports = function (config) {
     },
     reporters: ['progress'],
     coverageReporter: process.env.CIRCLE_ARTIFACTS ? {
+      dir: process.env.CIRCLE_ARTIFACTS + '/coverage/',
+      subdir: '.',
       reporters: [
+        {type: 'html'},
         {type: 'lcovonly'},
-        {
-          type: 'html',
-          subdir: '.',
-          dir: process.env.CIRCLE_ARTIFACTS + '/coverage/'
-        },
         {type: 'text'}
       ]
     } : {
