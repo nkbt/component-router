@@ -2,7 +2,7 @@
   "name": "in-flux",
   "version": "1.0.0",
   "description": "Flux-based partial routing solution",
-  "main": "lib/InFlux.js",
+  "main": "lib/index.js",
   "scripts": {
     "build": "npm run build:clean && npm run build:lib && npm run build:example",
     "build:clean": "rm -rf lib example",
