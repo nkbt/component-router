@@ -41,16 +41,27 @@ module.exports = function (config) {
       'test/**/*.js': ['webpack']
     },
     reporters: ['progress'],
-    coverageReporter: {
-      dir: './coverage/',
-      subdir: function (browser) {
-        return browser.toLowerCase().split(/[ /-]/)[0];
-      },
+    coverageReporter: process.env.CIRCLE_ARTIFACTS ? {
+      dir: process.env.CIRCLE_ARTIFACTS + '/coverage/',
+      subdir: '.',
       reporters: [
-        {type: 'text', file: 'text.txt'},
-        {type: 'text-summary', file: 'text-summary.txt'},
-        {type: 'html'}
+        {type: 'html'},
+        {type: 'lcovonly'},
+        {type: 'text'}
       ]
+    } : {
+      dir: './coverage/',
+      subdir: '.',
+      reporters: [
+        {type: 'html'},
+        {type: 'lcovonly'},
+        {type: 'text', file: 'text.txt'},
+        {type: 'text-summary', file: 'text-summary.txt'}
+      ]
+    },
+    junitReporter: {
+      outputFile: process.env.CIRCLE_TEST_REPORTS + '/karma.xml',
+      suite: ''
     },
     captureTimeout: 90000,
     browserNoActivityTimeout: 60000,
