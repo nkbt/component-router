@@ -6,6 +6,7 @@
   },
   "rules": {
     "no-var": 0,
-    "no-console": 0
+    "no-console": 0,
+    "no-process-env": 0
   }
 }
