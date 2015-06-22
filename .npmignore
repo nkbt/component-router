@@ -1,8 +1,10 @@
-example
-script
-webpack.config.js
-test
-src
+coverage/
+example/
+src/
+test/
 .eslintrc
+.gitignore
 .npmignore
-lib/example/
+.travis.yml
+karma.conf.js
+webpack.config.js
