@@ -15,7 +15,7 @@
     "test": "npm run karma --  --single-run --reporters nyan",
     "test:dev": "npm run karma -- --no-single-run --auto-watch --reporters nyan",
     "test:cov": "rm -rf ./coverage && mkdir -p ./coverage && npm run karma -- --single-run --reporters coverage",
-    "check": "npm run lint && npm run build"
+    "check": "npm run lint && npm test && npm run test:cov && npm run build"
   },
   "repository": {
     "type": "git",
