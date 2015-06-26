@@ -1,5 +1,6 @@
 import React from 'react';
 import Store from './Store';
+import ActionCreator from './ActionCreator';
 import isFunction from 'lodash/lang/isFunction';
 import getDefault from './getDefault';
 
@@ -25,6 +26,16 @@ const InFlux = React.createClass({
   },
 
 
+  componentWillMount() {
+    this.checkDefaultParam(this.props);
+  },
+
+
+  componentWillReceiveProps(props) {
+    this.checkDefaultParam(props);
+  },
+
+
   componentDidMount() {
     this.unsubscribe = Store.addChangeListener(this.onChange);
   },
@@ -32,6 +43,14 @@ const InFlux = React.createClass({
 
   componentWillUnmount() {
     this.unsubscribe();
+  },
+
+
+  checkDefaultParam(props) {
+    const {namespace, config: {[getDefault()]: value}} = props;
+    if (value) {
+      ActionCreator.addDefaultParam({namespace, value});
+    }
   },
 
 
