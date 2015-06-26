@@ -51,7 +51,7 @@ const Html4 = React.createClass({
 
   onChange() {
     this.setUrl(url.format({
-      query: Store.getQuery(),
+      query: Store.getCleanQuery(),
       pathname: Store.getPathname()
     }));
   },

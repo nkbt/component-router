@@ -1,4 +1,5 @@
 import url from 'url';
+import sortedObject from 'sorted-object';
 
 
 const parseHref = (href) => {
@@ -9,7 +10,7 @@ const parseHref = (href) => {
 
 const merge = (oldParams, newParams) => {
   const pathname = newParams.pathname || oldParams.pathname;
-  const query = Object.assign({}, oldParams.query, newParams.query);
+  const query = sortedObject(Object.assign({}, oldParams.query, newParams.query));
   const href = url.format({pathname, query});
   return {pathname, query, href};
 };
