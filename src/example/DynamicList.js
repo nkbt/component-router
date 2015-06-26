@@ -1,4 +1,4 @@
-import {Url} from '../InFlux';
+import {Url} from '../index';
 import React from 'react';
 
 const DynamicList = React.createClass({

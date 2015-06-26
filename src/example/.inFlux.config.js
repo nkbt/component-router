@@ -1,4 +1,4 @@
-import {getDefault} from '../InFlux';
+import {getDefault} from '../index';
 import RedBlock from './RedBlock';
 import GreenBlock from './GreenBlock';
 import DynamicList from './DynamicList';
