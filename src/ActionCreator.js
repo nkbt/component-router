@@ -19,6 +19,14 @@ export default {
   },
 
 
+  removeParam({namespace}) {
+    Dispatcher.dispatch({
+      actionType: Constants.REMOVE_PARAM,
+      payload: {namespace}
+    });
+  },
+
+
   restoreLocation({location}) {
     Dispatcher.dispatch({
       actionType: Constants.RESTORE_LOCATION,

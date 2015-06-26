@@ -33,6 +33,13 @@ const addDefaultParam = ({namespace, value}) => {
 };
 
 
+const removeParam = ({namespace}) => {
+  delete defaultParams[namespace];
+  delete query[namespace];
+  query = sortedObject(query);
+};
+
+
 const changeLocation = url => {
   location = url;
   changeParams(safeParams(UrlUtil.parseHref(location)));
@@ -57,7 +64,7 @@ const Store = Object.assign({}, FluxCommonStore, {
         delete cleanQuery[key];
       }
     });
-    return cleanQuery;
+    return sortedObject(cleanQuery);
   },
 
 
@@ -80,6 +87,11 @@ Store.dispatchToken = Dispatcher.register(({actionType, payload}) => {
 
     case Constants.ADD_DEFAULT_PARAM:
       addDefaultParam(payload);
+      Store.emitChange();
+      break;
+
+    case Constants.REMOVE_PARAM:
+      removeParam(payload);
       Store.emitChange();
       break;
 
