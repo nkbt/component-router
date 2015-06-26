@@ -1,5 +1,5 @@
 import React from 'react';
-import {Url} from '../InFlux';
+import {Url} from '../index';
 import styles from './Tabs.css';
 
 

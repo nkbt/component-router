@@ -1,5 +1,5 @@
 import React from 'react';
-import {InFlux, LocationHtml4} from '../InFlux';
+import {InFlux, LocationHtml4} from '../index';
 import styles from './Example.css';
 
 
