@@ -45,7 +45,8 @@
     "flux": "^2.0.3",
     "flux-common-store": "^1.0.1",
     "lodash": "^3.9.3",
-    "react": "^0.13.3"
+    "react": "^0.13.3",
+    "sorted-object": "^1.0.0"
   },
   "devDependencies": {
     "babel": "^5.6.11",
