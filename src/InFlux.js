@@ -13,7 +13,7 @@ const Empty = React.createClass({
 
 const InFlux = React.createClass({
   propTypes: {
-    config: React.PropTypes.object.isRequired,
+    config: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]).isRequired,
     namespace: React.PropTypes.string.isRequired
   },
 
@@ -44,13 +44,15 @@ const InFlux = React.createClass({
 
   render() {
     const {namespace} = this.props;
-    const config = this.props.config[namespace];
+    const config = this.props.config;
+    const value = namespace in this.state.query ?
+      this.state.query[namespace] : config[getDefault()];
 
     const inFlux = {
       namespace,
+      value,
       keys: [],
       config: {},
-      value: namespace in this.state.query ? this.state.query[namespace] : getDefault(),
       Component: Empty
     };
 
@@ -74,8 +76,7 @@ const InFlux = React.createClass({
       inFlux: Object.assign(inFlux, {
         keys: Object.keys(config).filter(key => key !== getDefault()),
         config,
-        Component: this.state.query[namespace] && config[this.state.query[namespace]]
-        || config[getDefault()] || Empty
+        Component: value && config[value] || Empty
       })
     });
   }

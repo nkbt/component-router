@@ -3,7 +3,11 @@ import {InFlux, LocationHtml4} from '../index';
 import styles from './Example.css';
 
 
-import inFluxConfig from './.inFlux.config';
+import {getDefault} from '../index';
+import RedBlock from './RedBlock';
+import GreenBlock from './GreenBlock';
+import DynamicList from './DynamicList';
+
 import Block from './Block';
 import DynamicListContainer from './DynamicListContainer';
 import RandomLinks from './RandomLinks';
@@ -16,21 +20,31 @@ const App = React.createClass({
         <LocationHtml4 />
 
         <h1>In Flux</h1>
-        <InFlux config={inFluxConfig} namespace="block1">
+        <InFlux config={{
+            [getDefault()]: 'Second',
+            First: GreenBlock,
+            Second: RedBlock
+          }} namespace="block1">
           <Block />
         </InFlux>
-        <InFlux config={inFluxConfig} namespace="block2">
+        <InFlux config={{
+            X: GreenBlock,
+            Y: RedBlock
+          }} namespace="block2">
           <Block />
         </InFlux>
-        <InFlux config={inFluxConfig} namespace="block3">
+        <InFlux config={{
+            Hello: GreenBlock,
+            World: RedBlock
+          }} namespace="block3">
           <Block />
         </InFlux>
 
         <h2>Dynamic list example</h2>
-        <InFlux config={inFluxConfig} namespace="list" />
+        <InFlux config={DynamicList} namespace="list" />
 
         <h2>Dynamic list with children example</h2>
-        <InFlux config={inFluxConfig} namespace="list2">
+        <InFlux config={DynamicList} namespace="list2">
           <DynamicListContainer values={[1, 2, 3, 4]} />
         </InFlux>
 
