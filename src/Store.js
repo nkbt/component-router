@@ -43,9 +43,24 @@ const Store = Object.assign({}, FluxCommonStore, {
   getDefaultParams() {
     return defaultParams;
   },
+
+
   getQuery() {
     return query;
   },
+
+
+  getCleanQuery() {
+    const cleanQuery = Object.assign({}, query);
+    Object.keys(defaultParams).forEach(key => {
+      if (cleanQuery[key] === defaultParams[key]) {
+        delete cleanQuery[key];
+      }
+    });
+    return cleanQuery;
+  },
+
+
   getPathname() {
     return pathname;
   }
