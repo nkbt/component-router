@@ -50,7 +50,7 @@ const InFlux = React.createClass({
       namespace,
       keys: [],
       config: {},
-      value: this.state.query[namespace],
+      value: namespace in this.state.query ? this.state.query[namespace] : getDefault(),
       Component: Empty
     };
 
