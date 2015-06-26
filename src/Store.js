@@ -36,6 +36,7 @@ const addDefaultParam = ({namespace, value}) => {
 const removeParam = ({namespace}) => {
   delete defaultParams[namespace];
   delete query[namespace];
+  query = sortedObject(query);
 };
 
 
@@ -63,7 +64,7 @@ const Store = Object.assign({}, FluxCommonStore, {
         delete cleanQuery[key];
       }
     });
-    return cleanQuery;
+    return sortedObject(cleanQuery);
   },
 
 
