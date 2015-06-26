@@ -18,7 +18,7 @@ const Tabs = React.createClass({
       <ul {...props} className={styles.Tabs}>
         {tabs.map(tab => (
           <li key={tab}>
-            <Url partial={{[namespace]: tab}}>{tab}</Url>
+            <Url query={{[namespace]: tab}}>{tab}</Url>
           </li>
         ))}
       </ul>

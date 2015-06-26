@@ -2,85 +2,43 @@ import React from 'react';
 import {Url} from '../index';
 
 
+const test = [
+  {pathname: '/test'},
+  {pathname: '/'},
+  {query: {x: 1}},
+  {query: {x: 100}},
+  {query: {y: 2}},
+  {query: {y: 200}},
+  {pathname: '/', query: {x: 1}},
+  {pathname: '/', query: {x: 100}},
+  {pathname: '/', query: {y: 1}},
+  {pathname: '/', query: {y: 100}},
+  {pathname: '/test', query: {x: 1}},
+  {pathname: '/test', query: {x: 100}},
+  {pathname: '/test', query: {y: 1}},
+  {pathname: '/test', query: {y: 100}}
+];
+
+
+const LinkExample = React.createClass({
+  propTypes: {
+    pathname: React.PropTypes.string,
+    query: React.PropTypes.object
+  },
+
+  render() {
+    const pathname = this.props.pathname ? `pathname="${this.props.pathname}"` : '';
+    const query = this.props.query ? `query="${JSON.stringify(this.props.query)}"` : '';
+    return <p><Url {...this.props}>{`<Url ${pathname} ${query} />`}</Url></p>;
+  }
+});
+
+
 const RandomLinks = React.createClass({
   render() {
     return (
       <div>
-        <p>
-          <Url href="/test">
-            {`<Url href="/test">`}
-          </Url>
-        </p>
-        <p>
-          <Url href="/">
-            {`<Url href="/">`}
-          </Url>
-        </p>
-        <p>
-          <Url query={{x: 1}}>
-            {`<Url query={{x: 1}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url query={{x: 100}}>
-            {`<Url query={{x: 100}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url query={{y: 1}}>
-            {`<Url query={{y: 1}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url query={{y: 100}}>
-            {`<Url query={{y: 100}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url partial={{x: 1}}>
-            {`<Url partial={{x: 1}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url partial={{x: 100}}>
-            {`<Url partial={{x: 100}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url partial={{y: 1}}>
-            {`<Url partial={{y: 1}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url partial={{y: 100}}>
-            {`<Url partial={{y: 100}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url query={{x: 1}} partial={{y: 2}}>
-            {`<Url query={{x: 1}} partial={{y: 2}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url pathname="/test" query={{x: 1}}>
-            {'<Url pathname="/test" query={{x: 1}}>'}
-          </Url>
-        </p>
-        <p>
-          <Url pathname="/test" partial={{y: 2}}>
-            {`<Url pathname="/test" partial={{y: 2}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url pathname="/test" query={{x: 1}} partial={{y: 4}}>
-            {`<Url pathname="/test" query={{x: 1}} partial={{y: 2}}>`}
-          </Url>
-        </p>
-        <p>
-          <Url pathname="/test" query={{x: 1}} partial={{y: 100}}>
-            {`<Url pathname="/test" query={{x: 1}} partial={{y: 100}}>`}
-          </Url>
-        </p>
+        {test.map((props, i) => <LinkExample key={i} {...props} />)}
       </div>
     );
   }

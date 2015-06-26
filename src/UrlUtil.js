@@ -8,11 +8,8 @@ const parseHref = (href) => {
 
 
 const merge = (oldParams, newParams) => {
-  if (newParams.href) {
-    return parseHref(newParams.href);
-  }
   const pathname = newParams.pathname || oldParams.pathname;
-  const query = Object.assign({}, newParams.query || oldParams.query, newParams.partial);
+  const query = Object.assign({}, oldParams.query, newParams.query);
   const href = url.format({pathname, query});
   return {pathname, query, href};
 };

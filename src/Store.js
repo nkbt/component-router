@@ -17,10 +17,18 @@ const safeParams = params => {
 let location = '';
 let {pathname, query} = safeParams(UrlUtil.parseHref(location));
 
+const defaultParams = {};
+
 
 const changeParams = params => {
   pathname = params.pathname;
-  query = params.query;
+  query = Object.assign({}, defaultParams, params.query);
+};
+
+
+const addDefaultParam = ({namespace, value}) => {
+  defaultParams[namespace] = value;
+  query = Object.assign({}, defaultParams, query);
 };
 
 
@@ -31,6 +39,9 @@ const changeLocation = url => {
 
 
 const Store = Object.assign({}, FluxCommonStore, {
+  getDefaultParams() {
+    return defaultParams;
+  },
   getQuery() {
     return query;
   },
@@ -48,6 +59,11 @@ Store.dispatchToken = Dispatcher.register(({actionType, payload}) => {
   switch (actionType) {
     case Constants.NAVIGATE_TO:
       changeParams(safeParams(payload));
+      Store.emitChange();
+      break;
+
+    case Constants.ADD_DEFAULT_PARAM:
+      addDefaultParam(payload);
       Store.emitChange();
       break;
 

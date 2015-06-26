@@ -7,10 +7,8 @@ import UrlUtil from './UrlUtil';
 
 const Url = React.createClass({
   propTypes: {
-    href: React.PropTypes.string,
     pathname: React.PropTypes.string,
     query: React.PropTypes.object,
-    partial: React.PropTypes.object,
     children: React.PropTypes.node,
     isActiveClass: React.PropTypes.string,
     className: React.PropTypes.string
@@ -19,7 +17,7 @@ const Url = React.createClass({
 
   getDefaultProps() {
     return {
-      partial: {},
+      query: {},
       isActiveClass: 'active',
       className: ''
     };
@@ -29,7 +27,8 @@ const Url = React.createClass({
   getInitialState() {
     return {
       query: Store.getQuery(),
-      pathname: Store.getPathname()
+      pathname: Store.getPathname(),
+      defaultParams: Store.getDefaultParams()
     };
   },
 
@@ -56,7 +55,8 @@ const Url = React.createClass({
   onChange() {
     this.setState({
       query: Store.getQuery(),
-      pathname: Store.getPathname()
+      pathname: Store.getPathname(),
+      defaultParams: Store.getDefaultParams()
     });
   },
 
@@ -65,8 +65,9 @@ const Url = React.createClass({
     const oldParams = this.state;
     const newParams = this.props;
     const {href} = UrlUtil.merge(oldParams, newParams);
+    const isActive = UrlUtil.isActive(oldParams, newParams);
     const linkClasses = classnames(this.props.className, {
-      [this.props.isActiveClass]: UrlUtil.isActive(oldParams, newParams)
+      [this.props.isActiveClass]: isActive
     });
     return <a {...this.props} href={href} onClick={this.onClick} className={linkClasses} />;
   }

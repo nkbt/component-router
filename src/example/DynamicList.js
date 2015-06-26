@@ -21,7 +21,7 @@ const DynamicList = React.createClass({
 
     const item = id => (
       <p key={id}>
-        <Url partial={{[namespace]: id}}>{id} {isActive(id)}</Url>
+        <Url query={{[namespace]: id}}>{id} {isActive(id)}</Url>
       </p>
     );
 
