@@ -33,6 +33,12 @@ const addDefaultParam = ({namespace, value}) => {
 };
 
 
+const removeParam = ({namespace}) => {
+  delete defaultParams[namespace];
+  delete query[namespace];
+};
+
+
 const changeLocation = url => {
   location = url;
   changeParams(safeParams(UrlUtil.parseHref(location)));
@@ -80,6 +86,11 @@ Store.dispatchToken = Dispatcher.register(({actionType, payload}) => {
 
     case Constants.ADD_DEFAULT_PARAM:
       addDefaultParam(payload);
+      Store.emitChange();
+      break;
+
+    case Constants.REMOVE_PARAM:
+      removeParam(payload);
       Store.emitChange();
       break;
 

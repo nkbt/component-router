@@ -42,6 +42,7 @@ const InFlux = React.createClass({
 
 
   componentWillUnmount() {
+    ActionCreator.removeParam({namespace: this.props.namespace});
     this.unsubscribe();
   },
 
