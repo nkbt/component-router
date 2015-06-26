@@ -1,3 +1,4 @@
+import sortedObject from 'sorted-object';
 import FluxCommonStore from 'flux-common-store';
 import Constants from './Constants';
 import Dispatcher from './Dispatcher';
@@ -22,13 +23,13 @@ const defaultParams = {};
 
 const changeParams = params => {
   pathname = params.pathname;
-  query = Object.assign({}, defaultParams, params.query);
+  query = sortedObject(Object.assign({}, defaultParams, params.query));
 };
 
 
 const addDefaultParam = ({namespace, value}) => {
   defaultParams[namespace] = value;
-  query = Object.assign({}, defaultParams, query);
+  query = sortedObject(Object.assign({}, defaultParams, query));
 };
 
 
