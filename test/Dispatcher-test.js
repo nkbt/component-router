@@ -1,3 +1,5 @@
+import Flux from 'flux';
+
 describe('Dispatcher', () => {
   const DispatcherInjector = require('inject!../src/Dispatcher');
   let Dispatcher;
@@ -6,7 +8,7 @@ describe('Dispatcher', () => {
   beforeEach(() => Dispatcher = DispatcherInjector({}));
 
 
-  it('should be ok', () => {
-    expect(Dispatcher).toBeTruthy();
+  it('should be instance of Flux Dispatcher', () => {
+    expect(Dispatcher instanceof Flux.Dispatcher).toBeTruthy();
   });
 });
