@@ -1,15 +1,17 @@
 describe('InFlux', () => {
   const InFluxInjector = require('inject!../src/InFlux');
-  let Store, getDefault, InFlux;
+  let ActionCreator, Store, getDefault, InFlux;
 
 
   beforeEach(() => {
+    ActionCreator = jasmine.createSpyObj('ActionCreator', ['']);
     Store = jasmine.createSpyObj('Store', ['']);
     getDefault = jasmine.createSpy('getDefault');
   });
 
 
   beforeEach(() => InFlux = InFluxInjector({
+    './ActionCreator': ActionCreator,
     './Store': Store,
     './getDefault': getDefault
   }));

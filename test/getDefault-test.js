@@ -13,7 +13,8 @@ describe('getDefault', () => {
   }));
 
 
-  it('should be ok', () => {
-    expect(getDefault).toBeTruthy();
+  it('should return DEFAULT', () => {
+    Constants.DEFAULT = 'test';
+    expect(getDefault()).toEqual('test');
   });
 });
