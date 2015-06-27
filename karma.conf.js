@@ -33,6 +33,7 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
     files: [
       'node_modules/babel-core/browser-polyfill.js',
+      'test/utils/mockedWindow.js',
       'test/index.js'
     ],
     webpack: webpackConfig,
