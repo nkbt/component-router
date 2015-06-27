@@ -2,13 +2,13 @@ import React from 'react';
 import createComponent from '../utils/createComponent';
 
 
-const TestUtils = React.addons.TestUtils;
+// const TestUtils = React.addons.TestUtils;
 const w = global.mockedWindow;
 
 
 describe('LocationHtml4', () => {
   const Html4Injector = require('imports?window=>mockedWindow!inject!../../src/Location/Html4');
-  let Store, ActionCreator, Html4, html4, div;
+  let Store, ActionCreator, Html4, div;
   let storeUnsubscribe;
 
 
@@ -77,7 +77,7 @@ describe('LocationHtml4', () => {
   });
 
 
-  xdescribe('URL manipulations', () => {
-    beforeEach(() => html4 = TestUtils.renderIntoDocument(<Html4 />));
-  });
+//  describe('URL manipulations', () => {
+//    beforeEach(() => html4 = TestUtils.renderIntoDocument(<Html4 />));
+//  });
 });
