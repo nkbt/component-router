@@ -2,7 +2,7 @@ import React from 'react';
 import createComponent from '../utils/createComponent';
 
 
-// const TestUtils = React.addons.TestUtils;
+const TestUtils = React.addons.TestUtils;
 const w = global.mockedWindow;
 
 
@@ -16,8 +16,6 @@ describe('LocationHtml4', () => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store = jasmine.createSpyObj('Store', ['addChangeListener', 'getCleanQuery', 'getPathname']);
     Store.addChangeListener.and.returnValue(storeUnsubscribe);
-    Store.getPathname.and.returnValue('/test');
-    Store.getCleanQuery.and.returnValue({x: 1, y: 2});
 
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['restoreLocation']);
 
@@ -25,6 +23,7 @@ describe('LocationHtml4', () => {
     w.addEventListener = jasmine.createSpy('addEventListener');
     w.removeEventListener = jasmine.createSpy('removeEventListener');
     w.history = jasmine.createSpyObj('history', ['pushState']);
+    w.document = {title: 'title'};
   });
 
 
@@ -77,7 +76,70 @@ describe('LocationHtml4', () => {
   });
 
 
-//  describe('URL manipulations', () => {
-//    beforeEach(() => html4 = TestUtils.renderIntoDocument(<Html4 />));
-//  });
+  describe('URL manipulations', () => {
+    let html4;
+
+    beforeEach(() => html4 = TestUtils.renderIntoDocument(<Html4 />));
+
+
+    it('should return default "/" if no hash present', () => {
+      expect(html4.getUrl()).toEqual('/');
+    });
+
+
+    it('should simplify hash url to only pathname and query', () => {
+      w.location.hash = '#/test?x=1#anchor';
+      expect(html4.getUrl()).toEqual('/test?x=1');
+    });
+
+
+    it('should set url pushing new state to history', () => {
+      html4.setUrl('/test?x=1', {}, 'OMG!');
+      expect(w.history.pushState).toHaveBeenCalled();
+      expect(w.history.pushState).toHaveBeenCalledWith({}, 'OMG!', '#/test?x=1');
+    });
+
+
+    it('should use current window title if one not provided', () => {
+      w.document.title = 'OMG!';
+      html4.setUrl('/test?x=1', {});
+      expect(w.history.pushState).toHaveBeenCalledWith({}, 'OMG!', '#/test?x=1');
+    });
+
+
+    it('should use default empty state if one not provided', () => {
+      w.document.title = 'OMG!';
+      html4.setUrl('/test?x=1');
+      expect(w.history.pushState).toHaveBeenCalled();
+      expect(w.history.pushState).toHaveBeenCalledWith({}, 'OMG!', '#/test?x=1');
+    });
+
+
+    it('should not push new state if url is the same', () => {
+      w.location.hash = '#/test?x=1';
+      html4.setUrl('/test?x=1');
+      expect(w.history.pushState).not.toHaveBeenCalled();
+    });
+
+
+    it('should restore url when hash updated', () => {
+      const onHashChange = w.addEventListener.calls.mostRecent().args[1];
+      w.location.hash = '#/test?x=1';
+      onHashChange();
+
+      expect(ActionCreator.restoreLocation).toHaveBeenCalled();
+      expect(ActionCreator.restoreLocation).toHaveBeenCalledWith({location: '/test?x=1'});
+    });
+
+
+    it('should set url when store updated', () => {
+      spyOn(html4, 'setUrl');
+      Store.getPathname.and.returnValue('/test');
+      Store.getCleanQuery.and.returnValue({x: 1, y: 2});
+      const onChange = Store.addChangeListener.calls.mostRecent().args[0];
+      onChange();
+      expect(html4.setUrl).toHaveBeenCalled();
+      expect(html4.setUrl).toHaveBeenCalledWith('/test?x=1&y=2');
+    });
+  });
 });
