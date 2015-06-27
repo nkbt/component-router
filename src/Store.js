@@ -2,7 +2,7 @@ import sortedObject from 'sorted-object';
 import FluxCommonStore from 'flux-common-store';
 import Constants from './Constants';
 import Dispatcher from './Dispatcher';
-import UrlUtil from './UrlUtil';
+import urlUtil from './urlUtil';
 import isNull from 'lodash/lang/isNull';
 import isUndefined from 'lodash/lang/isUndefined';
 
@@ -16,7 +16,7 @@ const safeParams = params => {
 
 
 let location = '';
-let {pathname, query} = safeParams(UrlUtil.parseHref(location));
+let {pathname, query} = safeParams(urlUtil.parseHref(location));
 
 const defaultParams = {};
 
@@ -42,7 +42,7 @@ const removeParam = ({namespace}) => {
 
 const changeLocation = url => {
   location = url;
-  changeParams(safeParams(UrlUtil.parseHref(location)));
+  changeParams(safeParams(urlUtil.parseHref(location)));
 };
 
 

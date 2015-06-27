@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import Store from './Store';
 import ActionCreator from './ActionCreator';
-import UrlUtil from './UrlUtil';
+import urlUtil from './urlUtil';
 
 
 const Url = React.createClass({
@@ -47,7 +47,7 @@ const Url = React.createClass({
     event.preventDefault();
     const oldParams = this.state;
     const newParams = this.props;
-    const {pathname, query} = UrlUtil.merge(oldParams, newParams);
+    const {pathname, query} = urlUtil.merge(oldParams, newParams);
     ActionCreator.navigateTo({pathname, query});
   },
 
@@ -64,8 +64,8 @@ const Url = React.createClass({
   render() {
     const oldParams = this.state;
     const newParams = this.props;
-    const {href} = UrlUtil.merge(oldParams, newParams);
-    const isActive = UrlUtil.isActive(oldParams, newParams);
+    const {href} = urlUtil.merge(oldParams, newParams);
+    const isActive = urlUtil.isActive(oldParams, newParams);
     const linkClasses = classnames(this.props.className, {
       [this.props.isActiveClass]: isActive
     });

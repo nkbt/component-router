@@ -1,20 +1,20 @@
 describe('Store', () => {
   const StoreInjector = require('inject!../src/Store');
-  let Constants, Dispatcher, UrlUtil, Store;
+  let Constants, Dispatcher, urlUtil, Store;
 
 
   beforeEach(() => {
     Constants = {};
     Dispatcher = jasmine.createSpyObj('Dispatcher', ['register']);
-    UrlUtil = jasmine.createSpyObj('UrlUtil', ['parseHref']);
-    UrlUtil.parseHref.and.returnValue({pathname: '/', query: {x: 1}});
+    urlUtil = jasmine.createSpyObj('urlUtil', ['parseHref']);
+    urlUtil.parseHref.and.returnValue({pathname: '/', query: {x: 1}});
   });
 
 
   beforeEach(() => Store = StoreInjector({
     './Constants': Constants,
     './Dispatcher': Dispatcher,
-    './UrlUtil': UrlUtil
+    './urlUtil': urlUtil
   }));
 
 

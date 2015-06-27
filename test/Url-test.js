@@ -1,19 +1,19 @@
 describe('Url', () => {
   const UrlInjector = require('inject!../src/Url');
-  let Store, ActionCreator, UrlUtil, Url;
+  let Store, ActionCreator, urlUtil, Url;
 
 
   beforeEach(() => {
     Store = jasmine.createSpyObj('Store', ['']);
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['']);
-    UrlUtil = jasmine.createSpyObj('UrlUtil', ['']);
+    urlUtil = jasmine.createSpyObj('urlUtil', ['']);
   });
 
 
   beforeEach(() => Url = UrlInjector({
     './Store': Store,
     './ActionCreator': ActionCreator,
-    './UrlUtil': UrlUtil
+    './urlUtil': urlUtil
   }));
 
 
