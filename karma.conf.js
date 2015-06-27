@@ -6,18 +6,21 @@ var path = require('path');
 
 var webpackConfig = {
   devtool: 'eval',
-
   resolve: {
     extensions: ['', '.js']
   },
-
   module: {
-    preLoaders: [
-      {test: /\.js$/, loader: 'babel', include: path.join(__dirname, 'test')},
-      {test: /\.js$/, loader: 'isparta', include: path.join(__dirname, 'src')}
-    ]
+    loaders: process.env.COVERAGE ?
+      [
+        {test: /\.js$/, loader: 'babel', include: [path.resolve('./test')]},
+        {test: /\.js$/, loader: 'isparta', include: [path.resolve('./src')]}
+      ] :
+      [
+        {
+          test: /\.js$/, loader: 'babel', include: [path.resolve('./src'), path.resolve('./test')]
+        }
+      ]
   },
-
   stats: {
     colors: true
   }
@@ -30,15 +33,18 @@ module.exports = function (config) {
     frameworks: ['jasmine'],
     files: [
       'node_modules/babel-core/browser-polyfill.js',
-      'test/**/*.js'
+      'test/index.js'
     ],
     webpack: webpackConfig,
     webpackMiddleware: {
-      quiet: true
+      stats: {
+        chunkModules: false,
+        colors: true
+      }
     },
     exclude: [],
     preprocessors: {
-      'test/**/*.js': ['webpack']
+      'test/index.js': ['webpack']
     },
     reporters: ['progress'],
     coverageReporter: process.env.CIRCLE_ARTIFACTS ? {
