@@ -61,14 +61,14 @@ As you can see each of these blocks has its own independent navigation and, for 
 3. At last we can keep state of each component in the url as query parameter, which solves both problems.
   Current url will be: `/app?chart=bar&filter=opened&data=sources`
 
-Key feature is to update all links on the page if any of visible blocks changed its state. And it is fixed by InFlux.
+Key feature is to update all links on the page if any of visible blocks changed its state. If lets all links to stay links, so it is possible to open link in a new tab, for instance. It is fixed by InFlux.
 
 
 ## Minimal Example
 
   ```js
 import React from 'react';
-import {InFlux, Url, LocationHtml4} from '..';
+import {InFlux, Url, LocationHtml5} from '..';
 
 const Foo = React.createClass({
   render() {
@@ -93,7 +93,7 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <LocationHtml4 />
+        <LocationHtml5 />
         <Url query={{baz: 'foo'}}>Foo</Url>
         &nbsp;|&nbsp;
         <Url query={{baz: 'bar'}}>Bar</Url>
@@ -204,11 +204,10 @@ const DataDestinations = React.createClass({
 
   Wrap each main component, give it a namespace and config
   
-  Also render Location provider (Html5 for HistoryAPI links or Html4 for hash-links).
-  For the Quickstart Html4 is used, so it is possible to keep example running on Github pages.
+  Also render Location provider (LocationHtml5 for HistoryAPI links or LocationHtml4 for hash-links).
 
   ```js
-import {InFlux, LocationHtml4} from 'in-flux';
+import {InFlux, LocationHtml5} from 'in-flux';
 //...
 
 const App = React.createClass({
@@ -296,6 +295,8 @@ const Data = React.createClass({
   
   
   ![Quickstart.gif](./src/example/quickstart.gif)
+  
+  **NOTE** href changes, so we can open link in new tab.
   
   
   You can run the full Quickstart example with `npm run example`, it is shipped with the source code.

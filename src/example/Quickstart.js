@@ -1,5 +1,5 @@
 import React from 'react';
-import {InFlux, Url, LocationHtml4} from '..';
+import {InFlux, Url, LocationHtml5} from '..';
 
 
 const Chart = React.createClass({
@@ -103,7 +103,7 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <LocationHtml4 />
+        <LocationHtml5 />
 
         <InFlux config={{bar: ChartBar, pie: ChartPie}} namespace="chart">
           <Chart />

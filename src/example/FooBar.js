@@ -1,5 +1,5 @@
 import React from 'react';
-import {InFlux, Url, LocationHtml4} from '..';
+import {InFlux, Url, LocationHtml5} from '..';
 
 const Foo = React.createClass({
   render() {
@@ -28,7 +28,7 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <LocationHtml4 />
+        <LocationHtml5 />
         <Url query={{baz: 'foo'}}>Foo</Url>
         &nbsp;|&nbsp;
         <Url query={{baz: 'bar'}}>Bar</Url>
