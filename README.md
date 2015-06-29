@@ -295,7 +295,7 @@ const Data = React.createClass({
   Compile your code, the routing is now completed.
   
   
-  ![Quickstart.gif](https://cdn.rawgit.com/nkbt/in-flux/master/src/example/quickstart.gif)
+  ![Quickstart.gif](./src/example/quickstart.gif)
   
   
   You can run the full Quickstart example with `npm run example`, it is shipped with the source code.
