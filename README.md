@@ -93,7 +93,7 @@ const App = React.createClass({
 React.render(<App />, document.body);
   ```
 
-  ![foobar.gif](./src/exapmle/foobar.gif)
+  ![foobar.gif](src/example/foobar.gif)
 
   You can run the Minimal example with `npm run foobar`, it is shipped with the source code.
 
