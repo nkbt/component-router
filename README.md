@@ -301,21 +301,6 @@ const Data = React.createClass({
   
   You can run the full Quickstart example with `npm run example`, it is shipped with the source code.
   
-  ```bash
-git clone git@github.com:nkbt/in-flux.git
-cd in-flux
-npm install
-npm run example
-
-# then
-open http://localhost:8080
-  ```
-
-
-
-
-
-
 ## Development and testing
 
 To run comprehensive example covering all `InFlux` features, use `npm start`, which will compile `src/exapmle/Exapmle.js`
