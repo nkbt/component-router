@@ -1,17 +1,6 @@
 import React from 'react';
 import {InFlux, Url, LocationHtml5} from '..';
 
-const Foo = React.createClass({
-  render() {
-    return <h1>Foo</h1>;
-  }
-});
-
-const Bar = React.createClass({
-  render() {
-    return <h1>Bar</h1>;
-  }
-});
 
 const Baz = React.createClass({
   propTypes: {
@@ -19,8 +8,8 @@ const Baz = React.createClass({
   },
 
   render() {
-    const {Component} = this.props.inFlux;
-    return <Component />;
+    const {value} = this.props.inFlux;
+    return <h1>{value && value.toUpperCase()}</h1>;
   }
 });
 
@@ -29,12 +18,8 @@ const App = React.createClass({
     return (
       <div>
         <LocationHtml5 />
-        <Url query={{baz: 'foo'}}>Foo</Url>
-        &nbsp;|&nbsp;
-        <Url query={{baz: 'bar'}}>Bar</Url>
-        <InFlux config={{foo: Foo, bar: Bar}} namespace="baz">
-          <Baz />
-        </InFlux>
+        <Url query={{baz: 'foo'}}>Foo</Url> | <Url query={{baz: 'bar'}}>Bar</Url>
+        <InFlux config={Baz} namespace="baz" />
       </div>
     );
   }
