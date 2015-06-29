@@ -63,26 +63,277 @@ As you can see each of these blocks has its own independent navigation and, for 
 
 Key feature is to update all links on the page if any of visible blocks changed its state. And it is fixed by InFlux.
 
-## Usage
 
-Please, explore examples for usage until README is updated.
+## Minimal Example
 
-```js
-// TODO: see examples
-```
+  ```js
+import React from 'react';
+import {InFlux, Url, LocationHtml4} from '..';
+
+const Foo = React.createClass({
+  render() {
+    return <h1>Foo</h1>;
+  }
+});
+
+const Bar = React.createClass({
+  render() {
+    return <h1>Bar</h1>;
+  }
+});
+
+const Baz = React.createClass({
+  render() {
+    const {Component} = this.props.inFlux;
+    return <Component />;
+  }
+});
+
+const App = React.createClass({
+  render() {
+    return (
+      <div>
+        <LocationHtml4 />
+        <Url query={{baz: 'foo'}}>Foo</Url>
+        &nbsp;|&nbsp;
+        <Url query={{baz: 'bar'}}>Bar</Url>
+        <InFlux config={{foo: Foo, bar: Bar}} namespace="baz">
+          <Baz />
+        </InFlux>
+      </div>
+    );
+  }
+});
+
+React.render(<App />, document.body);
+  ```
+
+  You can run the Minimal example with `npm run foobar`, it is shipped with the source code.
+
+
+## Quickstart
+
+Quickstart is a step-by-step walkthrough to implement UI based on ASCII example from above. 
+
+### 1. Install `in-flux` from npm
+  ```bash
+npm install --save in-flux
+  ```
+
+### 2. Add App and main blocks: Chart, Filter, Data 
+  
+  ```js
+import React from 'react';
+
+const Chart = React.createClass({
+  render() {
+    return <h2>Chart</h2>;
+  }
+});
+
+
+const Filter = React.createClass({
+  render() {
+    return <h2>Filter</h2>;
+  }
+});
+
+
+const Data = React.createClass({
+  render() {
+    return <h2>Data</h2>;
+  }
+});
+
+
+const App = React.createClass({
+  render() {
+    return (
+      <div>
+        <Chart />
+        <Filter />
+        <Data />
+      </div>
+    );
+  }
+});
+
+React.render(<App />, document.body);
+  ```
+  
+### 3. Add second-level blocks (not yet used for now)
+  ```js
+const ChartBar = React.createClass({
+  render() {
+    return <h3>Bar</h3>;
+  }
+});
+
+const ChartPie = React.createClass({
+  render() {
+    return <h3>Pie</h3>;
+  }
+});
+
+const FilterClosed = React.createClass({
+  render() {
+    return <h3>Closed</h3>;
+  }
+});
+
+const FilterOpened = React.createClass({
+  render() {
+    return <h3>Opened</h3>;
+  }
+});
+
+const DataSources = React.createClass({
+  render() {
+    return <h3>Sources</h3>;
+  }
+});
+
+const DataDestinations = React.createClass({
+  render() {
+    return <h3>Destinations</h3>;
+  }
+});
+  ```
+
+### 4. Add InFlux
+
+  Wrap each main component, give it a namespace and config
+  
+  Also render Location provider (Html5 for HistoryAPI links or Html4 for hash-links).
+  For the Quickstart Html4 is used, so it is possible to keep example running on Github pages.
+
+  ```js
+import {InFlux, LocationHtml4} from 'in-flux';
+//...
+
+const App = React.createClass({
+  render() {
+    return (
+      <div>
+        <InFlux namespace="chart"
+          config={{bar: ChartBar, pie: ChartPie}}>
+          <Chart />
+        </InFlux>
+        <InFlux namespace="filter"
+          config={{opened: FilterOpened, closed: FilterClosed}}>
+          <Filter />
+        </InFlux>
+        <InFlux namespace="data"
+          config={{sources: DataSources, destinations: DataDestinations}}>
+          <Data />
+        </InFlux>
+      </div>
+    );
+  }
+});
+  ```
+
+### 5. Update your main components with links
+
+Note that <InFlux> wrapper will provide `inFlux` object to the props of container component.
+
+For now we will use only `namespace` and `Component`. First just passes namespace down, second should be rendered wherever we want to have our route handler component.
+
+
+We will also use `Url` component provided by `in-flux` to render dynamic links (they will be updated when any of InFlux blocks changes its state.
+
+  ```js
+import {Url} from 'in-flux';
+
+onst Chart = React.createClass({
+  render() {
+    const {namespace, Component} = this.props.inFlux;
+    return (
+      <div>
+        <h2>Chart</h2>
+        <Url query={{[namespace]: 'bar'}}>Bar</Url>
+        <Url query={{[namespace]: 'pie'}}>Pie</Url>
+        <Component />
+      </div>
+    );
+  }
+});
+
+
+const Filter = React.createClass({
+  render() {
+    const {namespace, Component} = this.props.inFlux;
+    return (
+      <div>
+        <h2>Filter</h2>
+        <Url query={{[namespace]: 'opened'}}>Open</Url>
+        <Url query={{[namespace]: 'closed'}}>Close</Url>
+        <Component />
+      </div>
+    );
+  }
+});
+
+
+const Data = React.createClass({
+  render() {
+    const {namespace, Component} = this.props.inFlux;
+    return (
+      <div>
+        <h2>Data</h2>
+        <Url query={{[namespace]: 'sources'}}>Sources</Url>
+        <Url query={{[namespace]: 'destinations'}}>Destinations</Url>
+        <Component />
+      </div>
+    );
+  }
+});
+  ```
+
+### 6. PROFIT
+
+  Compile your code, the routing is now completed.
+  
+  
+  ![Quickstart.gif](https://cdn.rawgit.com/nkbt/in-flux/master/src/example/quickstart.gif)
+  
+  
+  You can run the full Quickstart example with `npm run example`, it is shipped with the source code.
+  
+  ```bash
+git clone git@github.com:nkbt/in-flux.git
+cd in-flux
+npm install
+npm run example
+
+# then
+open http://localhost:8080
+  ```
+
+
+
+
+
 
 ## Development and testing
 
+To run comprehensive example covering all `InFlux` features, use `npm start`, which will compile `src/exapmle/Exapmle.js`
+
 ```bash
+git clone git@github.com:nkbt/in-flux.git
+cd in-flux
 npm install
 npm start
-```
 
-Then 
-
-```bash
+# then
 open http://localhost:8080
 ```
+
+To run Foobar example, use `npm run foobar`
+
+To run Quickstart example, use `npm run quickstart`
+
+
 
 ## Demo
 
