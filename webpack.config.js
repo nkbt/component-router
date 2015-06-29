@@ -3,6 +3,7 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 var env = process.env.NODE_ENV || 'production';
+var entry = process.env.ENTRY || 'Example';
 
 
 var eslintLoader = {
@@ -16,7 +17,7 @@ module.exports = {
   devtool: 'eval',
 
   entry: [
-    './src/example/Example.js'
+    './src/example/' + entry + '.js'
   ].concat(env === 'production' ? [] : [
       'webpack-dev-server/client?http://localhost:8080',
       'webpack/hot/only-dev-server'
