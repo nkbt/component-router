@@ -45,10 +45,7 @@ const Url = React.createClass({
 
   onClick(event) {
     event.preventDefault();
-    const oldParams = this.state;
-    const newParams = this.props;
-    const {pathname, query} = urlUtil.merge(oldParams, newParams);
-    ActionCreator.navigateTo({pathname, query});
+    ActionCreator.navigateTo(this.props);
   },
 
 

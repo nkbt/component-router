@@ -22,8 +22,9 @@ const defaultParams = {};
 
 
 const changeParams = params => {
-  pathname = params.pathname;
-  query = sortedObject(Object.assign({}, defaultParams, params.query));
+  const newParams = urlUtil.merge({pathname, query}, params);
+  pathname = newParams.pathname;
+  query = sortedObject(Object.assign({}, defaultParams, newParams.query));
 };
 
 
@@ -42,7 +43,9 @@ const removeParam = ({namespace}) => {
 
 const changeLocation = url => {
   location = url;
-  changeParams(safeParams(urlUtil.parseHref(location)));
+  const newParams = safeParams(urlUtil.parseHref(location));
+  pathname = newParams.pathname;
+  query = sortedObject(Object.assign({}, defaultParams, newParams.query));
 };
 
 
