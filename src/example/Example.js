@@ -43,10 +43,10 @@ const App = React.createClass({
         <p>Adds and removes query params</p>
         <ReactSwap>
           <div>
-            <button data-swap-handler>Open</button>
+            <button data-swap-handler={1}>Open</button>
           </div>
           <div>
-            <button data-swap-handler>Close</button>
+            <button data-swap-handler={1}>Close</button>
             <InFlux config={{
                 [getDefault()]: 'Hello',
                 Hello: GreenBlock,

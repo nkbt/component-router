@@ -15,6 +15,7 @@ const Empty = React.createClass({
 const InFlux = React.createClass({
   propTypes: {
     config: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]).isRequired,
+    children: React.PropTypes.node,
     namespace: React.PropTypes.string.isRequired
   },
 
