@@ -115,6 +115,45 @@ describe('Store', () => {
   });
 
 
+  describe('Clean query', () => {
+    beforeEach(() => {
+      urlUtil.parseHref.and.returnValue({query: {x: 1, y: 2}});
+      createStore();
+      reaction({
+        actionType: Constants.ADD_DEFAULT_PARAM,
+        payload: {namespace: 'y', value: 2}
+      });
+    });
+
+
+    it('should return clean query without default params', () => {
+      expect(Store.getCleanQuery()).toEqual({x: 1});
+    });
+
+
+    it('should sort query params when getting clean query', () => {
+      Store.getCleanQuery();
+      expect(sorted.calls.mostRecent().args).toEqual([{x: 1}]);
+    });
+
+
+    it('should not remove any keys from query if there are no default params', () => {
+      createStore();
+      expect(Store.getCleanQuery()).toEqual({x: 1, y: 2});
+    });
+
+
+    it('should not remove key from query if value is not equal to default', () => {
+      createStore();
+      reaction({
+        actionType: Constants.ADD_DEFAULT_PARAM,
+        payload: {namespace: 'y', value: 10}
+      });
+      expect(Store.getCleanQuery()).toEqual({x: 1, y: 2});
+    });
+  });
+
+
   describe('Remove param', () => {
     beforeEach(() => {
       urlUtil.parseHref.and.returnValue({query: {x: 1, y: 10}});
