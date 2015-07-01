@@ -14,7 +14,7 @@ describe('Store', () => {
     Constants.RESTORE_LOCATION = 3;
 
     Dispatcher = jasmine.createSpyObj('Dispatcher', ['register']);
-    urlUtil = jasmine.createSpyObj('urlUtil', ['parseHref']);
+    urlUtil = jasmine.createSpyObj('urlUtil', ['parseHref', 'merge']);
     urlUtil.parseHref.and.returnValue({pathname: '/test', query: {x: 1}});
   });
 
@@ -182,6 +182,38 @@ describe('Store', () => {
     it('should sort query params upon removal', () => {
       reaction({actionType: Constants.REMOVE_PARAM, payload: {namespace: 'x'}});
       expect(sorted.calls.mostRecent().args).toEqual([{y: 10, z: 100}]);
+    });
+  });
+
+
+  describe('Navigate to', () => {
+
+
+    beforeEach(() => {
+      urlUtil.parseHref.and.returnValue({query: {x: 1}});
+      urlUtil.merge.and.returnValue({pathname: '/hello', query: {y: 10}});
+      createStore();
+      reaction({
+        actionType: Constants.ADD_DEFAULT_PARAM,
+        payload: {namespace: 'y', value: 2}
+      });
+    });
+
+
+    it('should merge params', () => {
+      reaction({actionType: Constants.NAVIGATE_TO, payload: {query: {y: 10}}});
+      expect(urlUtil.merge).toHaveBeenCalledWith(
+        {pathname: '/', query: {x: 1, y: 2}},
+        {pathname: '/', query: {y: 10}}
+      );
+
+      expect(Store.getQuery()).toEqual({y: 10});
+    });
+
+
+    it('should sort query params', () => {
+      reaction({actionType: Constants.NAVIGATE_TO, payload: {query: {y: 10}}});
+      expect(sorted.calls.mostRecent().args).toEqual([{y: 10}]);
     });
   });
 });
