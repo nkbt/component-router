@@ -42,7 +42,6 @@ describe('LocationHtml4', () => {
   describe('Lifecycle', () => {
     beforeEach(() => {
       div = document.createElement('div');
-      document.documentElement.appendChild(div);
       React.render(<Html4 />, div);
     });
 
