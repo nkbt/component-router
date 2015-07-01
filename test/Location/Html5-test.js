@@ -42,7 +42,6 @@ describe('LocationHtml5', () => {
   describe('Lifecycle', () => {
     beforeEach(() => {
       div = document.createElement('div');
-      document.documentElement.appendChild(div);
       React.render(<Html5 />, div);
     });
 
