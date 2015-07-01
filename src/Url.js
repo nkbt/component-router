@@ -27,8 +27,7 @@ const Url = React.createClass({
   getInitialState() {
     return {
       query: Store.getQuery(),
-      pathname: Store.getPathname(),
-      defaultParams: Store.getDefaultParams()
+      pathname: Store.getPathname()
     };
   },
 
@@ -52,8 +51,7 @@ const Url = React.createClass({
   onChange() {
     this.setState({
       query: Store.getQuery(),
-      pathname: Store.getPathname(),
-      defaultParams: Store.getDefaultParams()
+      pathname: Store.getPathname()
     });
   },
 
