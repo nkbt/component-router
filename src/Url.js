@@ -64,6 +64,7 @@ const Url = React.createClass({
     const linkClasses = classnames(this.props.className, {
       [this.props.isActiveClass]: isActive
     });
+
     return <a {...this.props} href={href} onClick={this.onClick} className={linkClasses} />;
   }
 });

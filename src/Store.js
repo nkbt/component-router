@@ -18,11 +18,13 @@ const safeParams = params => {
 let location = '';
 let {pathname, query} = safeParams(urlUtil.parseHref(location));
 
+
 const defaultParams = {};
 
 
 const changeParams = params => {
   const newParams = urlUtil.merge({pathname, query}, params);
+
   pathname = newParams.pathname;
   query = sortedObject(Object.assign({}, defaultParams, newParams.query));
 };
@@ -42,8 +44,9 @@ const removeParam = ({namespace}) => {
 
 
 const changeLocation = url => {
+  const newParams = safeParams(urlUtil.parseHref(url));
+
   location = url;
-  const newParams = safeParams(urlUtil.parseHref(location));
   pathname = newParams.pathname;
   query = sortedObject(Object.assign({}, defaultParams, newParams.query));
 };
@@ -62,6 +65,7 @@ const Store = Object.assign({}, FluxCommonStore, {
 
   getCleanQuery() {
     const cleanQuery = Object.assign({}, query);
+
     Object.keys(defaultParams).forEach(key => {
       if (cleanQuery[key] === defaultParams[key]) {
         delete cleanQuery[key];
