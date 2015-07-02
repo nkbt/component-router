@@ -1,9 +1,9 @@
 # in-flux
 
-[![Circle CI](https://circleci.com/gh/nkbt/in-flux.svg?style=svg)](https://circleci.com/gh/nkbt/in-flux)
-[![Coverage Status](https://coveralls.io/repos/nkbt/in-flux/badge.svg?branch=master)](https://coveralls.io/r/nkbt/in-flux?branch=master)
-[![Dependency Status](https://david-dm.org/nkbt/in-flux.svg)](https://david-dm.org/nkbt/in-flux)
-[![devDependency Status](https://david-dm.org/nkbt/in-flux/dev-status.svg)](https://david-dm.org/nkbt/in-flux#info=devDependencies)
+[![Circle CI](https://circleci.com/gh/in-flux/in-flux.svg?style=svg)](https://circleci.com/gh/in-flux/in-flux)
+[![Coverage Status](https://coveralls.io/repos/in-flux/in-flux/badge.svg?branch=master)](https://coveralls.io/r/in-flux/in-flux?branch=master)
+[![Dependency Status](https://david-dm.org/in-flux/in-flux.svg)](https://david-dm.org/in-flux/in-flux)
+[![devDependency Status](https://david-dm.org/in-flux/in-flux/dev-status.svg)](https://david-dm.org/in-flux/in-flux#info=devDependencies)
 
 Flux-based partial routing solution
 
@@ -11,7 +11,7 @@ Flux-based partial routing solution
 
 **WARNING** Work in progress, though most of the functionality is there.
 
-See [issues](https://github.com/nkbt/in-flux/issues) for more info on what is going to happen.
+See [issues](https://github.com/in-flux/in-flux/issues) for more info on what is going to happen.
 
 
 ## Idea
@@ -293,7 +293,7 @@ const Data = React.createClass({
 To run comprehensive example covering all `InFlux` features, use `npm start`, which will compile `src/example/Example.js`
 
 ```bash
-git clone git@github.com:nkbt/in-flux.git
+git clone git@github.com:in-flux/in-flux.git
 cd in-flux
 npm install
 npm start
