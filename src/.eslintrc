@@ -160,7 +160,7 @@
     "consistent-this": [2, "_this"], // enforces consistent naming when capturing the current execution context (off by default)
     "eol-last": 2, // enforce newline at the end of file, with no multiple empty lines
     "func-names": 0, // require function expressions to have a name (off by default)
-    "func-style": [2, "declaration"], // enforces use of function declarations or expressions (off by default)
+    "func-style": 0, // enforces use of function declarations or expressions (off by default)
     "key-spacing": [2, {"beforeColon": false, "afterColon": true}], // enforces spacing between keys and values in object literal properties
     "max-nested-callbacks": [2, 3], // specify the maximum depth callbacks can be nested (off by default)
     "new-cap": [2, {"newIsCap": true, "capIsNew": false}], // require a capital letter for constructors
