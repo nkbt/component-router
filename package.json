@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/nkbt/in-flux.git"
+    "url": "https://github.com/in-flux/in-flux.git"
   },
   "keywords": [
     "component",
@@ -39,9 +39,9 @@
   "author": "Nik Butenko <nik@butenko.me> (http://butenko.me/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/nkbt/in-flux/issues"
+    "url": "https://github.com/in-flux/in-flux/issues"
   },
-  "homepage": "https://github.com/nkbt/in-flux",
+  "homepage": "https://github.com/in-flux/in-flux",
   "dependencies": {
     "classnames": "^2.1.2",
     "flux": "^2.0.3",
