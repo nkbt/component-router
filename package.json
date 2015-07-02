@@ -6,7 +6,7 @@
   "scripts": {
     "build": "npm run build:clean && npm run build:lib && npm run build:example",
     "build:clean": "rm -rf lib example",
-    "build:lib": "babel -sd lib src",
+    "build:lib": "babel --plugins object-assign -sd lib src",
     "build:example": "webpack",
     "prepublish": "npm run build",
     "start": "NODE_ENV=development webpack-dev-server --history-api-fallback",
