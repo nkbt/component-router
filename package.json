@@ -1,6 +1,6 @@
 {
   "name": "in-flux",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Flux-based partial routing solution",
   "main": "lib/index.js",
   "scripts": {
