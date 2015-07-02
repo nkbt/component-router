@@ -37,6 +37,7 @@ describe('urlUtil', () => {
   describe('.merge', () => {
     it('should keep pathname', () => {
       const merged = urlUtil.merge({pathname: '/test'}, {query: {x: 1}});
+
       expect(merged).toEqual({
         pathname: '/test',
         query: {x: 1},
@@ -47,6 +48,7 @@ describe('urlUtil', () => {
 
     it('should override pathname, but keep query', () => {
       const merged = urlUtil.merge({pathname: '/test', query: {x: 1}}, {pathname: '/'});
+
       expect(merged).toEqual({
         pathname: '/',
         query: {x: 1},
@@ -57,6 +59,7 @@ describe('urlUtil', () => {
 
     it('should append new params to query', () => {
       const merged = urlUtil.merge({pathname: '/', query: {x: 1}}, {query: {y: 10}});
+
       expect(merged).toEqual({
         pathname: '/',
         query: {x: 1, y: 10},
@@ -67,6 +70,7 @@ describe('urlUtil', () => {
 
     it('should update existing params', () => {
       const merged = urlUtil.merge({pathname: '/', query: {x: 1}}, {query: {x: 2, y: 10}});
+
       expect(merged).toEqual({
         pathname: '/',
         query: {x: 2, y: 10},
@@ -78,6 +82,7 @@ describe('urlUtil', () => {
     it('should merge query and update pathname', () => {
       const merged = urlUtil.merge({pathname: '/', query: {x: 1, y: 10}},
         {pathname: '/test', query: {x: 2, z: 100}});
+
       expect(merged).toEqual({
         pathname: '/test',
         query: {x: 2, y: 10, z: 100},
