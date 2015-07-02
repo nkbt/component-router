@@ -29,6 +29,7 @@ const LinkExample = React.createClass({
   render() {
     const pathname = this.props.pathname ? `pathname="${this.props.pathname}"` : '';
     const query = this.props.query ? `query="${JSON.stringify(this.props.query)}"` : '';
+
     return <p><Url {...this.props}>{`<Url ${pathname} ${query} />`}</Url></p>;
   }
 });

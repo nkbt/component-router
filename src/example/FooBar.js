@@ -9,6 +9,7 @@ const Baz = React.createClass({
 
   render() {
     const {value} = this.props.inFlux;
+
     return <h1>{value && value.toUpperCase()}</h1>;
   }
 });

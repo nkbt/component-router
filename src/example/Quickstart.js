@@ -9,6 +9,7 @@ const Chart = React.createClass({
 
   render() {
     const {namespace, Component} = this.props.inFlux;
+
     return (
       <div>
         <h2>Chart</h2>
@@ -29,6 +30,7 @@ const Filter = React.createClass({
 
   render() {
     const {namespace, Component} = this.props.inFlux;
+
     return (
       <div>
         <h2>Filter</h2>
@@ -49,6 +51,7 @@ const Data = React.createClass({
 
   render() {
     const {namespace, Component} = this.props.inFlux;
+
     return (
       <div>
         <h2>Data</h2>

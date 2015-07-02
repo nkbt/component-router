@@ -10,6 +10,7 @@ const Block = React.createClass({
 
   render() {
     const {keys, namespace, Component} = this.props.inFlux;
+
     return (
       <div style={{background: 'rgba(0, 0, 0, 0.1)', minHeight: 100}}>
         <Tabs tabs={keys} namespace={namespace} />
