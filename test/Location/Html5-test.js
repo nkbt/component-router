@@ -35,6 +35,7 @@ describe('LocationHtml5', () => {
 
   it('should not render anything', () => {
     const {out} = createComponent(Html5);
+
     expect(out).toBeNull();
   });
 
@@ -125,6 +126,7 @@ describe('LocationHtml5', () => {
       w.location.search = '?x=1';
 
       const onPopstate = w.addEventListener.calls.mostRecent().args[1];
+
       onPopstate();
 
       expect(ActionCreator.restoreLocation).toHaveBeenCalled();
@@ -137,6 +139,7 @@ describe('LocationHtml5', () => {
       Store.getPathname.and.returnValue('/test');
       Store.getCleanQuery.and.returnValue({x: 1, y: 2});
       const onChange = Store.addChangeListener.calls.mostRecent().args[0];
+
       onChange();
       expect(html5.setUrl).toHaveBeenCalled();
       expect(html5.setUrl).toHaveBeenCalledWith('/test?x=1&y=2');

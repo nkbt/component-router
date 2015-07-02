@@ -1,5 +1,6 @@
 import React from 'react';
 const TestUtils = React.addons.TestUtils;
+
 import createComponent from './utils/createComponent';
 
 
@@ -96,6 +97,7 @@ describe('Url', () => {
 
     it('should update state from Store on change', () => {
       const onChange = Store.addChangeListener.calls.mostRecent().args[0];
+
       Store.getQuery.and.returnValue({y: 10});
       onChange();
       expect(url.state).toEqual({pathname: '/test', query: {y: 10}});
@@ -116,6 +118,7 @@ describe('Url', () => {
     it('should prevent default operation', () => {
       const a = React.findDOMNode(url);
       const event = jasmine.createSpyObj('event', ['preventDefault']);
+
       TestUtils.Simulate.click(a, event);
 
       expect(event.preventDefault).toHaveBeenCalled();
@@ -124,6 +127,7 @@ describe('Url', () => {
 
     it('should navigate on click', () => {
       const a = React.findDOMNode(url);
+
       TestUtils.Simulate.click(a);
 
       expect(ActionCreator.navigateTo).toHaveBeenCalled();

@@ -32,6 +32,7 @@ const Html4 = React.createClass({
       return '/';
     }
     const {pathname, query} = url.parse(window.location.hash.substr(1), true);
+
     return url.format({pathname, query});
   },
 

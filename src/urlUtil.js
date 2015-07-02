@@ -4,6 +4,7 @@ import sortedObject from 'sorted-object';
 
 const parseHref = (href) => {
   const {pathname, query} = url.parse(href, true);
+
   return {pathname, query, href: url.format({pathname, query})};
 };
 
@@ -12,6 +13,7 @@ const merge = (oldParams, newParams) => {
   const pathname = newParams.pathname || oldParams.pathname;
   const query = sortedObject(Object.assign({}, oldParams.query, newParams.query));
   const href = url.format({pathname, query});
+
   return {pathname, query, href};
 };
 
@@ -28,6 +30,7 @@ const merge = (oldParams, newParams) => {
 const isActive = (oldParams, newParams) => {
   const oldHref = url.format(oldParams);
   const {href} = merge(oldParams, newParams);
+
   return oldHref === href;
 };
 

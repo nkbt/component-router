@@ -187,8 +187,6 @@ describe('Store', () => {
 
 
   describe('Navigate to', () => {
-
-
     beforeEach(() => {
       urlUtil.parseHref.and.returnValue({query: {x: 1}});
       urlUtil.merge.and.returnValue({pathname: '/hello', query: {y: 10}});

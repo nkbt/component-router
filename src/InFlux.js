@@ -50,6 +50,7 @@ const InFlux = React.createClass({
 
   checkDefaultParam(props) {
     const {namespace, config: {[getDefault()]: value}} = props;
+
     if (value) {
       ActionCreator.addDefaultParam({namespace, value});
     }
@@ -83,6 +84,7 @@ const InFlux = React.createClass({
       if (!React.Children.count(this.props.children)) {
         // React will render custom component only if it starts from capital letter
         const Child = config;
+
         return <Child inFlux={Object.assign(inFlux, {Component: Empty})} />;
       }
 

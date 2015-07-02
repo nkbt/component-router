@@ -35,6 +35,7 @@ describe('LocationHtml4', () => {
 
   it('should not render anything', () => {
     const {out} = createComponent(Html4);
+
     expect(out).toBeNull();
   });
 
@@ -123,6 +124,7 @@ describe('LocationHtml4', () => {
 
     it('should restore url when hash updated', () => {
       const onHashChange = w.addEventListener.calls.mostRecent().args[1];
+
       w.location.hash = '#/test?x=1';
       onHashChange();
 
@@ -136,6 +138,7 @@ describe('LocationHtml4', () => {
       Store.getPathname.and.returnValue('/test');
       Store.getCleanQuery.and.returnValue({x: 1, y: 2});
       const onChange = Store.addChangeListener.calls.mostRecent().args[0];
+
       onChange();
       expect(html4.setUrl).toHaveBeenCalled();
       expect(html4.setUrl).toHaveBeenCalledWith('/test?x=1&y=2');
