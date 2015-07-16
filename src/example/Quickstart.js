@@ -114,7 +114,8 @@ const App = React.createClass({
         <ComponentRouter config={{opened: FilterOpened, closed: FilterClosed}} namespace="filter">
           <Filter />
         </ComponentRouter>
-        <ComponentRouter config={{sources: DataSources, destinations: DataDestinations}} namespace="data">
+        <ComponentRouter config={{sources: DataSources, destinations: DataDestinations}}
+          namespace="data">
           <Data />
         </ComponentRouter>
       </div>
