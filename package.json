@@ -1,7 +1,7 @@
 {
-  "name": "in-flux",
+  "name": "component-router",
   "version": "1.0.6",
-  "description": "Flux-based partial routing solution",
+  "description": "Flux-based component routing solution",
   "main": "lib/index.js",
   "scripts": {
     "build": "npm run build:clean && npm run build:lib && npm run build:example",
@@ -22,26 +22,25 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/in-flux/in-flux.git"
+    "url": "https://github.com/in-flux/component-router.git"
   },
   "keywords": [
     "component",
     "react-component",
     "flux-component",
     "react",
-    "in-flux",
+    "component router",
     "router",
+    "partial router",
     "url-router",
-    "url-state",
-    "partial routing",
-    "partial"
+    "url-state"
   ],
   "author": "Nik Butenko <nik@butenko.me> (http://butenko.me/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/in-flux/in-flux/issues"
+    "url": "https://github.com/in-flux/component-router/issues"
   },
-  "homepage": "https://github.com/in-flux/in-flux",
+  "homepage": "https://github.com/in-flux/component-router",
   "dependencies": {
     "classnames": "^2.1.2",
     "flux": "^2.0.3",

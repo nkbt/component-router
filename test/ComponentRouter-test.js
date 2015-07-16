@@ -1,6 +1,6 @@
-describe('InFlux', () => {
-  const InFluxInjector = require('inject!../src/InFlux');
-  let ActionCreator, Store, getDefault, InFlux;
+describe('ComponentRouter', () => {
+  const ComponentRouterInjector = require('inject!../src/ComponentRouter');
+  let ActionCreator, Store, getDefault, ComponentRouter;
 
 
   beforeEach(() => {
@@ -10,7 +10,7 @@ describe('InFlux', () => {
   });
 
 
-  beforeEach(() => InFlux = InFluxInjector({
+  beforeEach(() => ComponentRouter = ComponentRouterInjector({
     './ActionCreator': ActionCreator,
     './Store': Store,
     './getDefault': getDefault
@@ -18,6 +18,6 @@ describe('InFlux', () => {
 
 
   it('should be ok', () => {
-    expect(InFlux).toBeTruthy();
+    expect(ComponentRouter).toBeTruthy();
   });
 });

@@ -3,7 +3,7 @@ import React from 'react';
 
 const DynamicList = React.createClass({
   propTypes: {
-    inFlux: React.PropTypes.object,
+    componentRouter: React.PropTypes.object,
     values: React.PropTypes.arrayOf(React.PropTypes.number)
   },
 
@@ -15,7 +15,7 @@ const DynamicList = React.createClass({
 
 
   render() {
-    const {namespace, value} = this.props.inFlux;
+    const {namespace, value} = this.props.componentRouter;
 
     const isActive = id => <b>{id === parseInt(value, 10) ? '(Active)' : ''}</b>;
 

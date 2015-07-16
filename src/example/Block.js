@@ -4,12 +4,12 @@ import Tabs from './Tabs';
 
 const Block = React.createClass({
   propTypes: {
-    inFlux: React.PropTypes.object
+    componentRouter: React.PropTypes.object
   },
 
 
   render() {
-    const {keys, namespace, Component} = this.props.inFlux;
+    const {keys, namespace, Component} = this.props.componentRouter;
 
     return (
       <div style={{background: 'rgba(0, 0, 0, 0.1)', minHeight: 100}}>

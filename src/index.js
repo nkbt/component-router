@@ -1,4 +1,4 @@
-import InFlux from './InFlux';
+import ComponentRouter from './ComponentRouter';
 import Url from './Url';
 import ActionCreator from './ActionCreator';
 import Store from './Store';
@@ -9,7 +9,7 @@ import getDefault from './getDefault';
 
 
 export default {
-  InFlux,
+  ComponentRouter,
   Url,
   ActionCreator,
   Store,

@@ -1,14 +1,14 @@
 import React from 'react';
-import {InFlux, Url, LocationHtml5} from '..';
+import {ComponentRouter, Url, LocationHtml5} from '..';
 
 
 const Baz = React.createClass({
   propTypes: {
-    inFlux: React.PropTypes.object
+    componentRouter: React.PropTypes.object
   },
 
   render() {
-    const {value} = this.props.inFlux;
+    const {value} = this.props.componentRouter;
 
     return <h1>{value && value.toUpperCase()}</h1>;
   }
@@ -20,7 +20,7 @@ const App = React.createClass({
       <div>
         <LocationHtml5 />
         <Url query={{baz: 'foo'}}>Foo</Url> | <Url query={{baz: 'bar'}}>Bar</Url>
-        <InFlux config={Baz} namespace="baz" />
+        <ComponentRouter config={Baz} namespace="baz" />
       </div>
     );
   }

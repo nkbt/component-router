@@ -1,9 +1,9 @@
-# in-flux
+# component-router
 
-[![Circle CI](https://circleci.com/gh/in-flux/in-flux.svg?style=svg)](https://circleci.com/gh/in-flux/in-flux)
-[![Coverage Status](https://coveralls.io/repos/in-flux/in-flux/badge.svg?branch=master)](https://coveralls.io/r/in-flux/in-flux?branch=master)
-[![Dependency Status](https://david-dm.org/in-flux/in-flux.svg)](https://david-dm.org/in-flux/in-flux)
-[![devDependency Status](https://david-dm.org/in-flux/in-flux/dev-status.svg)](https://david-dm.org/in-flux/in-flux#info=devDependencies)
+[![Circle CI](https://circleci.com/gh/in-flux/component-router.svg?style=svg)](https://circleci.com/gh/in-flux/component-router)
+[![Coverage Status](https://coveralls.io/repos/in-flux/component-router/badge.svg?branch=master)](https://coveralls.io/r/in-flux/component-router?branch=master)
+[![Dependency Status](https://david-dm.org/in-flux/component-router.svg)](https://david-dm.org/in-flux/component-router)
+[![devDependency Status](https://david-dm.org/in-flux/component-router/dev-status.svg)](https://david-dm.org/in-flux/component-router#info=devDependencies)
 
 Flux-based partial routing solution
 
@@ -11,7 +11,7 @@ Flux-based partial routing solution
 
 **WARNING** Work in progress, though most of the functionality is there.
 
-See [issues](https://github.com/in-flux/in-flux/issues) for more info on what is going to happen.
+See [issues](https://github.com/in-flux/component-router/issues) for more info on what is going to happen.
 
 
 ## Idea
@@ -22,7 +22,7 @@ Commonly used routers are mostly hierarchical. The great example of such a route
 Unfortunately it is not possible to store component's state independently from the other component in a different "branch" of hierarchy.
 
 They work perfectly for most of the UIs. 
-But as soon as we are trying to build a complex UI with multiple independent components and each of those has own state you would like to preserve, it becomes a challenging task. InFlux was created to provide a simple way of keeping such state in the URL with query params.
+But as soon as we are trying to build a complex UI with multiple independent components and each of those has own state you would like to preserve, it becomes a challenging task. ComponentRouter was created to provide a simple way of keeping such state in the URL with query params.
 
 
 Here is an example of such interface. 
@@ -61,19 +61,19 @@ As you can see each of these blocks has its own independent navigation and, for 
 3. At last we can keep state of each component in the URL as query parameter, which solves both problems.
   Current URL will be: `/app?chart=bar&filter=opened&data=sources`
 
-Key feature is to update all links on the page if any of visible blocks changed its state. If lets all links to stay links, so it is possible to open link in a new tab, for instance. It is fixed by InFlux.
+Key feature is to update all links on the page if any of visible blocks changed its state. If lets all links to stay links, so it is possible to open link in a new tab, for instance. It is fixed by ComponentRouter.
 
 
 ## Minimal Example
 
   ```js
 import React from 'react';
-import {InFlux, Url, LocationHtml5} from 'in-flux';
+import {ComponentRouter, Url, LocationHtml5} from 'component-router';
 
 
 const Baz = React.createClass({
   render() {
-    const {value} = this.props.inFlux;
+    const {value} = this.props.componentRouter;
     return <h1>{value && value.toUpperCase()}</h1>;
   }
 });
@@ -84,7 +84,7 @@ const App = React.createClass({
       <div>
         <LocationHtml5 />
         <Url query={{baz: 'foo'}}>Foo</Url> | <Url query={{baz: 'bar'}}>Bar</Url>
-        <InFlux config={Baz} namespace="baz" />
+        <ComponentRouter config={Baz} namespace="baz" />
       </div>
     );
   }
@@ -102,9 +102,9 @@ React.render(<App />, document.body);
 
 Quick-start is a step-by-step walk-through to implement UI based on ASCII example from above. 
 
-### 1. Install `in-flux` from npm
+### 1. Install `component-router` from npm
   ```bash
-npm install --save in-flux
+npm install --save component-router
   ```
 
 ### 2. Add App and main blocks: Chart, Filter, Data 
@@ -187,32 +187,32 @@ const DataDestinations = React.createClass({
 });
   ```
 
-### 4. Add InFlux
+### 4. Add ComponentRouter
 
   Wrap each main component, give it a namespace and config
   
   Also render Location provider (LocationHtml5 for History-API links or LocationHtml4 for hash-links).
 
   ```js
-import {InFlux, LocationHtml5} from 'in-flux';
+import {ComponentRouter, LocationHtml5} from 'component-router';
 //...
 
 const App = React.createClass({
   render() {
     return (
       <div>
-        <InFlux namespace="chart"
+        <ComponentRouter namespace="chart"
           config={{bar: ChartBar, pie: ChartPie}}>
           <Chart />
-        </InFlux>
-        <InFlux namespace="filter"
+        </ComponentRouter>
+        <ComponentRouter namespace="filter"
           config={{opened: FilterOpened, closed: FilterClosed}}>
           <Filter />
-        </InFlux>
-        <InFlux namespace="data"
+        </ComponentRouter>
+        <ComponentRouter namespace="data"
           config={{sources: DataSources, destinations: DataDestinations}}>
           <Data />
-        </InFlux>
+        </ComponentRouter>
       </div>
     );
   }
@@ -221,19 +221,19 @@ const App = React.createClass({
 
 ### 5. Update your main components with links
 
-Note that <InFlux> wrapper will provide `inFlux` object to the props of container component.
+Note that <ComponentRouter> wrapper will provide `componentRouter` object to the props of container component.
 
 For now we will use only `namespace` and `Component`. First just passes namespace down, second should be rendered wherever we want to have our route handler component.
 
 
-We will also use `Url` component provided by `in-flux` to render dynamic links (they will be updated when any of InFlux blocks changes its state.
+We will also use `Url` component provided by `component-router` to render dynamic links (they will be updated when any of ComponentRouter blocks changes its state.
 
   ```js
-import {Url} from 'in-flux';
+import {Url} from 'component-router';
 
 onst Chart = React.createClass({
   render() {
-    const {namespace, Component} = this.props.inFlux;
+    const {namespace, Component} = this.props.componentRouter;
     return (
       <div>
         <h2>Chart</h2>
@@ -248,7 +248,7 @@ onst Chart = React.createClass({
 
 const Filter = React.createClass({
   render() {
-    const {namespace, Component} = this.props.inFlux;
+    const {namespace, Component} = this.props.componentRouter;
     return (
       <div>
         <h2>Filter</h2>
@@ -263,7 +263,7 @@ const Filter = React.createClass({
 
 const Data = React.createClass({
   render() {
-    const {namespace, Component} = this.props.inFlux;
+    const {namespace, Component} = this.props.componentRouter;
     return (
       <div>
         <h2>Data</h2>
@@ -290,11 +290,11 @@ const Data = React.createClass({
   
 ## Development and testing
 
-To run comprehensive example covering all `InFlux` features, use `npm start`, which will compile `src/example/Example.js`
+To run comprehensive example covering all `ComponentRouter` features, use `npm start`, which will compile `src/example/Example.js`
 
 ```bash
-git clone git@github.com:in-flux/in-flux.git
-cd in-flux
+git clone git@github.com:in-flux/component-router.git
+cd component-router
 npm install
 npm start
 
@@ -310,7 +310,7 @@ To run Quick-start example, use `npm run quickstart`
 
 ## Demo
 
-[http://nkbt.github.io/in-flux/example](http://nkbt.github.io/in-flux/example)
+[http://nkbt.github.io/component-router/example](http://nkbt.github.io/component-router/example)
 
 ## Tests
 
