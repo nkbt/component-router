@@ -12,7 +12,7 @@ const Empty = React.createClass({
 });
 
 
-const InFlux = React.createClass({
+const ComponentRouter = React.createClass({
   propTypes: {
     config: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]).isRequired,
     children: React.PropTypes.node,
@@ -70,7 +70,7 @@ const InFlux = React.createClass({
     const value = namespace in this.state.query ?
       this.state.query[namespace] : config[getDefault()];
 
-    const inFlux = {
+    const componentRouter = {
       namespace,
       value,
       keys: [],
@@ -85,18 +85,18 @@ const InFlux = React.createClass({
         // React will render custom component only if it starts from capital letter
         const Child = config;
 
-        return <Child inFlux={Object.assign(inFlux, {Component: Empty})} />;
+        return <Child componentRouter={Object.assign(componentRouter, {Component: Empty})} />;
       }
 
       // In case of non-empty children, we should pass Component from config
       return React.cloneElement(React.Children.only(this.props.children),
-        {inFlux: Object.assign(inFlux, {Component: config})});
+        {componentRouter: Object.assign(componentRouter, {Component: config})});
     }
 
 
     // For static values we can pass config, keys and try to find active component
     return React.cloneElement(React.Children.only(this.props.children), {
-      inFlux: Object.assign(inFlux, {
+      componentRouter: Object.assign(componentRouter, {
         keys: Object.keys(config).filter(key => key !== getDefault()),
         config,
         Component: value && config[value] || Empty
@@ -106,4 +106,4 @@ const InFlux = React.createClass({
 });
 
 
-export default InFlux;
+export default ComponentRouter;

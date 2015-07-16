@@ -3,13 +3,13 @@ import React from 'react';
 
 const DynamicListContainer = React.createClass({
   propTypes: {
-    inFlux: React.PropTypes.object,
+    componentRouter: React.PropTypes.object,
     values: React.PropTypes.arrayOf(React.PropTypes.number).isRequired
   },
 
 
   render() {
-    const {Component} = this.props.inFlux;
+    const {Component} = this.props.componentRouter;
 
     return (
       <div>

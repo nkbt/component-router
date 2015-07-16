@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactSwap from 'react-swap';
-import {InFlux, LocationHtml4} from '../index';
+import {ComponentRouter, LocationHtml4} from '../index';
 import styles from './Example.css';
 
 
@@ -23,21 +23,21 @@ const App = React.createClass({
         <h1>In Flux</h1>
 
         <h2>Block 1</h2>
-        <InFlux config={{
+        <ComponentRouter config={{
             [getDefault()]: 'Second',
             First: GreenBlock,
             Second: RedBlock
           }} namespace="block1">
           <Block />
-        </InFlux>
+        </ComponentRouter>
 
         <h2>Block 2</h2>
-        <InFlux config={{
+        <ComponentRouter config={{
             X: GreenBlock,
             Y: RedBlock
           }} namespace="block2">
           <Block />
-        </InFlux>
+        </ComponentRouter>
 
         <h2>Block 3</h2>
         <p>Adds and removes query params</p>
@@ -47,23 +47,23 @@ const App = React.createClass({
           </div>
           <div>
             <button data-swap-handler={1}>Close</button>
-            <InFlux config={{
+            <ComponentRouter config={{
                 [getDefault()]: 'Hello',
                 Hello: GreenBlock,
                 World: RedBlock
               }} namespace="block3">
               <Block />
-            </InFlux>
+            </ComponentRouter>
           </div>
         </ReactSwap>
 
         <h2>Dynamic list example</h2>
-        <InFlux config={DynamicList} namespace="list" />
+        <ComponentRouter config={DynamicList} namespace="list" />
 
         <h2>Dynamic list with children example</h2>
-        <InFlux config={DynamicList} namespace="list2">
+        <ComponentRouter config={DynamicList} namespace="list2">
           <DynamicListContainer values={[1, 2, 3, 4]} />
-        </InFlux>
+        </ComponentRouter>
 
         <h2>Links examples</h2>
         <RandomLinks />

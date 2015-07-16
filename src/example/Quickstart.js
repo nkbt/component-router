@@ -1,14 +1,14 @@
 import React from 'react';
-import {InFlux, Url, LocationHtml5} from '..';
+import {ComponentRouter, Url, LocationHtml5} from '..';
 
 
 const Chart = React.createClass({
   propTypes: {
-    inFlux: React.PropTypes.object
+    componentRouter: React.PropTypes.object
   },
 
   render() {
-    const {namespace, Component} = this.props.inFlux;
+    const {namespace, Component} = this.props.componentRouter;
 
     return (
       <div>
@@ -25,11 +25,11 @@ const Chart = React.createClass({
 
 const Filter = React.createClass({
   propTypes: {
-    inFlux: React.PropTypes.object
+    componentRouter: React.PropTypes.object
   },
 
   render() {
-    const {namespace, Component} = this.props.inFlux;
+    const {namespace, Component} = this.props.componentRouter;
 
     return (
       <div>
@@ -46,11 +46,11 @@ const Filter = React.createClass({
 
 const Data = React.createClass({
   propTypes: {
-    inFlux: React.PropTypes.object
+    componentRouter: React.PropTypes.object
   },
 
   render() {
-    const {namespace, Component} = this.props.inFlux;
+    const {namespace, Component} = this.props.componentRouter;
 
     return (
       <div>
@@ -108,15 +108,15 @@ const App = React.createClass({
       <div>
         <LocationHtml5 />
 
-        <InFlux config={{bar: ChartBar, pie: ChartPie}} namespace="chart">
+        <ComponentRouter config={{bar: ChartBar, pie: ChartPie}} namespace="chart">
           <Chart />
-        </InFlux>
-        <InFlux config={{opened: FilterOpened, closed: FilterClosed}} namespace="filter">
+        </ComponentRouter>
+        <ComponentRouter config={{opened: FilterOpened, closed: FilterClosed}} namespace="filter">
           <Filter />
-        </InFlux>
-        <InFlux config={{sources: DataSources, destinations: DataDestinations}} namespace="data">
+        </ComponentRouter>
+        <ComponentRouter config={{sources: DataSources, destinations: DataDestinations}} namespace="data">
           <Data />
-        </InFlux>
+        </ComponentRouter>
       </div>
     );
   }
