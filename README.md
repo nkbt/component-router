@@ -1,9 +1,9 @@
 # component-router
 
-[![Circle CI](https://circleci.com/gh/component-router/component-router.svg?style=svg)](https://circleci.com/gh/component-router/component-router)
-[![Coverage Status](https://coveralls.io/repos/component-router/component-router/badge.svg?branch=master)](https://coveralls.io/r/component-router/component-router?branch=master)
-[![Dependency Status](https://david-dm.org/component-router/component-router.svg)](https://david-dm.org/component-router/component-router)
-[![devDependency Status](https://david-dm.org/component-router/component-router/dev-status.svg)](https://david-dm.org/component-router/component-router#info=devDependencies)
+[![Circle CI](https://circleci.com/gh/in-flux/component-router.svg?style=svg)](https://circleci.com/gh/in-flux/component-router)
+[![Coverage Status](https://coveralls.io/repos/in-flux/component-router/badge.svg?branch=master)](https://coveralls.io/r/in-flux/component-router?branch=master)
+[![Dependency Status](https://david-dm.org/in-flux/component-router.svg)](https://david-dm.org/in-flux/component-router)
+[![devDependency Status](https://david-dm.org/in-flux/component-router/dev-status.svg)](https://david-dm.org/in-flux/component-router#info=devDependencies)
 
 Flux-based partial routing solution
 
@@ -11,7 +11,7 @@ Flux-based partial routing solution
 
 **WARNING** Work in progress, though most of the functionality is there.
 
-See [issues](https://github.com/component-router/component-router/issues) for more info on what is going to happen.
+See [issues](https://github.com/in-flux/component-router/issues) for more info on what is going to happen.
 
 
 ## Idea
@@ -293,7 +293,7 @@ const Data = React.createClass({
 To run comprehensive example covering all `ComponentRouter` features, use `npm start`, which will compile `src/example/Example.js`
 
 ```bash
-git clone git@github.com:component-router/component-router.git
+git clone git@github.com:in-flux/component-router.git
 cd component-router
 npm install
 npm start
