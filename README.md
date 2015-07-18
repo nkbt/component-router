@@ -310,7 +310,7 @@ To run Quick-start example, use `npm run quickstart`
 
 ## Demo
 
-[http://nkbt.github.io/component-router/example](http://nkbt.github.io/component-router/example)
+[http://in-flux.github.io/component-router/example](http://in-flux.github.io/component-router/example)
 
 ## Tests
 
