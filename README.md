@@ -231,7 +231,7 @@ We will also use `Url` component provided by `component-router` to render dynami
   ```js
 import {Url} from 'component-router';
 
-onst Chart = React.createClass({
+const Chart = React.createClass({
   render() {
     const {namespace, Component} = this.props.componentRouter;
     return (
