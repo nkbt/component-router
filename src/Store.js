@@ -80,7 +80,9 @@ const removeParam = ({namespace}) => {
 
 
 const changeLocation = url => {
-  return changeParams(safeParams(urlUtil.parseHref(url)));
+  const {pathname: newPathname, query: newQuery} = safeParams(urlUtil.parseHref(url));
+
+  return changeParams({pathname: newPathname, query: Object.assign({}, defaultParams, newQuery)});
 };
 
 

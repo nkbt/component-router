@@ -35,11 +35,6 @@ const ComponentRouter = React.createClass({
   },
 
 
-  componentWillMount() {
-    this.checkDefaultParam(this.props);
-  },
-
-
   componentWillReceiveProps(props) {
     this.checkDefaultParam(props);
   },
@@ -47,12 +42,13 @@ const ComponentRouter = React.createClass({
 
   componentDidMount() {
     this.unsubscribe = Store.addThrottledChangeListener(this.onChange, 50);
+    this.checkDefaultParam(this.props);
   },
 
 
   componentWillUnmount() {
-    ActionCreator.removeParam({namespace: this.props.namespace});
     this.unsubscribe();
+    setTimeout(() => ActionCreator.removeParam({namespace: this.props.namespace}), 0);
   },
 
 
@@ -61,7 +57,7 @@ const ComponentRouter = React.createClass({
     const defaultParams = Store.getDefaultParams();
 
     if (value && (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== value)) {
-      ActionCreator.addDefaultParam({namespace, value});
+      setTimeout(() => ActionCreator.addDefaultParam({namespace, value}), 0);
     }
   },
 
