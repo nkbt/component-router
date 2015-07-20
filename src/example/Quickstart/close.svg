@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" preserveAspectRatio="xMidYMid" width="20" height="20" viewBox="0 0 20 20">
+  <defs>
+    <style>
+
+      .cls-3 {
+        stroke: #b2b6c2;
+        stroke-linecap: round;
+        stroke-width: 2px;
+        fill: none;
+      }
+    </style>
+  </defs>
+  <g id="close-button">
+    <path d="M1,1 C1,1 19,19 19,19" id="path-1" class="cls-3" fill-rule="evenodd"/>
+    <path d="M19,1 C19,1 1,19 1,19" id="path-2" class="cls-3" fill-rule="evenodd"/>
+  </g>
+</svg>

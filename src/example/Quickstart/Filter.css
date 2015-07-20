@@ -1,0 +1,56 @@
+.filters {
+  position: relative;
+  min-width: 68px;
+  order: 1;
+  background: #f5f6f9;
+}
+
+.content {
+  width: 100%;
+  max-width: 550px;
+  min-width: 205px;
+}
+
+.filter {
+  display: block;
+  overflow-x: hidden;
+  position: relative;
+  background: #f5f6f9;
+  min-height: 68px;
+}
+
+.filtersHeading {
+  display: flex;
+  align-items: center;
+  margin: 25px;
+}
+
+.filtersHeading h4 {
+  font-size: 16px;
+  color: #b2b6c2;
+  flex: 1 1;
+  padding-left: 24px;
+}
+
+.filtersIcon {
+  background: url("./filter.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+  min-width: 18px;
+  height: 18px;
+  position: absolute;
+  top: 23px;
+  left: 25px;
+}
+
+.hideButton {
+  background: url("./close.svg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 14px;
+  width: 14px;
+  height: 14px;
+  padding: 25px;
+  margin: -25px;
+  cursor: pointer;
+}

@@ -2,6 +2,8 @@ import React from 'react';
 import {ComponentRouter, Url} from '../..';
 import styles from './Quickstart.css';
 
+import Filter from './Filter';
+
 
 const Chart = React.createClass({
   propTypes: {
@@ -23,6 +25,7 @@ const Chart = React.createClass({
   }
 });
 
+/*
 
 const Filter = React.createClass({
   propTypes: {
@@ -44,6 +47,7 @@ const Filter = React.createClass({
   }
 });
 
+*/
 
 const Data = React.createClass({
   propTypes: {
@@ -78,17 +82,6 @@ const ChartPie = React.createClass({
   }
 });
 
-const FilterClosed = React.createClass({
-  render() {
-    return <h3>Closed</h3>;
-  }
-});
-
-const FilterOpened = React.createClass({
-  render() {
-    return <h3>Opened</h3>;
-  }
-});
 
 const DataSources = React.createClass({
   render() {
@@ -103,24 +96,39 @@ const DataDestinations = React.createClass({
 });
 
 
+const FilterWrapper = React.createClass({
+  propTypes: {
+    componentRouter: React.PropTypes.object
+  },
+
+
+  render() {
+    const {value} = this.props.componentRouter;
+
+    return <Filter isOpened={value === 'opened'} />;
+  }
+});
+
+
 const Quickstart = React.createClass({
   render() {
     return (
       <div className={styles.quickstart}>
 
-        <ComponentRouter config={{bar: ChartBar, pie: ChartPie}} namespace="chart">
-          <Chart />
-        </ComponentRouter>
+        <ComponentRouter config={FilterWrapper} namespace="filter" />
 
-        <ComponentRouter config={{opened: FilterOpened, closed: FilterClosed}} namespace="filter">
-          <Filter />
-        </ComponentRouter>
+        <div className={styles.content}>
 
-        <ComponentRouter config={{sources: DataSources, destinations: DataDestinations}}
-          namespace="data">
-          <Data />
-        </ComponentRouter>
+          <ComponentRouter config={{bar: ChartBar, pie: ChartPie}} namespace="chart">
+            <Chart />
+          </ComponentRouter>
 
+          <ComponentRouter config={{sources: DataSources, destinations: DataDestinations}}
+            namespace="data">
+            <Data />
+          </ComponentRouter>
+
+        </div>
       </div>
     );
   }

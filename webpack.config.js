@@ -40,6 +40,7 @@ module.exports = {
 
   module: {
     loaders: [
+      {test: /\.svg$/, loader: 'url?&mimetype=image/svg+xml'},
       {test: /\.js$/, loaders: ['react-hot', 'babel'], include: [path.resolve('src')]},
       {
         test: /\.css$/,
