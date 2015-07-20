@@ -31,6 +31,9 @@ const Header = React.createClass({
             <li>
               <Url query={{page: 'dynamic'}} isActiveClass={styles.active}>Dynamic values</Url>
             </li>
+            <li className={styles.github}>
+              <a href="https://github.com/in-flux/component-router" target="_blank">GitHub</a>
+            </li>
           </ul>
         </nav>
       </header>
