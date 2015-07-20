@@ -3,6 +3,7 @@ import classnames from 'classnames';
 import Store from './Store';
 import ActionCreator from './ActionCreator';
 import urlUtil from './urlUtil';
+import shallowEqual from 'react/lib/shallowEqual';
 
 
 const Url = React.createClass({
@@ -29,6 +30,13 @@ const Url = React.createClass({
       query: Store.getQuery(),
       pathname: Store.getPathname()
     };
+  },
+
+
+  shouldComponentUpdate(newProps, newState) {
+    return !shallowEqual(newProps, this.props) || !shallowEqual(newState,
+        this.state) || !shallowEqual(newProps.query,
+        this.props.query) || !shallowEqual(newState.query, this.state.query);
   },
 
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import Store from './Store';
 import ActionCreator from './ActionCreator';
-import isFunction from 'lodash/lang/isFunction';
+import isFunction from 'lodash.isfunction';
 import getDefault from './getDefault';
+import shallowEqual from 'react/lib/shallowEqual';
 
 
 const Empty = React.createClass({
@@ -17,6 +18,13 @@ const ComponentRouter = React.createClass({
     config: React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.func]).isRequired,
     children: React.PropTypes.node,
     namespace: React.PropTypes.string.isRequired
+  },
+
+
+  shouldComponentUpdate({namespace, config = {}}, {query = {}}) {
+    return namespace !== this.props.namespace ||
+      !shallowEqual(config, this.props.config) ||
+      !shallowEqual(query, this.state.query);
   },
 
 
@@ -38,7 +46,7 @@ const ComponentRouter = React.createClass({
 
 
   componentDidMount() {
-    this.unsubscribe = Store.addChangeListener(this.onChange);
+    this.unsubscribe = Store.addThrottledChangeListener(this.onChange, 50);
   },
 
 
@@ -50,8 +58,9 @@ const ComponentRouter = React.createClass({
 
   checkDefaultParam(props) {
     const {namespace, config: {[getDefault()]: value}} = props;
+    const defaultParams = Store.getDefaultParams();
 
-    if (value) {
+    if (value && (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== value)) {
       ActionCreator.addDefaultParam({namespace, value});
     }
   },

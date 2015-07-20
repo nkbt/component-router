@@ -1,54 +1,86 @@
-import sortedObject from 'sorted-object';
+import sortedObject from './sortedObject';
 import FluxCommonStore from 'flux-common-store';
 import Constants from './Constants';
 import Dispatcher from './Dispatcher';
 import urlUtil from './urlUtil';
-import isNull from 'lodash/lang/isNull';
-import isUndefined from 'lodash/lang/isUndefined';
+import isNull from 'lodash.isnull';
+import isUndefined from 'lodash.isundefined';
+import shallowEqual from 'react/lib/shallowEqual';
 
 
 const safeParams = params => {
+  const newQuery = isNull(params.query) || isUndefined(params.query) ? {} : params.query;
+
+  Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
+
   return {
     pathname: isNull(params.pathname) || isUndefined(params.pathname) ? '/' : params.pathname,
-    query: isNull(params.query) || isUndefined(params.query) ? {} : params.query
+    query: newQuery
   };
 };
 
 
-let location = '';
-let {pathname, query} = safeParams(urlUtil.parseHref(location));
+let pathname = '/';
+let query = {};
 
 
 const defaultParams = {};
 
 
 const changeParams = params => {
+  let isChanged = false;
   const newParams = urlUtil.merge({pathname, query}, params);
+  const newQuery = sortedObject(Object.assign({}, defaultParams, newParams.query));
 
-  pathname = newParams.pathname;
-  query = sortedObject(Object.assign({}, defaultParams, newParams.query));
+
+  if (pathname !== newParams.pathname) {
+    pathname = newParams.pathname;
+    isChanged = true;
+  }
+
+  if (!shallowEqual(newQuery, query)) {
+    query = newQuery;
+    isChanged = true;
+  }
+
+  return isChanged;
 };
 
 
 const addDefaultParam = ({namespace, value}) => {
-  defaultParams[namespace] = value;
-  query = sortedObject(Object.assign({}, defaultParams, query));
+  let isChanged = false;
+  const stringValue = `${value}`;
+
+  if (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== stringValue) {
+    defaultParams[namespace] = stringValue;
+    query = sortedObject(Object.assign({}, defaultParams, query));
+    isChanged = true;
+  }
+
+  return isChanged;
 };
 
 
 const removeParam = ({namespace}) => {
-  delete defaultParams[namespace];
-  delete query[namespace];
-  query = sortedObject(query);
+  let isChanged = false;
+
+  if (defaultParams.hasOwnProperty(namespace)) {
+    delete defaultParams[namespace];
+    isChanged = true;
+  }
+
+  if (query.hasOwnProperty(namespace)) {
+    delete query[namespace];
+    query = sortedObject(query);
+    isChanged = true;
+  }
+
+  return isChanged;
 };
 
 
 const changeLocation = url => {
-  const newParams = safeParams(urlUtil.parseHref(url));
-
-  location = url;
-  pathname = newParams.pathname;
-  query = sortedObject(Object.assign({}, defaultParams, newParams.query));
+  return changeParams(safeParams(urlUtil.parseHref(url)));
 };
 
 
@@ -88,23 +120,27 @@ Store.setMaxListeners(0);
 Store.dispatchToken = Dispatcher.register(({actionType, payload}) => {
   switch (actionType) {
     case Constants.NAVIGATE_TO:
-      changeParams(safeParams(payload));
-      Store.emitChange();
+      if (changeParams(safeParams(payload))) {
+        Store.emitChange();
+      }
       break;
 
     case Constants.ADD_DEFAULT_PARAM:
-      addDefaultParam(payload);
-      Store.emitChange();
+      if (addDefaultParam(payload)) {
+        Store.emitChange();
+      }
       break;
 
     case Constants.REMOVE_PARAM:
-      removeParam(payload);
-      Store.emitChange();
+      if (removeParam(payload)) {
+        Store.emitChange();
+      }
       break;
 
     case Constants.RESTORE_LOCATION:
-      changeLocation(payload.location);
-      Store.emitChange();
+      if (changeLocation(payload.location)) {
+        Store.emitChange();
+      }
       break;
 
     default:

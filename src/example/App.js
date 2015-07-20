@@ -6,6 +6,7 @@ import styles from './App.css';
 import FooBar from './FooBar';
 import Quickstart from './Quickstart';
 import RandomLinks from './RandomLinks';
+import Blocks from './Blocks';
 
 
 const Header = React.createClass({
@@ -22,6 +23,9 @@ const Header = React.createClass({
             </li>
             <li>
               <Url query={{page: 'links'}} isActiveClass={styles.active}>Random Links</Url>
+            </li>
+            <li>
+              <Url query={{page: 'blocks'}} isActiveClass={styles.active}>Blocks</Url>
             </li>
           </ul>
         </nav>
@@ -60,7 +64,8 @@ const App = React.createClass({
           [getDefault()]: 'foobar',
           foobar: FooBar,
           quickstart: Quickstart,
-          links: RandomLinks
+          links: RandomLinks,
+          blocks: Blocks
         }}>
           <Content />
         </ComponentRouter>

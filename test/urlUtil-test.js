@@ -4,13 +4,13 @@ describe('urlUtil', () => {
 
 
   beforeEach(() => {
-    sorted = jasmine.createSpy('sorted-object');
+    sorted = jasmine.createSpy('sortedObject');
     sorted.and.callFake(v => v);
   });
 
 
   beforeEach(() => urlUtil = urlUtilInjector({
-    'sorted-object': sorted
+    './sortedObject': sorted
   }));
 
 

@@ -1,5 +1,5 @@
 import url from 'url';
-import sortedObject from 'sorted-object';
+import sortedObject from './sortedObject';
 
 
 const parseHref = (href) => {
