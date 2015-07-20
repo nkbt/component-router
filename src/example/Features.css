@@ -1,0 +1,11 @@
+.features {
+}
+
+.features a {
+  color: #06c;
+  text-decoration: none;
+}
+
+.features :global .active {
+  color: #f00;
+}

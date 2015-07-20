@@ -1,11 +1,12 @@
-.Example {
+.links {
+  padding: 2em;
 }
 
-.Example a {
+.links a {
   color: #06c;
   text-decoration: none;
 }
 
-.Example :global .active {
+.links :global .active {
   color: #f00;
 }

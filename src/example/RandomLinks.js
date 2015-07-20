@@ -1,5 +1,6 @@
 import React from 'react';
-import {Url} from '../index';
+import {Url} from '..';
+import styles from './RandomLinks.css';
 
 
 const test = [
@@ -38,7 +39,8 @@ const LinkExample = React.createClass({
 const RandomLinks = React.createClass({
   render() {
     return (
-      <div>
+      <div className={styles.links}>
+        <h2>Links examples</h2>
         {test.map((props, i) => <LinkExample key={i} {...props} />)}
       </div>
     );

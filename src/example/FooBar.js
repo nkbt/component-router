@@ -1,5 +1,5 @@
 import React from 'react';
-import {ComponentRouter, Url, LocationHtml5} from '..';
+import {ComponentRouter, Url} from '..';
 
 
 const Baz = React.createClass({
@@ -14,11 +14,10 @@ const Baz = React.createClass({
   }
 });
 
-const App = React.createClass({
+const FooBar = React.createClass({
   render() {
     return (
       <div>
-        <LocationHtml5 />
         <Url query={{baz: 'foo'}}>Foo</Url> | <Url query={{baz: 'bar'}}>Bar</Url>
         <ComponentRouter config={Baz} namespace="baz" />
       </div>
@@ -26,4 +25,5 @@ const App = React.createClass({
   }
 });
 
-React.render(<App />, document.body);
+
+export default FooBar;

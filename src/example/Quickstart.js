@@ -1,5 +1,5 @@
 import React from 'react';
-import {ComponentRouter, Url, LocationHtml5} from '..';
+import {ComponentRouter, Url} from '..';
 
 
 const Chart = React.createClass({
@@ -102,12 +102,10 @@ const DataDestinations = React.createClass({
 });
 
 
-const App = React.createClass({
+const Quickstart = React.createClass({
   render() {
     return (
       <div>
-        <LocationHtml5 />
-
         <ComponentRouter config={{bar: ChartBar, pie: ChartPie}} namespace="chart">
           <Chart />
         </ComponentRouter>
@@ -123,4 +121,5 @@ const App = React.createClass({
   }
 });
 
-React.render(<App />, document.body);
+
+export default Quickstart;
