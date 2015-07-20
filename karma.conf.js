@@ -4,27 +4,17 @@
 var path = require('path');
 
 
-var webpackConfig = {
-  devtool: 'eval',
-  resolve: {
-    extensions: ['', '.js']
-  },
-  module: {
-    loaders: process.env.COVERAGE ?
-      [
-        {test: /\.js$/, loader: 'babel', include: [path.resolve('./test')]},
-        {test: /\.js$/, loader: 'isparta', include: [path.resolve('./src')]}
-      ] :
-      [
-        {
-          test: /\.js$/, loader: 'babel', include: [path.resolve('./src'), path.resolve('./test')]
-        }
-      ]
-  },
-  stats: {
-    colors: true
-  }
-};
+var preLoaders = process.env.COVERAGE ?
+  [
+    {test: /\.js$/, loader: 'babel', include: [path.resolve('test')]},
+    {test: /\.js$/, loader: 'isparta', include: [path.resolve('src')]}
+  ] :
+  [
+    {test: /\.js$/, loader: 'babel', include: [path.resolve('src'), path.resolve('test')]}
+  ];
+
+
+var coverageDir = path.resolve(path.join(process.env.CIRCLE_ARTIFACTS || './reports', 'coverage'));
 
 
 module.exports = function (config) {
@@ -36,39 +26,35 @@ module.exports = function (config) {
       'test/utils/mockedWindow.js',
       'test/index.js'
     ],
-    webpack: webpackConfig,
+    webpack: {
+      devtool: 'eval',
+      resolve: {
+        extensions: ['', '.js']
+      },
+      module: {preLoaders: preLoaders},
+      stats: {colors: true}
+    },
     webpackMiddleware: {
-      stats: {
-        chunkModules: false,
-        colors: true
-      }
+      quiet: true
     },
     exclude: [],
     preprocessors: {
       'test/index.js': ['webpack']
     },
     reporters: ['progress'],
-    coverageReporter: process.env.CIRCLE_ARTIFACTS ? {
-      dir: process.env.CIRCLE_ARTIFACTS + '/coverage/',
+    junitReporter: {
+      outputDir: path.resolve(process.env.CIRCLE_TEST_REPORTS || './reports'),
+      suite: ''
+    },
+    coverageReporter: {
+      dir: coverageDir,
       subdir: '.',
       reporters: [
         {type: 'html'},
         {type: 'lcovonly'},
-        {type: 'text'}
-      ]
-    } : {
-      dir: './coverage/',
-      subdir: '.',
-      reporters: [
-        {type: 'html'},
-        {type: 'lcovonly'},
-        {type: 'text', file: 'text.txt'},
+        {type: 'text'},
         {type: 'text-summary', file: 'text-summary.txt'}
       ]
-    },
-    junitReporter: {
-      outputFile: process.env.CIRCLE_TEST_REPORTS + '/karma.xml',
-      suite: ''
     },
     captureTimeout: 90000,
     browserNoActivityTimeout: 60000,
