@@ -1,21 +1,18 @@
 import React from 'react';
 
-import ReactSwap from 'react-swap';
-import {ComponentRouter} from '..';
 import styles from './Features.css';
 
-import {getDefault} from '../index';
-import RedBlock from './RedBlock';
-import GreenBlock from './GreenBlock';
-import DynamicList from './DynamicList';
-
-import Block from './Block';
-import DynamicListContainer from './DynamicListContainer';
 import RandomLinks from './RandomLinks';
 
 /*
 
-
+import ReactSwap from 'react-swap';
+import {ComponentRouter, getDefault} from '..';
+import RedBlock from './RedBlock';
+import GreenBlock from './GreenBlock';
+import DynamicList from './DynamicList';
+import Block from './Block';
+import DynamicListContainer from './DynamicListContainer';
 
 <h2>Block 2</h2>
 <ComponentRouter config={{
@@ -51,18 +48,14 @@ import RandomLinks from './RandomLinks';
   <DynamicListContainer values={[1, 2, 3, 4]} />
 </ComponentRouter>
 
-
-
-
-
-        <h2>Block 1</h2>
-        <ComponentRouter namespace="block1" config={{
-            [getDefault()]: 'Second',
-            First: GreenBlock,
-            Second: RedBlock
-          }}>
-          <Block />
-        </ComponentRouter>
+<h2>Block 1</h2>
+<ComponentRouter namespace="block1" config={{
+    [getDefault()]: 'Second',
+    First: GreenBlock,
+    Second: RedBlock
+  }}>
+  <Block />
+</ComponentRouter>
 */
 
 const Features = React.createClass({

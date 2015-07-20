@@ -5,7 +5,6 @@ import styles from './App.css';
 
 import FooBar from './FooBar';
 import Quickstart from './Quickstart';
-import Features from './Features';
 import RandomLinks from './RandomLinks';
 
 
