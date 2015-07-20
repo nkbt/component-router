@@ -1,5 +1,5 @@
 import React from 'react';
-import {Url} from '../index';
+import {Url} from '../..';
 import styles from './Tabs.css';
 
 
@@ -16,7 +16,7 @@ const Tabs = React.createClass({
 
     delete props.tabs;
     return (
-      <ul {...props} className={styles.Tabs}>
+      <ul {...props} className={styles.tabs}>
         {tabs.map(tab => (
           <li key={tab}>
             <Url query={{[namespace]: tab}}>{tab}</Url>

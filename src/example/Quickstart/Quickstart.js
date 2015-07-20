@@ -1,6 +1,5 @@
 import React from 'react';
-import {ComponentRouter, Url} from '..';
-
+import {ComponentRouter, Url} from '../..';
 
 const Chart = React.createClass({
   propTypes: {

@@ -1,6 +1,6 @@
 import React from 'react';
-import {Url} from '..';
-import styles from './RandomLinks.css';
+import {Url} from '../..';
+import styles from './Links.css';
 
 
 const test = [
@@ -36,7 +36,7 @@ const LinkExample = React.createClass({
 });
 
 
-const RandomLinks = React.createClass({
+const Links = React.createClass({
   render() {
     return (
       <div className={styles.links}>
@@ -48,4 +48,4 @@ const RandomLinks = React.createClass({
 });
 
 
-export default RandomLinks;
+export default Links;

@@ -3,10 +3,10 @@ import React from 'react';
 import {ComponentRouter, LocationHtml4, getDefault, Url} from '..';
 import styles from './App.css';
 
-import FooBar from './FooBar';
-import Quickstart from './Quickstart';
-import RandomLinks from './RandomLinks';
-import Blocks from './Blocks';
+import FooBar from './FooBar/FooBar';
+import Quickstart from './Quickstart/Quickstart';
+import Links from './Links/Links';
+import Blocks from './Blocks/Blocks';
 
 
 const Header = React.createClass({
@@ -64,7 +64,7 @@ const App = React.createClass({
           [getDefault()]: 'foobar',
           foobar: FooBar,
           quickstart: Quickstart,
-          links: RandomLinks,
+          links: Links,
           blocks: Blocks
         }}>
           <Content />

@@ -1,19 +1,18 @@
-.Tabs {
+.tabs {
   list-style: none;
-  margin: 0;
-  padding: 0.5em;
+  margin-bottom: 1em;
   line-height: 2em;
 }
 
-.Tabs li {
+.tabs li {
   display: inline-block;
 }
 
-.Tabs li + li {
+.tabs li + li {
   margin-left: 1em;
 }
 
-.Tabs li a {
+.tabs li a {
   padding: 0.5em 1em;
   background: #fff;
   border-radius: 1em;
