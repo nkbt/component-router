@@ -1,0 +1,36 @@
+.filters {
+  position: relative;
+  min-width: 68px;
+  order: 1;
+  background: rgba(255, 0, 0, 0.1);
+}
+
+.content {
+  width: 100%;
+  max-width: 550px;
+  min-width: 205px;
+}
+
+.filter {
+  display: block;
+  overflow-x: hidden;
+  position: relative;
+  background: rgba(255, 0, 0, 0.1);
+  min-height: 68px;
+}
+
+.header {
+  font-size: 2em;
+  color: rgba(255, 0, 0, 0.4);
+  padding: 0.5em;
+}
+
+.toggle {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+
+  font-size: 2em;
+  color: rgba(255, 0, 0, 0.4);
+}
+
