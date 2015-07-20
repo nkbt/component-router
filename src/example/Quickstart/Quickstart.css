@@ -1,11 +1,11 @@
-.features {
+.quickstart {
 }
 
-.features a {
+.quickstart a {
   color: #06c;
   text-decoration: none;
 }
 
-.features :global .active {
+.quickstart :global .active {
   color: #f00;
 }

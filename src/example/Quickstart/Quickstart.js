@@ -1,5 +1,7 @@
 import React from 'react';
 import {ComponentRouter, Url} from '../..';
+import styles from './Quickstart.css';
+
 
 const Chart = React.createClass({
   propTypes: {
@@ -104,17 +106,21 @@ const DataDestinations = React.createClass({
 const Quickstart = React.createClass({
   render() {
     return (
-      <div>
+      <div className={styles.quickstart}>
+
         <ComponentRouter config={{bar: ChartBar, pie: ChartPie}} namespace="chart">
           <Chart />
         </ComponentRouter>
+
         <ComponentRouter config={{opened: FilterOpened, closed: FilterClosed}} namespace="filter">
           <Filter />
         </ComponentRouter>
+
         <ComponentRouter config={{sources: DataSources, destinations: DataDestinations}}
           namespace="data">
           <Data />
         </ComponentRouter>
+
       </div>
     );
   }
