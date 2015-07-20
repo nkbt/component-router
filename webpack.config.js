@@ -7,7 +7,7 @@ var env = process.env.NODE_ENV || 'production';
 var eslintLoader = {
   test: /\.js$/,
   loaders: ['eslint'],
-  include: [new RegExp(path.join(__dirname, 'src'))]
+  include: path.resolve('src')
 };
 
 
