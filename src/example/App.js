@@ -62,6 +62,7 @@ const App = React.createClass({
     return (
       <div className={styles.app}>
         <LocationHtml4 />
+
         <Header />
 
         <ComponentRouter namespace="page" config={{

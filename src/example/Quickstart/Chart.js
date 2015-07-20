@@ -4,12 +4,23 @@ import styles from './Chart.css';
 
 
 const Bar = React.createClass({
+  shouldComponentUpdate() {
+    return false;
+  },
+
+
   render() {
     return <h3>Bar</h3>;
   }
 });
 
+
 const Pie = React.createClass({
+  shouldComponentUpdate() {
+    return false;
+  },
+
+
   render() {
     return <h3>Pie</h3>;
   }
@@ -19,6 +30,11 @@ const Pie = React.createClass({
 const Content = React.createClass({
   propTypes: {
     componentRouter: React.PropTypes.object
+  },
+
+
+  shouldComponentUpdate({componentRouter: {Component}}) {
+    return Component !== this.props.componentRouter.Component;
   },
 
 
@@ -34,6 +50,12 @@ const Chart = React.createClass({
   propTypes: {
     height: React.PropTypes.number
   },
+
+
+  shouldComponentUpdate({height}) {
+    return height !== this.props.height;
+  },
+
 
   render() {
     const {height} = this.props;

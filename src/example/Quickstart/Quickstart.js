@@ -12,6 +12,11 @@ const FilterWrapper = React.createClass({
   },
 
 
+  shouldComponentUpdate({componentRouter: {value}}) {
+    return value !== this.props.componentRouter.value;
+  },
+
+
   render() {
     const {value} = this.props.componentRouter;
 
@@ -26,6 +31,11 @@ const ContentWrapper = React.createClass({
   },
 
 
+  shouldComponentUpdate({componentRouter: {value}}) {
+    return value !== this.props.componentRouter.value;
+  },
+
+
   render() {
     const {value} = this.props.componentRouter;
 
@@ -35,6 +45,11 @@ const ContentWrapper = React.createClass({
 
 
 const Quickstart = React.createClass({
+  shouldComponentUpdate() {
+    return false;
+  },
+
+
   render() {
     return (
       <div className={styles.quickstart}>

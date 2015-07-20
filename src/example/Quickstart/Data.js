@@ -4,12 +4,22 @@ import styles from './Data.css';
 
 
 const Sources = React.createClass({
+  shouldComponentUpdate() {
+    return false;
+  },
+
+
   render() {
     return <h3>Sources</h3>;
   }
 });
 
 const Destinations = React.createClass({
+  shouldComponentUpdate() {
+    return false;
+  },
+
+
   render() {
     return <h3>Destinations</h3>;
   }
@@ -19,6 +29,11 @@ const Destinations = React.createClass({
 const Content = React.createClass({
   propTypes: {
     componentRouter: React.PropTypes.object
+  },
+
+
+  shouldComponentUpdate({componentRouter: {Component}}) {
+    return Component !== this.props.componentRouter.Component;
   },
 
 
@@ -34,6 +49,12 @@ const Data = React.createClass({
   propTypes: {
     height: React.PropTypes.number
   },
+
+
+  shouldComponentUpdate({height}) {
+    return height !== this.props.height;
+  },
+
 
   render() {
     const {height} = this.props;
@@ -53,8 +74,6 @@ const Data = React.createClass({
         }}>
           <Content />
         </ComponentRouter>
-
-
       </div>
     );
   }

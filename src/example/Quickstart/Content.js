@@ -12,6 +12,11 @@ const Content = React.createClass({
   },
 
 
+  shouldComponentUpdate({expanded}) {
+    return expanded !== this.props.expanded;
+  },
+
+
   render() {
     const {expanded} = this.props;
 
