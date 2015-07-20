@@ -5,7 +5,7 @@
 [![Dependency Status](https://david-dm.org/in-flux/component-router.svg)](https://david-dm.org/in-flux/component-router)
 [![devDependency Status](https://david-dm.org/in-flux/component-router/dev-status.svg)](https://david-dm.org/in-flux/component-router#info=devDependencies)
 
-Flux-based partial routing solution
+Flux-based routing solution for components
 
 **Not a replacement for `react-router`.** Could be used as addition to it. Or standalone.
 
@@ -95,7 +95,7 @@ React.render(<App />, document.body);
 
   ![foobar.gif](src/example/foobar.gif)
 
-  You can run the Minimal example with `npm run foobar`, it is shipped with the source code.
+  You can see the Minimal example on demo page http://in-flux.github.io/component-router/example/#/?page=foobar.
 
 
 ## Quick-start
@@ -286,7 +286,7 @@ const Data = React.createClass({
   **NOTE** href changes, so we can open link in new tab.
   
   
-  You can run the full Quickstart example with `npm run example`, it is shipped with the source code.
+  You can see the full QuickStart example on Demo page http://in-flux.github.io/component-router/example/#/?page=quickstart.
   
 ## Development and testing
 
@@ -301,11 +301,6 @@ npm start
 # then
 open http://localhost:8080
 ```
-
-To run Foobar example, use `npm run foobar`
-
-To run Quick-start example, use `npm run quickstart`
-
 
 
 ## Demo
