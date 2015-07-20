@@ -13,8 +13,8 @@ describe('Url', () => {
   beforeEach(() => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store = jasmine.createSpyObj('Store', [
-      'addChangeListener', 'getQuery', 'getPathname', 'getDefaultParams']);
-    Store.addChangeListener.and.returnValue(storeUnsubscribe);
+      'addThrottledChangeListener', 'getQuery', 'getPathname', 'getDefaultParams']);
+    Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['navigateTo']);
     urlUtil = jasmine.createSpyObj('urlUtil', ['merge', 'isActive']);
   });
@@ -80,7 +80,7 @@ describe('Url', () => {
 
 
     it('should subscribe to Store changes', () => {
-      expect(Store.addChangeListener).toHaveBeenCalled();
+      expect(Store.addThrottledChangeListener).toHaveBeenCalled();
     });
 
 
@@ -96,7 +96,7 @@ describe('Url', () => {
 
 
     it('should update state from Store on change', () => {
-      const onChange = Store.addChangeListener.calls.mostRecent().args[0];
+      const onChange = Store.addThrottledChangeListener.calls.mostRecent().args[0];
 
       Store.getQuery.and.returnValue({y: 10});
       onChange();

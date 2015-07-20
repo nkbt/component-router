@@ -14,8 +14,9 @@ describe('LocationHtml4', () => {
 
   beforeEach(() => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
-    Store = jasmine.createSpyObj('Store', ['addChangeListener', 'getCleanQuery', 'getPathname']);
-    Store.addChangeListener.and.returnValue(storeUnsubscribe);
+    Store = jasmine.createSpyObj('Store', [
+      'addThrottledChangeListener', 'getCleanQuery', 'getPathname']);
+    Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
 
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['restoreLocation']);
 
@@ -58,7 +59,7 @@ describe('LocationHtml4', () => {
 
 
     it('should subscribe to Store changes', () => {
-      expect(Store.addChangeListener).toHaveBeenCalled();
+      expect(Store.addThrottledChangeListener).toHaveBeenCalled();
     });
 
 
@@ -137,7 +138,7 @@ describe('LocationHtml4', () => {
       spyOn(html4, 'setUrl');
       Store.getPathname.and.returnValue('/test');
       Store.getCleanQuery.and.returnValue({x: 1, y: 2});
-      const onChange = Store.addChangeListener.calls.mostRecent().args[0];
+      const onChange = Store.addThrottledChangeListener.calls.mostRecent().args[0];
 
       onChange();
       expect(html4.setUrl).toHaveBeenCalled();

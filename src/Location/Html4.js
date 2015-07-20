@@ -11,7 +11,7 @@ const Html4 = React.createClass({
 
 
   componentDidMount() {
-    this.paramsUnsubscribe = Store.addChangeListener(this.onChange);
+    this.paramsUnsubscribe = Store.addThrottledChangeListener(this.onChange, 50);
     window.addEventListener('hashchange', this.restoreUrl, false);
   },
 

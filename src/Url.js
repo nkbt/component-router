@@ -33,7 +33,7 @@ const Url = React.createClass({
 
 
   componentDidMount() {
-    this.unsubscribe = Store.addChangeListener(this.onChange);
+    this.unsubscribe = Store.addThrottledChangeListener(this.onChange, 50);
   },
 
 
@@ -58,14 +58,14 @@ const Url = React.createClass({
 
   render() {
     const oldParams = this.state;
-    const newParams = this.props;
-    const {href} = urlUtil.merge(oldParams, newParams);
-    const isActive = urlUtil.isActive(oldParams, newParams);
+    const {query, pathname, isActiveClass, ...props} = this.props;
+    const {href} = urlUtil.merge(oldParams, {query, pathname});
+    const isActive = urlUtil.isActive(oldParams, {query, pathname});
     const linkClasses = classnames(this.props.className, {
-      [this.props.isActiveClass]: isActive
+      [isActiveClass]: isActive
     });
 
-    return <a {...this.props} href={href} onClick={this.onClick} className={linkClasses} />;
+    return <a {...props} href={href} onClick={this.onClick} className={linkClasses} />;
   }
 });
 
