@@ -46,21 +46,14 @@ const Content = React.createClass({
 
 
 const Data = React.createClass({
-  propTypes: {
-    height: React.PropTypes.number
-  },
-
-
-  shouldComponentUpdate({height}) {
-    return height !== this.props.height;
+  shouldComponentUpdate() {
+    return false;
   },
 
 
   render() {
-    const {height} = this.props;
-
     return (
-      <div style={{height}} className={styles.data}>
+      <div>
         <h2>Data</h2>
         <Url query={{data: 'sources'}}>Sources</Url>
         &nbsp;|&nbsp;
@@ -80,4 +73,27 @@ const Data = React.createClass({
 });
 
 
-export default Data;
+const DataWrapper = React.createClass({
+  propTypes: {
+    height: React.PropTypes.number
+  },
+
+
+  shouldComponentUpdate({height}) {
+    return height !== this.props.height;
+  },
+
+
+  render() {
+    const {height} = this.props;
+
+    return (
+      <div style={{height}} className={styles.data}>
+        <Data />
+      </div>
+    );
+  }
+});
+
+
+export default DataWrapper;

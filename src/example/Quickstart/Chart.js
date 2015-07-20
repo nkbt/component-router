@@ -47,21 +47,14 @@ const Content = React.createClass({
 
 
 const Chart = React.createClass({
-  propTypes: {
-    height: React.PropTypes.number
-  },
-
-
-  shouldComponentUpdate({height}) {
-    return height !== this.props.height;
+  shouldComponentUpdate() {
+    return false;
   },
 
 
   render() {
-    const {height} = this.props;
-
     return (
-      <div style={{height}} className={styles.chart}>
+      <div>
         <h2>Chart</h2>
         <Url query={{chart: 'bar'}}>Bar</Url>
         &nbsp;|&nbsp;
@@ -81,4 +74,27 @@ const Chart = React.createClass({
 });
 
 
-export default Chart;
+const ChartWrapper = React.createClass({
+  propTypes: {
+    height: React.PropTypes.number
+  },
+
+
+  shouldComponentUpdate({height}) {
+    return height !== this.props.height;
+  },
+
+
+  render() {
+    const {height} = this.props;
+
+    return (
+      <div style={{height}} className={styles.chart}>
+        <Chart />
+      </div>
+    );
+  }
+});
+
+
+export default ChartWrapper;

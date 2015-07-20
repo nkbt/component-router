@@ -4,6 +4,39 @@ import {Url} from '../..';
 import styles from './Filter.css';
 
 
+const Opened = React.createClass({
+  shouldComponentUpdate() {
+    return false;
+  },
+
+
+  render() {
+    return (
+      <div className={styles.content}>
+        <h4 className={styles.header}>Filters</h4>
+        <Url query={{filter: 'closed'}}><span className={styles.toggle}>&larr;</span></Url>
+      </div>
+    );
+  }
+});
+
+
+const Closed = React.createClass({
+  shouldComponentUpdate() {
+    return false;
+  },
+
+
+  render() {
+    return (
+      <Url query={{filter: 'opened'}}>
+        <span className={styles.toggle}>&rarr;</span>
+      </Url>
+    );
+  }
+});
+
+
 const Content = React.createClass({
   propTypes: {
     width: React.PropTypes.number,
@@ -19,21 +52,9 @@ const Content = React.createClass({
   render() {
     const {isOpened, width} = this.props;
 
-
-    if (!isOpened) {
-      return (
-        <Url className={styles.filter} style={{width}} query={{filter: 'opened'}}>
-          <span className={styles.toggle}>&rarr;</span>
-        </Url>
-      );
-    }
-
     return (
       <div className={styles.filter} style={{width}}>
-        <div className={styles.content}>
-          <h4 className={styles.header}>Filters</h4>
-          <Url query={{filter: 'closed'}}><span className={styles.toggle}>&larr;</span></Url>
-        </div>
+        {isOpened ? <Opened /> : <Closed />}
       </div>
     );
   }
