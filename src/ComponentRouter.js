@@ -21,8 +21,10 @@ const ComponentRouter = React.createClass({
   },
 
 
-  shouldComponentUpdate({namespace, config = {}}, {query = {}}) {
-    return namespace !== this.props.namespace ||
+  shouldComponentUpdate(newProps, {query = {}}) {
+    const config = newProps.config || {};
+
+    return !shallowEqual(newProps, this.props) ||
       !shallowEqual(config, this.props.config) ||
       !shallowEqual(query, this.state.query);
   },
