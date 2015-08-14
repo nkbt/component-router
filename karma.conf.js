@@ -2,19 +2,41 @@
 
 
 var path = require('path');
+var rimraf = require('rimraf');
+var mkdirp = require('mkdirp');
 
 
-var preLoaders = process.env.COVERAGE ?
-  [
-    {test: /\.js$/, loader: 'babel', include: [path.resolve('test')]},
-    {test: /\.js$/, loader: 'isparta', include: [path.resolve('src')]}
-  ] :
-  [
-    {test: /\.js$/, loader: 'babel', include: [path.resolve('src'), path.resolve('test')]}
-  ];
+var webpackConfig = {
+  devtool: 'eval',
+  resolve: {
+    extensions: ['', '.js']
+  },
+  module: {
+    loaders: process.env.COVERAGE ?
+      [
+        {test: /\.js$/, loader: 'babel', include: [path.resolve('test')]},
+        {test: /\.js$/, loader: 'isparta', include: [path.resolve('src')]}
+      ] :
+      [
+        {
+          test: /\.js$/, loader: 'babel', include: [path.resolve('src'), path.resolve('test')]
+        }
+      ]
+  },
+  stats: {
+    colors: true
+  }
+};
+
+var coverageDir = path.resolve(
+  path.join(process.env.CIRCLE_ARTIFACTS || 'reports', 'coverage')
+);
 
 
-var coverageDir = path.resolve(path.join(process.env.CIRCLE_ARTIFACTS || './reports', 'coverage'));
+if (process.env.COVERAGE) {
+  rimraf.sync(coverageDir);
+  mkdirp.sync(coverageDir);
+}
 
 
 module.exports = function (config) {
@@ -26,16 +48,12 @@ module.exports = function (config) {
       'test/utils/mockedWindow.js',
       'test/index.js'
     ],
-    webpack: {
-      devtool: 'eval',
-      resolve: {
-        extensions: ['', '.js']
-      },
-      module: {preLoaders: preLoaders},
-      stats: {colors: true}
-    },
+    webpack: webpackConfig,
     webpackMiddleware: {
-      quiet: true
+      stats: {
+        chunkModules: false,
+        colors: true
+      }
     },
     exclude: [],
     preprocessors: {
@@ -43,7 +61,7 @@ module.exports = function (config) {
     },
     reporters: ['progress'],
     junitReporter: {
-      outputDir: path.resolve(process.env.CIRCLE_TEST_REPORTS || './reports'),
+      outputDir: path.resolve(process.env.CIRCLE_TEST_REPORTS || 'reports'),
       suite: ''
     },
     coverageReporter: {

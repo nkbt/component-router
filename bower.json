@@ -1,0 +1,37 @@
+{
+  "name": "component-router",
+  "version": "2.0.2",
+  "description": "Flux-based component routing solution",
+  "main": "component-router.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/in-flux/component-router.git"
+  },
+  "keywords": [
+    "component",
+    "react-component",
+    "flux-component",
+    "react",
+    "component router",
+    "router",
+    "partial router",
+    "url-router",
+    "url-state"
+  ],
+  "authors": [
+    "Nik Butenko <nik@butenko.me> (http://butenko.me/)"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/nkbt/react-component-template",
+  "dependencies": {
+    "react": "^0.13.3",
+    "flux": "^2.0.3"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
