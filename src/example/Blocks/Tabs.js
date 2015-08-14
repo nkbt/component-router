@@ -11,10 +11,8 @@ const Tabs = React.createClass({
 
 
   render() {
-    const {tabs, namespace} = this.props;
-    const props = Object.assign({}, this.props);
+    const {tabs, namespace, ...props} = this.props;
 
-    delete props.tabs;
     return (
       <ul {...props} className={styles.tabs}>
         {tabs.map(tab => (

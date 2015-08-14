@@ -37,7 +37,7 @@ const ContentWrapper = React.createClass({
 
 
   render() {
-    const {value} = this.props.componentRouter;
+    const {value = 'chart'} = this.props.componentRouter;
 
     return <Content expanded={value} />;
   }

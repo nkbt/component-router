@@ -30,7 +30,7 @@ const defaultParams = {};
 const changeParams = params => {
   let isChanged = false;
   const newParams = urlUtil.merge({pathname, query}, params);
-  const newQuery = sortedObject(Object.assign({}, defaultParams, newParams.query));
+  const newQuery = sortedObject({...defaultParams, ...newParams.query});
 
 
   if (pathname !== newParams.pathname) {
@@ -53,7 +53,7 @@ const addDefaultParam = ({namespace, value}) => {
 
   if (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== stringValue) {
     defaultParams[namespace] = stringValue;
-    query = sortedObject(Object.assign({}, defaultParams, query));
+    query = sortedObject({...defaultParams, ...query});
     isChanged = true;
   }
 
@@ -82,11 +82,14 @@ const removeParam = ({namespace}) => {
 const changeLocation = url => {
   const {pathname: newPathname, query: newQuery} = safeParams(urlUtil.parseHref(url));
 
-  return changeParams({pathname: newPathname, query: Object.assign({}, defaultParams, newQuery)});
+  return changeParams({pathname: newPathname, query: {...defaultParams, ...newQuery}});
 };
 
 
-const Store = Object.assign({}, FluxCommonStore, {
+const Store = {
+  ...FluxCommonStore,
+
+
   getDefaultParams() {
     return defaultParams;
   },
@@ -98,7 +101,7 @@ const Store = Object.assign({}, FluxCommonStore, {
 
 
   getCleanQuery() {
-    const cleanQuery = Object.assign({}, query);
+    const cleanQuery = {...query};
 
     Object.keys(defaultParams).forEach(key => {
       if (cleanQuery[key] === defaultParams[key]) {
@@ -112,7 +115,7 @@ const Store = Object.assign({}, FluxCommonStore, {
   getPathname() {
     return pathname;
   }
-});
+};
 
 
 // We expect a large amount of links on a page, so in this case we want to remove the limit

@@ -11,7 +11,7 @@ const parseHref = (href) => {
 
 const merge = (oldParams, newParams) => {
   const pathname = newParams.pathname || oldParams.pathname;
-  const query = sortedObject(Object.assign({}, oldParams.query, newParams.query));
+  const query = sortedObject({...oldParams.query, ...newParams.query});
   const href = url.format({pathname, query});
 
   return {pathname, query, href};
