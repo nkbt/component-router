@@ -61,16 +61,19 @@ const DynamicListContainer = React.createClass({
 const DynamicList = React.createClass({
   render() {
     return (
-      <div className={styles.list}>
+      <div {...this.props}>
+        <div className={styles.list}>
 
-        <h2>Dynamic list</h2>
-        <ComponentRouter config={Items} namespace="list" />
+          <h2>Dynamic list</h2>
+          <ComponentRouter config={Items} namespace="list" />
+          <ComponentRouter config={Items} namespace="list" />
 
-        <h2>Dynamic list with container</h2>
-        <ComponentRouter config={Items} namespace="list2">
-          <DynamicListContainer values={[1, 2, 3, 4]} />
-        </ComponentRouter>
+          <h2>Dynamic list with container</h2>
+          <ComponentRouter config={Items} namespace="list2">
+            <DynamicListContainer values={[1, 2, 3, 4]} />
+          </ComponentRouter>
 
+        </div>
       </div>
     );
   }
