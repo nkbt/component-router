@@ -41,23 +41,23 @@ const Header = React.createClass({
   }
 });
 
-
-const Content = React.createClass({
-  propTypes: {
-    componentRouter: React.PropTypes.object
-  },
-
-
-  render() {
-    const {Component} = this.props.componentRouter;
-
-    return (
-      <div className={styles.content}>
-        <Component />
-      </div>
-    );
-  }
-});
+//
+//  const Content = React.createClass({
+//    propTypes: {
+//      componentRouter: React.PropTypes.object
+//    },
+//
+//
+//    render() {
+//      const {Component} = this.props.componentRouter;
+//
+//      return (
+//        <div className={styles.content}>
+//          <Component />
+//        </div>
+//      );
+//    }
+//  });
 
 
 const App = React.createClass({
@@ -75,9 +75,7 @@ const App = React.createClass({
           links: Links,
           blocks: Blocks,
           dynamic: DynamicList
-        }}>
-          <Content />
-        </ComponentRouter>
+        }} className={styles.content} />
 
       </div>
     );

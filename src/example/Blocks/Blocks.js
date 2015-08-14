@@ -41,43 +41,45 @@ const Block = React.createClass({
 const Blocks = React.createClass({
   render() {
     return (
-      <div className={styles.blocks}>
+      <div {...this.props}>
+        <div className={styles.blocks}>
 
-        <h2>Block 1</h2>
-        <p>With default value `Red`</p>
-        <ComponentRouter namespace="block1" config={{
+          <h2>Block 1</h2>
+          <p>With default value `Red`</p>
+          <ComponentRouter namespace="block1" config={{
             [getDefault()]: 'Red',
             Green: GreenBlock,
             Red: RedBlock
           }}>
-          <Block />
-        </ComponentRouter>
+            <Block />
+          </ComponentRouter>
 
-        <h2>Block 2</h2>
-        <ComponentRouter config={{
+          <h2>Block 2</h2>
+          <ComponentRouter config={{
             Green: GreenBlock,
             Red: RedBlock
           }} namespace="block2">
-          <Block />
-        </ComponentRouter>
+            <Block />
+          </ComponentRouter>
 
-        <h2>Block 3</h2>
-        <p>Removes query params (if not rendered)</p>
-        <ReactSwap>
-          <div>
-            <button data-swap-handler={1}>Open</button>
-          </div>
-          <div>
-            <button data-swap-handler={1}>Close</button>
-            <ComponentRouter config={{
+          <h2>Block 3</h2>
+          <p>Removes query params (if not rendered)</p>
+          <ReactSwap>
+            <div>
+              <button data-swap-handler={1}>Open</button>
+            </div>
+            <div>
+              <button data-swap-handler={1}>Close</button>
+              <ComponentRouter config={{
                 Green: GreenBlock,
                 Red: RedBlock
               }} namespace="block3">
-              <Block />
-            </ComponentRouter>
-          </div>
-        </ReactSwap>
+                <Block />
+              </ComponentRouter>
+            </div>
+          </ReactSwap>
 
+        </div>
       </div>
     );
   }

@@ -24,9 +24,8 @@ const ComponentRouter = React.createClass({
   shouldComponentUpdate(newProps, {query = {}}) {
     const config = newProps.config || {};
 
-    return !shallowEqual(newProps, this.props) ||
-      !shallowEqual(config, this.props.config) ||
-      !shallowEqual(query, this.state.query);
+    return !shallowEqual(newProps, this.props) || !shallowEqual(config,
+        this.props.config) || !shallowEqual(query, this.state.query);
   },
 
 
@@ -72,8 +71,7 @@ const ComponentRouter = React.createClass({
 
 
   render() {
-    const {namespace} = this.props;
-    const config = this.props.config;
+    const {namespace, config, ...props} = this.props;
     const value = namespace in this.state.query ?
       this.state.query[namespace] : config[getDefault()];
 
@@ -92,22 +90,31 @@ const ComponentRouter = React.createClass({
         // React will render custom component only if it starts from capital letter
         const Child = config;
 
-        return <Child componentRouter={Object.assign(componentRouter, {Component: Empty})} />;
+        return <Child {...props} componentRouter={componentRouter} />;
       }
 
       // In case of non-empty children, we should pass Component from config
-      return React.cloneElement(React.Children.only(this.props.children),
-        {componentRouter: Object.assign(componentRouter, {Component: config})});
+      return React.cloneElement(React.Children.only(this.props.children), {
+        ...props,
+        componentRouter: {...componentRouter, Component: config}
+      });
     }
 
+    const keys = Object.keys(config).filter(key => key !== getDefault());
+
+    if (!React.Children.count(this.props.children)) {
+      // React will render custom component only if it starts from capital letter
+      const Child = value && config[value] || Empty;
+
+      return <Child {...props} componentRouter={{...componentRouter, keys, config}} />;
+    }
+
+    const Component = value && config[value] || Empty;
 
     // For static values we can pass config, keys and try to find active component
     return React.cloneElement(React.Children.only(this.props.children), {
-      componentRouter: Object.assign(componentRouter, {
-        keys: Object.keys(config).filter(key => key !== getDefault()),
-        config,
-        Component: value && config[value] || Empty
-      })
+      ...props,
+      componentRouter: {...componentRouter, keys, config, Component}
     });
   }
 });

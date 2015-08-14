@@ -17,7 +17,7 @@ const Baz = React.createClass({
 const FooBar = React.createClass({
   render() {
     return (
-      <div>
+      <div {...this.props}>
         <Url query={{baz: 'foo'}}>Foo</Url> | <Url query={{baz: 'bar'}}>Bar</Url>
         <ComponentRouter config={Baz} namespace="baz" />
       </div>

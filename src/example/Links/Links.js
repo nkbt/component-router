@@ -39,9 +39,11 @@ const LinkExample = React.createClass({
 const Links = React.createClass({
   render() {
     return (
-      <div className={styles.links}>
-        <h2>Links examples</h2>
-        {test.map((props, i) => <LinkExample key={i} {...props} />)}
+      <div {...this.props}>
+        <div className={styles.links}>
+          <h2>Links examples</h2>
+          {test.map((props, i) => <LinkExample key={i} {...props} />)}
+        </div>
       </div>
     );
   }

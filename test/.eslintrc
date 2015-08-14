@@ -1,21 +1,11 @@
 {
   "extends": "../src/.eslintrc",
 
-  "globals": {
-    // Exposed by Jasmine
-    "jasmine": true,
-    "describe": true,
-    "xdescribe": true,
-    "expect": true,
-    "it": true,
-    "xit": true,
-    "beforeEach": true,
-    "afterEach": true,
-    "spyOn": true
+  "env": {
+    "jasmine": true
   },
 
   "rules": {
-    "max-nested-callbacks": 0,
     "one-var": 0,
     "no-undefined": 0
   }
