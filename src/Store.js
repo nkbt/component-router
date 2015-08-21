@@ -25,10 +25,6 @@ const Store = {
     return this.getState().query;
   },
 
-  getPathname() {
-    return this.getState().pathname;
-  },
-
   getType() {
     return this.getState().type;
   },

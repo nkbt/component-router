@@ -30,7 +30,7 @@ const Html5 = React.createClass({
 
 
   getUrl() {
-    return [window.location.pathname, window.location.search].join('');
+    return window.location.search;
   },
 
 
@@ -48,8 +48,7 @@ const Html5 = React.createClass({
 
   onChange() {
     this.setUrl(url.format({
-      query: Store.getCleanQuery(),
-      pathname: Store.getPathname()
+      query: Store.getCleanQuery()
     }));
   },
 

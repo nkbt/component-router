@@ -24,7 +24,6 @@ describe('Store', () => {
       Store.getState = jasmine.createSpy('getState')
         .and.returnValue({
           query: {x: '400'},
-          pathname: '/test',
           type: 'HTML6',
           defaultParams: {
             page: 'admin',
@@ -37,13 +36,6 @@ describe('Store', () => {
     describe('getQuery', function () {
       it('should return the query from getState()', function () {
         expect(Store.getQuery()).toEqual({x: '400'});
-      });
-    });
-
-
-    describe('getPathname', function () {
-      it('should return the pathname from getState()', function () {
-        expect(Store.getPathname()).toBe('/test');
       });
     });
 
@@ -94,7 +86,6 @@ describe('Store', () => {
       createStore();
       Store.getState = jasmine.createSpy('getState');
       Store.getState.and.returnValue({
-        pathname: '/',
         query: {x: '1', y: '2'},
         defaultParams: {y: '2'}
       });
@@ -114,7 +105,6 @@ describe('Store', () => {
 
     it('should not remove any keys from query if there are no default params', () => {
       Store.getState.and.returnValue({
-        pathname: '/',
         query: {x: '1', y: '2'},
         defaultParams: {}
       });
@@ -124,7 +114,6 @@ describe('Store', () => {
 
     it('should not remove key from query if value is not equal to default', () => {
       Store.getState.and.returnValue({
-        pathname: '/',
         query: {x: '1', y: '2'},
         defaultParams: {y: '10'}
       });

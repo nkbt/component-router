@@ -15,11 +15,11 @@ describe('ActionCreator', () => {
 
   it('should return an appropriate NAVIGATE_TO action', () => {
     Constants.NAVIGATE_TO = 'test';
-    const action = ActionCreator.navigateTo({pathname: 'pathname', query: 'query'});
+    const action = ActionCreator.navigateTo({query: 'query'});
 
     expect(action).toEqual({
       actionType: 'test',
-      payload: {pathname: 'pathname', query: 'query'}
+      payload: {query: 'query'}
     });
   });
 

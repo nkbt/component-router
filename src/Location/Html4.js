@@ -30,12 +30,12 @@ const Html4 = React.createClass({
 
 
   getUrl() {
-    if (window.location.hash.substr(0, 2) !== '#/') {
-      return '/';
+    if (window.location.hash.substr(0, 2) !== '#?') {
+      return '?';
     }
-    const {pathname, query} = url.parse(window.location.hash.substr(1), true);
+    const {query} = url.parse(window.location.hash.substr(1), true);
 
-    return url.format({pathname, query});
+    return url.format({query});
   },
 
 
@@ -54,8 +54,7 @@ const Html4 = React.createClass({
 
   onChange() {
     this.setUrl(url.format({
-      query: Store.getCleanQuery(),
-      pathname: Store.getPathname()
+      query: Store.getCleanQuery()
     }));
   },
 

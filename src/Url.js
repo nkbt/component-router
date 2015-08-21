@@ -9,7 +9,6 @@ import shallowEqual from 'react/lib/shallowEqual';
 
 const Url = React.createClass({
   propTypes: {
-    pathname: React.PropTypes.string,
     query: React.PropTypes.object,
     children: React.PropTypes.node,
     isActiveClass: React.PropTypes.string,
@@ -27,17 +26,13 @@ const Url = React.createClass({
 
 
   getInitialState() {
-    return {
-      query: Store.getQuery(),
-      pathname: Store.getPathname()
-    };
+    return Store.getQuery();
   },
 
 
   shouldComponentUpdate(newProps, newState) {
     return !shallowEqual(newProps, this.props) || !shallowEqual(newState,
-        this.state) || !shallowEqual(newProps.query,
-        this.props.query) || !shallowEqual(newState.query, this.state.query);
+        this.state) || !shallowEqual(newProps.query, this.props.query);
   },
 
 
@@ -58,18 +53,14 @@ const Url = React.createClass({
 
 
   onChange() {
-    this.setState({
-      query: Store.getQuery(),
-      pathname: Store.getPathname()
-    });
+    this.replaceState(Store.getQuery());
   },
 
 
   render() {
-    const oldParams = this.state;
-    const {query, pathname, isActiveClass, ...props} = this.props;
-    const {href} = urlUtil.merge(oldParams, {query, pathname});
-    const isActive = urlUtil.isActive(oldParams, {query, pathname});
+    const {query, isActiveClass, ...props} = this.props;
+    const {href} = urlUtil.merge({query: this.state}, {query});
+    const isActive = urlUtil.isActive({query: this.state}, {query});
     const linkClasses = classnames(this.props.className, {
       [isActiveClass]: isActive
     });
