@@ -23,7 +23,7 @@ const Html4 = React.createClass({
 
 
   restoreUrl() {
-    ActionCreator.restoreLocation({location: this.getUrl()});
+    ActionCreator.restoreLocation({location: this.getUrl(), type: Store.TYPE_HTML4});
   },
 
 

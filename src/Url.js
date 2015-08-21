@@ -72,8 +72,14 @@ const Url = React.createClass({
     const linkClasses = classnames(this.props.className, {
       [isActiveClass]: isActive
     });
+    const type = Store.getType();
 
-    return <a {...props} href={href} onClick={this.onClick} className={linkClasses} />;
+    return (
+      <a {...props}
+        href={type === Store.TYPE_HTML4 ? `#${href}` : href}
+        onClick={this.onClick}
+        className={linkClasses} />
+    );
   }
 });
 

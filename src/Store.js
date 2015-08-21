@@ -8,6 +8,10 @@ import isUndefined from 'lodash.isundefined';
 import shallowEqual from 'react/lib/shallowEqual';
 
 
+const TYPE_HTML4 = 'html4';
+const TYPE_HTML5 = 'html5';
+
+
 const safeParams = params => {
   const newQuery = isNull(params.query) || isUndefined(params.query) ? {} : params.query;
 
@@ -22,6 +26,7 @@ const safeParams = params => {
 
 let pathname = '/';
 let query = {};
+let type = TYPE_HTML5;
 
 
 const defaultParams = {};
@@ -79,15 +84,18 @@ const removeParam = ({namespace}) => {
 };
 
 
-const changeLocation = url => {
+const restoreLocation = (url, locationType = TYPE_HTML5) => {
   const {pathname: newPathname, query: newQuery} = safeParams(urlUtil.parseHref(url));
 
+  type = locationType;
   return changeParams({pathname: newPathname, query: {...defaultParams, ...newQuery}});
 };
 
 
 const Store = {
   ...FluxCommonStore,
+  TYPE_HTML4,
+  TYPE_HTML5,
 
 
   getDefaultParams() {
@@ -97,6 +105,11 @@ const Store = {
 
   getQuery() {
     return query;
+  },
+
+
+  getType() {
+    return type;
   },
 
 
@@ -143,7 +156,7 @@ Store.dispatchToken = Dispatcher.register(({actionType, payload}) => {
       break;
 
     case Constants.RESTORE_LOCATION:
-      if (changeLocation(payload.location)) {
+      if (restoreLocation(payload.location, payload.type)) {
         Store.emitChange();
       }
       break;

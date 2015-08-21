@@ -13,7 +13,7 @@ describe('Url', () => {
   beforeEach(() => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store = jasmine.createSpyObj('Store', [
-      'addThrottledChangeListener', 'getQuery', 'getPathname', 'getDefaultParams']);
+      'addThrottledChangeListener', 'getQuery', 'getPathname', 'getType', 'getDefaultParams']);
     Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['navigateTo']);
     urlUtil = jasmine.createSpyObj('urlUtil', ['merge', 'isActive']);
