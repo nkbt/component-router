@@ -17,6 +17,7 @@ describe('LocationHtml5', () => {
     Store = jasmine.createSpyObj('Store', [
       'addThrottledChangeListener', 'getCleanQuery', 'getPathname']);
     Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
+    Store.TYPE_HTML5 = 'html5';
 
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['restoreLocation']);
 
@@ -131,7 +132,10 @@ describe('LocationHtml5', () => {
       onPopstate();
 
       expect(ActionCreator.restoreLocation).toHaveBeenCalled();
-      expect(ActionCreator.restoreLocation).toHaveBeenCalledWith({location: '/test?x=1'});
+      expect(ActionCreator.restoreLocation).toHaveBeenCalledWith({
+        location: '/test?x=1',
+        type: Store.TYPE_HTML5
+      });
     });
 
 

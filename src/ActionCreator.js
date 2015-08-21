@@ -27,10 +27,10 @@ export default {
   },
 
 
-  restoreLocation({location}) {
+  restoreLocation({location, type}) {
     Dispatcher.dispatch({
       actionType: Constants.RESTORE_LOCATION,
-      payload: {location}
+      payload: {location, type}
     });
   }
 };

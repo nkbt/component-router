@@ -54,7 +54,10 @@ describe('ActionCreator', () => {
     expect(Dispatcher.dispatch).toHaveBeenCalled();
     expect(Dispatcher.dispatch).toHaveBeenCalledWith({
       actionType: 'test',
-      payload: {location: 'location'}
+      payload: {
+        location: 'location',
+        type: undefined
+      }
     });
   });
 });
