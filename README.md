@@ -64,6 +64,20 @@ As you can see each of these blocks has its own independent navigation and, for 
 Key feature is to update all links on the page if any of visible blocks changed its state. If lets all links to stay links, so it is possible to open link in a new tab, for instance. It is fixed by ComponentRouter.
 
 
+## Installation
+
+### npm
+
+```sh
+npm install --save component-router
+```
+
+### bower
+
+```sh
+bower install --save component-router
+```
+
 ## Minimal Example
 
   ```js
@@ -306,6 +320,16 @@ open http://localhost:8080
 ## Demo
 
 [http://in-flux.github.io/component-router/example](http://in-flux.github.io/component-router/example)
+
+
+## Codepen demo
+
+[http://codepen.io/nkbt/pen/BNXamG?editors=101](http://codepen.io/nkbt/pen/BNXamG)
+
+Since ComponentRouter is working with browser location and navigation, it is not really possible
+to debug router in Codepen's Editor mode, but completely possible in Debug mode: 
+[http://s.codepen.io/nkbt/debug/BNXamG] (http://s.codepen.io/nkbt/debug/BNXamG)
+
 
 ## Tests
 
