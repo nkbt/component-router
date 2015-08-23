@@ -1,6 +1,6 @@
 {
   "name": "component-router",
-  "version": "2.0.2",
+  "version": "2.1.1",
   "description": "Flux-based component routing solution",
   "main": "component-router.js",
   "repository": {
@@ -22,7 +22,7 @@
     "Nik Butenko <nik@butenko.me> (http://butenko.me/)"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/nkbt/react-component-template",
+  "homepage": "https://github.com/in-flux/component-router",
   "dependencies": {
     "react": "^0.13.3",
     "flux": "^2.0.3"
