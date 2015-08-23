@@ -78,6 +78,21 @@ npm install --save component-router
 bower install --save component-router
 ```
 
+
+## Demo
+
+[http://in-flux.github.io/component-router/example](http://in-flux.github.io/component-router/example)
+
+
+## Codepen demo
+
+[http://codepen.io/nkbt/pen/BNXamG?editors=101](http://codepen.io/nkbt/pen/BNXamG)
+
+Since ComponentRouter is working with browser location and navigation, it is not really possible
+to debug router in Codepen's Editor mode, but completely possible in Debug mode: 
+[http://s.codepen.io/nkbt/debug/BNXamG] (http://s.codepen.io/nkbt/debug/BNXamG)
+
+
 ## Minimal Example
 
   ```js
@@ -116,12 +131,7 @@ React.render(<App />, document.body);
 
 Quick-start is a step-by-step walk-through to implement UI based on ASCII example from above. 
 
-### 1. Install `component-router` from npm
-  ```bash
-npm install --save component-router
-  ```
-
-### 2. Add App and main blocks: Chart, Filter, Data 
+### 1. Add App and main blocks: Chart, Filter, Data 
   
   ```js
 import React from 'react';
@@ -162,7 +172,7 @@ const App = React.createClass({
 React.render(<App />, document.body);
   ```
   
-### 3. Add second-level blocks (not yet used for now)
+### 2. Add second-level blocks (not yet used for now)
   ```js
 const ChartBar = React.createClass({
   render() {
@@ -201,7 +211,7 @@ const DataDestinations = React.createClass({
 });
   ```
 
-### 4. Add ComponentRouter
+### 3. Add ComponentRouter
 
   Wrap each main component, give it a namespace and config
   
@@ -233,7 +243,7 @@ const App = React.createClass({
 });
   ```
 
-### 5. Update your main components with links
+### 4. Update your main components with links
 
 Note that <ComponentRouter> wrapper will provide `componentRouter` object to the props of container component.
 
@@ -290,7 +300,7 @@ const Data = React.createClass({
 });
   ```
 
-### 6. PROFIT
+### 5. PROFIT
 
   Compile your code, the routing is now completed.
   
@@ -315,20 +325,6 @@ npm start
 # then
 open http://localhost:8080
 ```
-
-
-## Demo
-
-[http://in-flux.github.io/component-router/example](http://in-flux.github.io/component-router/example)
-
-
-## Codepen demo
-
-[http://codepen.io/nkbt/pen/BNXamG?editors=101](http://codepen.io/nkbt/pen/BNXamG)
-
-Since ComponentRouter is working with browser location and navigation, it is not really possible
-to debug router in Codepen's Editor mode, but completely possible in Debug mode: 
-[http://s.codepen.io/nkbt/debug/BNXamG] (http://s.codepen.io/nkbt/debug/BNXamG)
 
 
 ## Tests
