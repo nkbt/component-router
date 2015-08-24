@@ -6,14 +6,11 @@ import isUndefined from 'lodash.isundefined';
 import shallowEqual from 'react/lib/shallowEqual';
 
 
-const TYPE_HTML4 = 'html4';
-const TYPE_HTML5 = 'html5';
-
 const initialState = {
   pathname: '/',
   query: {},
   defaultParams: {},
-  type: TYPE_HTML5
+  type: Constants.TYPE_HTML5
 };
 
 // NAVIGATE_TO
@@ -79,10 +76,13 @@ const safeParams = params => {
   };
 };
 
-const restoreLocation = (state, {location, type = TYPE_HTML5}) => {
+const restoreLocation = (state, url, type = Constants.TYPE_HTML5) => {
   const {pathname: newPathname, query: newQuery} = safeParams(urlUtil.parseHref(url));
+  const updatedParams = changeParams(state, {
+    pathname: newPathname,
+    query: {...state.defaultParams, ...newQuery}});
 
-  return changeParams(state, {pathname: newPathname, query: {...state.defaultParams, ...newQuery}, type});
+  return {...updatedParams, type};
 };
 
 // MAIN REDUCER
@@ -98,7 +98,7 @@ export default (state = initialState, {actionType, payload}) => {
       return removeParam(state, payload);
 
     case Constants.RESTORE_LOCATION:
-      return restoreLocation(state, payload);
+      return restoreLocation(state, payload.location, payload.type);
 
     default:
       return state;

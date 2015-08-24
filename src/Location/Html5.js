@@ -1,5 +1,6 @@
 import React from 'react';
 import url from 'url';
+import Constants from '../Constants';
 import Store from '../Store';
 import ActionCreator from '../ActionCreator';
 
@@ -23,7 +24,8 @@ const Html5 = React.createClass({
 
 
   restoreUrl() {
-    Store.dispatch(ActionCreator.restoreLocation({location: this.getUrl(), type: Store.TYPE_HTML5}));
+    Store.dispatch(ActionCreator.restoreLocation({
+      location: this.getUrl(), type: Constants.TYPE_HTML5}));
   },
 
 
