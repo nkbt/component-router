@@ -15,7 +15,7 @@ describe('LocationHtml5', () => {
   beforeEach(() => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store = jasmine.createSpyObj('Store', [
-      'addThrottledChangeListener', 'getCleanQuery', 'getPathname']);
+      'addThrottledChangeListener', 'dispatch', 'getCleanQuery', 'getPathname']);
     Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
     Store.TYPE_HTML5 = 'html5';
 

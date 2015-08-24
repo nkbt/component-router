@@ -1,58 +1,56 @@
 describe('ActionCreator', () => {
   const ActionCreatorInjector = require('inject!../src/ActionCreator');
-  let Constants, Dispatcher, ActionCreator;
+  let Constants, ActionCreator;
 
 
   beforeEach(() => {
     Constants = jasmine.createSpyObj('Constants', ['']);
-    Dispatcher = jasmine.createSpyObj('Dispatcher', ['dispatch']);
   });
 
 
   beforeEach(() => ActionCreator = ActionCreatorInjector({
-    './Constants': Constants,
-    './Dispatcher': Dispatcher
+    './Constants': Constants
   }));
 
 
-  it('should dispatch NAVIGATE_TO', () => {
+  it('should return an appropriate NAVIGATE_TO action', () => {
     Constants.NAVIGATE_TO = 'test';
-    ActionCreator.navigateTo({pathname: 'pathname', query: 'query'});
-    expect(Dispatcher.dispatch).toHaveBeenCalled();
-    expect(Dispatcher.dispatch).toHaveBeenCalledWith({
+    const action = ActionCreator.navigateTo({pathname: 'pathname', query: 'query'});
+
+    expect(action).toEqual({
       actionType: 'test',
       payload: {pathname: 'pathname', query: 'query'}
     });
   });
 
 
-  it('should dispatch ADD_DEFAULT_PARAM', () => {
+  it('should return an appropriate ADD_DEFAULT_PARAM action', () => {
     Constants.ADD_DEFAULT_PARAM = 'test';
-    ActionCreator.addDefaultParam({namespace: 'namespace', value: 'value'});
-    expect(Dispatcher.dispatch).toHaveBeenCalled();
-    expect(Dispatcher.dispatch).toHaveBeenCalledWith({
+    const action = ActionCreator.addDefaultParam({namespace: 'namespace', value: 'value'});
+
+    expect(action).toEqual({
       actionType: 'test',
       payload: {namespace: 'namespace', value: 'value'}
     });
   });
 
 
-  it('should dispatch ADD_DEFAULT_PARAM', () => {
+  it('should return an appropriate REMOVE_PARAM action', () => {
     Constants.REMOVE_PARAM = 'test';
-    ActionCreator.removeParam({namespace: 'namespace'});
-    expect(Dispatcher.dispatch).toHaveBeenCalled();
-    expect(Dispatcher.dispatch).toHaveBeenCalledWith({
+    const action = ActionCreator.removeParam({namespace: 'namespace'});
+
+    expect(action).toEqual({
       actionType: 'test',
       payload: {namespace: 'namespace'}
     });
   });
 
 
-  it('should dispatch restoreLocation', () => {
+  it('should return an appropriate RESTORE_LOCATION action', () => {
     Constants.RESTORE_LOCATION = 'test';
-    ActionCreator.restoreLocation({location: 'location'});
-    expect(Dispatcher.dispatch).toHaveBeenCalled();
-    expect(Dispatcher.dispatch).toHaveBeenCalledWith({
+    const action = ActionCreator.restoreLocation({location: 'location'});
+
+    expect(action).toEqual({
       actionType: 'test',
       payload: {
         location: 'location',
