@@ -52,7 +52,7 @@ const Url = React.createClass({
 
   onClick(event) {
     event.preventDefault();
-    ActionCreator.navigateTo(this.props);
+    Store.dispatch(ActionCreator.navigateTo(this.props));
   },
 
 
