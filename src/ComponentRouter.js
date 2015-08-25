@@ -50,8 +50,8 @@ const ComponentRouter = React.createClass({
 
   componentWillUnmount() {
     this.unsubscribe();
-    setTimeout(() => Store.dispatch(ActionCreator.removeParam({
-      namespace: this.props.namespace}), 0));
+    Store.dispatch(ActionCreator.removeParam({
+      namespace: this.props.namespace}));
   },
 
 
@@ -60,7 +60,7 @@ const ComponentRouter = React.createClass({
     const defaultParams = Store.getDefaultParams();
 
     if (value && (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== value)) {
-      setTimeout(() => Store.dispatch(ActionCreator.addDefaultParam({namespace, value}), 0));
+      Store.dispatch(ActionCreator.addDefaultParam({namespace, value}));
     }
   },
 
