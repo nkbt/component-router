@@ -1,5 +1,6 @@
 import React from 'react';
 import classnames from 'classnames';
+import Constants from './Constants';
 import Store from './Store';
 import ActionCreator from './ActionCreator';
 import urlUtil from './urlUtil';
@@ -76,7 +77,7 @@ const Url = React.createClass({
 
     return (
       <a {...props}
-        href={type === Store.TYPE_HTML4 ? `#${href}` : href}
+        href={type === Constants.TYPE_HTML4 ? `#${href}` : href}
         onClick={this.onClick}
         className={linkClasses} />
     );
