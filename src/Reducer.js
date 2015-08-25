@@ -13,7 +13,7 @@ const initialState = {
   type: Constants.TYPE_HTML5
 };
 
-// NAVIGATE_TO
+
 const changeParams = (state, params) => {
   const newParams = urlUtil.merge({
     pathname: state.pathname,
@@ -33,8 +33,6 @@ const changeParams = (state, params) => {
   return newState;
 };
 
-
-// ADD_DEFAULT_PARAM
 const addDefaultParam = (state, {namespace, value}) => {
   const stringValue = `${value}`;
   const newState = {...state};
@@ -48,7 +46,6 @@ const addDefaultParam = (state, {namespace, value}) => {
   return newState;
 };
 
-// REMOVE_PARAM
 const removeParam = (state, {namespace}) => {
   const newState = {...state};
 
@@ -64,7 +61,6 @@ const removeParam = (state, {namespace}) => {
   return newState;
 };
 
-// RESTORE_LOCATION
 const safeParams = params => {
   const newQuery = isNull(params.query) || isUndefined(params.query) ? {} : params.query;
 
@@ -85,7 +81,6 @@ const restoreLocation = (state, url, type = Constants.TYPE_HTML5) => {
   return {...updatedParams, type};
 };
 
-// MAIN REDUCER
 export default (state = initialState, {actionType, payload}) => {
   switch (actionType) {
     case Constants.NAVIGATE_TO:
