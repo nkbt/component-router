@@ -18,12 +18,60 @@ describe('Store', () => {
     });
   };
 
+  describe('getState helper methods', function () {
+    beforeEach(function () {
+      createStore();
+      Store.getState = jasmine.createSpy('getState')
+        .and.returnValue({
+          query: {x: '400'},
+          pathname: '/test',
+          type: 'HTML6',
+          defaultParams: {
+            page: 'admin',
+            day: 'today'
+          }
+        });
+    });
+
+
+    describe('getQuery', function () {
+      it('should return the query from getState()', function () {
+        expect(Store.getQuery()).toEqual({x: '400'});
+      });
+    });
+
+
+    describe('getPathname', function () {
+      it('should return the pathname from getState()', function () {
+        expect(Store.getPathname()).toBe('/test');
+      });
+    });
+
+
+    describe('getType', function () {
+      it('should return the type from getState()', function () {
+        expect(Store.getType()).toBe('HTML6');
+      });
+    });
+
+
+    describe('getDefaultParams', function () {
+      it('should return the defaultParams from getState()', function () {
+        expect(Store.getDefaultParams()).toEqual({
+          page: 'admin',
+          day: 'today'
+        });
+      });
+    });
+  });
+
 
   describe('addThrottledChangeListener', () => {
     beforeEach(() => {
       createStore();
       Store.subscribe = jasmine.createSpy('subscribe');
     });
+
 
     it('should call subscribe once', () => {
       Store.addThrottledChangeListener(x => x);
