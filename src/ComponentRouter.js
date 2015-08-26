@@ -42,14 +42,16 @@ const ComponentRouter = React.createClass({
 
 
   componentDidMount() {
-    this.unsubscribe = Store.addThrottledChangeListener(this.onChange, 50);
+    this.unsubscribe =
+      Store.addThrottledChangeListener(this.onChange, 50);
     this.checkDefaultParam(this.props);
   },
 
 
   componentWillUnmount() {
     this.unsubscribe();
-    setTimeout(() => ActionCreator.removeParam({namespace: this.props.namespace}), 0);
+    Store.dispatch(ActionCreator.removeParam({
+      namespace: this.props.namespace}));
   },
 
 
@@ -58,7 +60,7 @@ const ComponentRouter = React.createClass({
     const defaultParams = Store.getDefaultParams();
 
     if (value && (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== value)) {
-      setTimeout(() => ActionCreator.addDefaultParam({namespace, value}), 0);
+      Store.dispatch(ActionCreator.addDefaultParam({namespace, value}));
     }
   },
 

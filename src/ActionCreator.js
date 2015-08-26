@@ -1,36 +1,32 @@
 import Constants from './Constants';
-import Dispatcher from './Dispatcher';
 
 
 export default {
   navigateTo({pathname, query}) {
-    Dispatcher.dispatch({
+    return {
       actionType: Constants.NAVIGATE_TO,
       payload: {pathname, query}
-    });
+    };
   },
-
 
   addDefaultParam({namespace, value}) {
-    Dispatcher.dispatch({
+    return {
       actionType: Constants.ADD_DEFAULT_PARAM,
       payload: {namespace, value}
-    });
+    };
   },
-
 
   removeParam({namespace}) {
-    Dispatcher.dispatch({
+    return {
       actionType: Constants.REMOVE_PARAM,
       payload: {namespace}
-    });
+    };
   },
 
-
   restoreLocation({location, type}) {
-    Dispatcher.dispatch({
+    return {
       actionType: Constants.RESTORE_LOCATION,
       payload: {location, type}
-    });
+    };
   }
 };
