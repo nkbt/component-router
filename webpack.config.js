@@ -104,12 +104,6 @@ var build = {
   resolve: {extensions: ['', '.js']},
   stats: {colors: true},
   externals: {
-    flux: {
-      root: 'Flux',
-      commonjs2: 'flux',
-      commonjs: 'flux',
-      amd: 'flux'
-    },
     react: {
       root: 'React',
       commonjs2: 'react',
