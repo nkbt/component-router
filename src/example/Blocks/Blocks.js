@@ -1,6 +1,5 @@
 import React from 'react';
-import ReactSwap from 'react-swap';
-import {ComponentRouter, getDefault} from '../..';
+import {ComponentRouter, getDefault, Url} from '../..';
 import Tabs from './Tabs';
 import styles from './Blocks.css';
 
@@ -38,6 +37,33 @@ const Block = React.createClass({
 });
 
 
+const BlockWrapper = React.createClass({
+  propTypes: {
+    componentRouter: React.PropTypes.object
+  },
+
+
+  render() {
+    const {value} = this.props.componentRouter;
+    const isOpened = value === 'open';
+
+    return (
+      <div>
+        <Url query={{block3wrapper: isOpened ? 'close' : 'open'}}>
+          {isOpened ? 'Close' : 'Open'}
+        </Url>
+
+        {isOpened ? (
+          <ComponentRouter config={{Green: GreenBlock, Red: RedBlock}} namespace="block3">
+            <Block />
+          </ComponentRouter>
+        ) : null}
+      </div>
+    );
+  }
+});
+
+
 const Blocks = React.createClass({
   render() {
     return (
@@ -64,21 +90,7 @@ const Blocks = React.createClass({
 
           <h2>Block 3</h2>
           <p>Removes query params (if not rendered)</p>
-          <ReactSwap>
-            <div>
-              <button data-swap-handler={1}>Open</button>
-            </div>
-            <div>
-              <button data-swap-handler={1}>Close</button>
-              <ComponentRouter config={{
-                Green: GreenBlock,
-                Red: RedBlock
-              }} namespace="block3">
-                <Block />
-              </ComponentRouter>
-            </div>
-          </ReactSwap>
-
+          <ComponentRouter config={BlockWrapper} namespace="block3wrapper" />
         </div>
       </div>
     );
