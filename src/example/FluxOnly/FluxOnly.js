@@ -1,9 +1,6 @@
 import React from 'react';
-import {Store, Url, LocationHtml4} from '../..';
+import {Store, Url, LocationHtml4, ActionCreator} from '../..';
 import styles from './FluxOnly.css';
-import shallowEqual from 'react/lib/shallowEqual';
-
-// const PureFlux =
 
 const Switch = React.createClass({
 
@@ -67,7 +64,7 @@ const Switch = React.createClass({
   }
 });
 
-const FluxOnly = React.createClass({
+const FluxWithUrls = React.createClass({
 
   render() {
     return (
@@ -90,6 +87,46 @@ const FluxOnly = React.createClass({
 
 });
 
-//
+const PureFlux = React.createClass({
 
-export default FluxOnly;
+  onClick(newVal = {switch: "nothing"}, event) {
+    event.preventDefault();
+    Store.dispatch(ActionCreator.navigateTo({pathname: '/', query: newVal}));
+  },
+
+  render() {
+    return (
+      <div className={styles.fluxonly}>
+        <div>
+          <h2>Switch Between Different Components Without Using any component-router Components</h2>
+        </div>
+        <div>
+          <a onClick={this.onClick.bind(this, {switch: 'first'})}>
+            Render First Component
+          </a>
+          <a onClick={this.onClick.bind(this, {switch: 'second'})}>
+            Render Second Component
+          </a>
+          <Switch />
+        </div>
+      </div>
+    );
+  }
+});
+
+const CompoundFlux = React.createClass({
+  render() {
+    return (
+      <div>
+        <div>
+          <FluxWithUrls />
+        </div>
+        <div>
+          <PureFlux />
+        </div>
+      </div>
+    );
+  }
+});
+
+export default CompoundFlux;
