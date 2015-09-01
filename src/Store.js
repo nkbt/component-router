@@ -3,12 +3,15 @@ import sortedObject from './sortedObject';
 import {createStore} from 'redux';
 import reducer from './Reducer';
 
+
 const Store = {
   ...createStore(reducer),
+
 
   getDefaultParams() {
     return this.getState().defaultParams;
   },
+
 
   getCleanQuery() {
     const cleanQuery = {...this.getState().query};
@@ -21,13 +24,16 @@ const Store = {
     return sortedObject(cleanQuery);
   },
 
+
   getQuery() {
     return this.getState().query;
   },
 
+
   getType() {
     return this.getState().type;
   },
+
 
   addThrottledChangeListener(callback, timeout = 200, options = {leading: false, trailing: true}) {
     const throttledCallback = throttle(callback, timeout, options);
