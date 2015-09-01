@@ -25,12 +25,11 @@ describe('Reducer', () => {
 
 
   describe('Init', () => {
-    it('should initialize with default pathname and query', () => {
+    it('should initialize with default query', () => {
       createReducer();
       const initState = Reducer(undefined, {});
 
       expect(initState.query).toEqual({});
-      expect(initState.pathname).toEqual('/');
     });
 
 
@@ -57,7 +56,6 @@ describe('Reducer', () => {
 
 
     it('should restore location', () => {
-      expect(newState.pathname).toEqual('/hello');
       expect(newState.query).toEqual({world: '123'});
     });
 

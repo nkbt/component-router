@@ -7,7 +7,6 @@ import shallowEqual from 'react/lib/shallowEqual';
 
 
 const initialState = {
-  pathname: '/',
   query: {},
   defaultParams: {},
   type: Constants.TYPE_HTML5
@@ -16,15 +15,10 @@ const initialState = {
 
 const changeParams = (state, params) => {
   const newParams = urlUtil.merge({
-    pathname: state.pathname,
     query: state.query
   }, params);
   const newQuery = sortedObject({...state.defaultParams, ...newParams.query});
   const newState = {...state};
-
-  if (newState.pathname !== newParams.pathname) {
-    newState.pathname = newParams.pathname;
-  }
 
   if (!shallowEqual(newQuery, newState.query)) {
     newState.query = newQuery;
@@ -38,7 +32,7 @@ const addDefaultParam = (state, {namespace, value}) => {
   const newState = {...state};
 
   if (!newState.defaultParams.hasOwnProperty(namespace) ||
-      newState.defaultParams[namespace] !== stringValue) {
+    newState.defaultParams[namespace] !== stringValue) {
     newState.defaultParams[namespace] = stringValue;
     newState.query = sortedObject({...newState.defaultParams, ...newState.query});
   }
@@ -67,16 +61,15 @@ const safeParams = params => {
   Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
 
   return {
-    pathname: isNull(params.pathname) || isUndefined(params.pathname) ? '/' : params.pathname,
     query: newQuery
   };
 };
 
 const restoreLocation = (state, url, type = Constants.TYPE_HTML5) => {
-  const {pathname: newPathname, query: newQuery} = safeParams(urlUtil.parseHref(url));
+  const {query: newQuery} = safeParams(urlUtil.parseHref(url));
   const updatedParams = changeParams(state, {
-    pathname: newPathname,
-    query: {...state.defaultParams, ...newQuery}});
+    query: {...state.defaultParams, ...newQuery}
+  });
 
   return {...updatedParams, type};
 };
