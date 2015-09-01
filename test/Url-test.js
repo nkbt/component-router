@@ -18,6 +18,8 @@ describe('Url', () => {
       query: {},
       defaultParams: {}
     });
+    Store.getQuery.and.returnValue({});
+    Store.getType.and.returnValue('HTML6');
 
     Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['navigateTo']);
