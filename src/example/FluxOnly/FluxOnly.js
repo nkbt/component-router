@@ -37,7 +37,7 @@ const Switch = React.createClass({
       return <p>{this.state.query.switch}</p>;
     } else {
       // return <p> Sub </p>;
-      return 'Sub';
+      return 'Nothing clicked';
     }
   },
 
