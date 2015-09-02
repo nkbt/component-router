@@ -7,95 +7,104 @@ import shallowEqual from 'react/lib/shallowEqual';
 
 
 const initialState = {
-  pathname: '/',
   query: {},
   defaultParams: {},
   type: Constants.TYPE_HTML5
 };
 
 
-const changeParams = (state, params) => {
-  const newParams = urlUtil.merge({
-    pathname: state.pathname,
-    query: state.query
-  }, params);
-  const newQuery = sortedObject({...state.defaultParams, ...newParams.query});
-  const newState = {...state};
+const changeParams = ({defaultParams, query, type}, params) => {
+  const newParams = urlUtil.merge({query}, params);
+  const newQuery = sortedObject({...defaultParams, ...newParams.query});
 
-  if (newState.pathname !== newParams.pathname) {
-    newState.pathname = newParams.pathname;
+  if (!shallowEqual(newQuery, query)) {
+    return {
+      type,
+      defaultParams: {...defaultParams},
+      query: {...newQuery}
+    };
   }
 
-  if (!shallowEqual(newQuery, newState.query)) {
-    newState.query = newQuery;
-  }
-
-  return newState;
+  return {defaultParams, query, type};
 };
 
-const addDefaultParam = (state, {namespace, value}) => {
+
+const addDefaultParam = ({defaultParams, query, type}, {namespace, value}) => {
   const stringValue = `${value}`;
-  const newState = {...state};
 
-  if (!newState.defaultParams.hasOwnProperty(namespace) ||
-      newState.defaultParams[namespace] !== stringValue) {
-    newState.defaultParams[namespace] = stringValue;
-    newState.query = sortedObject({...newState.defaultParams, ...newState.query});
+  if (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== stringValue) {
+    return {
+      type,
+      defaultParams: {...defaultParams, [namespace]: stringValue},
+      query: sortedObject({...defaultParams, [namespace]: stringValue, ...query})
+    };
   }
 
-  return newState;
+  return {defaultParams, query, type};
 };
 
-const removeParam = (state, {namespace}) => {
-  const newState = {...state};
 
-  if (newState.defaultParams.hasOwnProperty(namespace)) {
-    delete newState.defaultParams[namespace];
+const removeParam = ({defaultParams, query, type}, {namespace}) => {
+  const defaultParamsCopy = {...defaultParams};
+
+  if (defaultParamsCopy.hasOwnProperty(namespace)) {
+    delete defaultParamsCopy[namespace];
   }
 
-  if (newState.query.hasOwnProperty(namespace)) {
-    delete newState.query[namespace];
-    newState.query = sortedObject(newState.query);
+  const queryCopy = {...query};
+  let newQuery;
+
+  if (queryCopy.hasOwnProperty(namespace)) {
+    delete queryCopy[namespace];
+    newQuery = sortedObject({...queryCopy});
+  } else {
+    newQuery = {...queryCopy};
   }
 
-  return newState;
+  return {defaultParams: defaultParamsCopy, query: newQuery, type};
 };
 
-const safeParams = params => {
-  const newQuery = isNull(params.query) || isUndefined(params.query) ? {} : params.query;
+
+const safeParams = ({query}) => {
+  const newQuery = isNull(query) || isUndefined(query) ? {} : query;
 
   Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
 
   return {
-    pathname: isNull(params.pathname) || isUndefined(params.pathname) ? '/' : params.pathname,
     query: newQuery
   };
 };
 
-const restoreLocation = (state, url, type = Constants.TYPE_HTML5) => {
-  const {pathname: newPathname, query: newQuery} = safeParams(urlUtil.parseHref(url));
-  const updatedParams = changeParams(state, {
-    pathname: newPathname,
-    query: {...state.defaultParams, ...newQuery}});
+
+const restoreLocation = ({defaultParams, query}, url, type = Constants.TYPE_HTML5) => {
+  const {query: newQuery} = safeParams(urlUtil.parseHref(url));
+  const updatedParams = changeParams({defaultParams, query, type}, {
+    query: {...defaultParams, ...newQuery}
+  });
 
   return {...updatedParams, type};
 };
 
-export default (state = initialState, {actionType, payload}) => {
+
+export default ({defaultParams, query, type} = {
+  defaultParams: {...initialState.defaultParams},
+  query: {...initialState.query},
+  type: initialState.type
+}, {actionType, payload}) => {
   switch (actionType) {
     case Constants.NAVIGATE_TO:
-      return changeParams(state, safeParams(payload));
+      return changeParams({defaultParams, query, type}, safeParams(payload));
 
     case Constants.ADD_DEFAULT_PARAM:
-      return addDefaultParam(state, payload);
+      return addDefaultParam({defaultParams, query, type}, payload);
 
     case Constants.REMOVE_PARAM:
-      return removeParam(state, payload);
+      return removeParam({defaultParams, query, type}, payload);
 
     case Constants.RESTORE_LOCATION:
-      return restoreLocation(state, payload.location, payload.type);
+      return restoreLocation({defaultParams, query, type}, payload.location, payload.type);
 
     default:
-      return state;
+      return {defaultParams, query, type};
   }
 };

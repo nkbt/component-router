@@ -13,12 +13,13 @@ describe('Url', () => {
   beforeEach(() => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store = jasmine.createSpyObj('Store', [
-      'addThrottledChangeListener', 'dispatch', 'getState', 'getQuery', 'getType', 'getPathname']);
+      'addThrottledChangeListener', 'dispatch', 'getState', 'getQuery', 'getType']);
     Store.getState.and.returnValue({
-      pathname: '/',
       query: {},
       defaultParams: {}
     });
+    Store.getQuery.and.returnValue({});
+    Store.getType.and.returnValue('HTML6');
 
     Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['navigateTo']);
@@ -78,7 +79,6 @@ describe('Url', () => {
     beforeEach(() => {
       urlUtil.merge.and.returnValue({href: '/'});
       Store.getQuery.and.returnValue({x: 1});
-      Store.getPathname.and.returnValue('/test');
 
       div = document.createElement('div');
       url = React.render(<Url />, div);
@@ -97,7 +97,7 @@ describe('Url', () => {
 
 
     it('should set inititial state from Store', () => {
-      expect(url.state).toEqual({pathname: '/test', query: {x: 1}});
+      expect(url.state).toEqual({x: 1});
     });
 
 
@@ -106,7 +106,7 @@ describe('Url', () => {
 
       Store.getQuery.and.returnValue({y: 10});
       onChange();
-      expect(url.state).toEqual({pathname: '/test', query: {y: 10}});
+      expect(url.state).toEqual({y: 10});
     });
   });
 
@@ -117,7 +117,7 @@ describe('Url', () => {
 
     beforeEach(() => {
       urlUtil.merge.and.returnValue({href: '/'});
-      url = TestUtils.renderIntoDocument(<Url pathname="/test" query={{x: 1}} />);
+      url = TestUtils.renderIntoDocument(<Url query={{x: 1}} />);
     });
 
 
@@ -138,7 +138,7 @@ describe('Url', () => {
 
       expect(ActionCreator.navigateTo).toHaveBeenCalled();
       expect(ActionCreator.navigateTo)
-        .toHaveBeenCalledWith(jasmine.objectContaining({pathname: '/test', query: {x: 1}}));
+        .toHaveBeenCalledWith(jasmine.objectContaining({query: {x: 1}}));
     });
   });
 });

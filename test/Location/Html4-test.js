@@ -15,7 +15,7 @@ describe('LocationHtml4', () => {
   beforeEach(() => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store = jasmine.createSpyObj('Store', [
-      'addThrottledChangeListener', 'dispatch', 'getCleanQuery', 'getPathname']);
+      'addThrottledChangeListener', 'dispatch', 'getCleanQuery']);
     Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
     Store.TYPE_HTML4 = 'html4';
 
@@ -84,14 +84,14 @@ describe('LocationHtml4', () => {
     beforeEach(() => html4 = TestUtils.renderIntoDocument(<Html4 />));
 
 
-    it('should return default "/" if no hash present', () => {
-      expect(html4.getUrl()).toEqual('/');
+    it('should return default "?" if no hash present', () => {
+      expect(html4.getUrl()).toEqual('?');
     });
 
 
-    it('should simplify hash url to only pathname and query', () => {
-      w.location.hash = '#/test?x=1#anchor';
-      expect(html4.getUrl()).toEqual('/test?x=1');
+    it('should simplify hash url to only query', () => {
+      w.location.hash = '#?x=1#anchor';
+      expect(html4.getUrl()).toEqual('?x=1');
     });
 
 
@@ -118,8 +118,8 @@ describe('LocationHtml4', () => {
 
 
     it('should not push new state if url is the same', () => {
-      w.location.hash = '#/test?x=1';
-      html4.setUrl('/test?x=1');
+      w.location.hash = '#?x=1';
+      html4.setUrl('?x=1');
       expect(w.history.pushState).not.toHaveBeenCalled();
     });
 
@@ -127,12 +127,12 @@ describe('LocationHtml4', () => {
     it('should restore url when hash updated', () => {
       const onHashChange = w.addEventListener.calls.mostRecent().args[1];
 
-      w.location.hash = '#/test?x=1';
+      w.location.hash = '#?x=1';
       onHashChange();
 
       expect(ActionCreator.restoreLocation).toHaveBeenCalled();
       expect(ActionCreator.restoreLocation).toHaveBeenCalledWith({
-        location: '/test?x=1',
+        location: '?x=1',
         type: Store.TYPE_HTML4
       });
     });
@@ -140,13 +140,12 @@ describe('LocationHtml4', () => {
 
     it('should set url when store updated', () => {
       spyOn(html4, 'setUrl');
-      Store.getPathname.and.returnValue('/test');
       Store.getCleanQuery.and.returnValue({x: 1, y: 2});
       const onChange = Store.addThrottledChangeListener.calls.mostRecent().args[0];
 
       onChange();
       expect(html4.setUrl).toHaveBeenCalled();
-      expect(html4.setUrl).toHaveBeenCalledWith('/test?x=1&y=2');
+      expect(html4.setUrl).toHaveBeenCalledWith('?x=1&y=2');
     });
   });
 });

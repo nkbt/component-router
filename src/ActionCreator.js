@@ -2,10 +2,10 @@ import Constants from './Constants';
 
 
 export default {
-  navigateTo({pathname, query}) {
+  navigateTo({query}) {
     return {
       actionType: Constants.NAVIGATE_TO,
-      payload: {pathname, query}
+      payload: {query}
     };
   },
 

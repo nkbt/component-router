@@ -15,13 +15,13 @@ describe('LocationHtml5', () => {
   beforeEach(() => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store = jasmine.createSpyObj('Store', [
-      'addThrottledChangeListener', 'dispatch', 'getCleanQuery', 'getPathname']);
+      'addThrottledChangeListener', 'dispatch', 'getCleanQuery']);
     Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
     Store.TYPE_HTML5 = 'html5';
 
     ActionCreator = jasmine.createSpyObj('ActionCreator', ['restoreLocation']);
 
-    w.location = {pathname: '/', search: ''};
+    w.location = {search: ''};
     w.addEventListener = jasmine.createSpy('addEventListener');
     w.removeEventListener = jasmine.createSpy('removeEventListener');
     w.history = jasmine.createSpyObj('history', ['pushState']);
@@ -84,12 +84,11 @@ describe('LocationHtml5', () => {
     beforeEach(() => html5 = TestUtils.renderIntoDocument(<Html5 />));
 
 
-    it('should simplify url to only pathname and query', () => {
+    it('should simplify url to only query', () => {
       w.location.port = 1234;
-      w.location.pathname = '/test';
       w.location.search = '?x=1';
       w.location.hash = '#anchor';
-      expect(html5.getUrl()).toEqual('/test?x=1');
+      expect(html5.getUrl()).toEqual('?x=1');
     });
 
 
@@ -116,15 +115,13 @@ describe('LocationHtml5', () => {
 
 
     it('should not push new state if url is the same', () => {
-      w.location.pathname = '/test';
       w.location.search = '?x=1';
-      html5.setUrl('/test?x=1');
+      html5.setUrl('?x=1');
       expect(w.history.pushState).not.toHaveBeenCalled();
     });
 
 
     it('should restore url when location updated', () => {
-      w.location.pathname = '/test';
       w.location.search = '?x=1';
 
       const onPopstate = w.addEventListener.calls.mostRecent().args[1];
@@ -133,7 +130,7 @@ describe('LocationHtml5', () => {
 
       expect(ActionCreator.restoreLocation).toHaveBeenCalled();
       expect(ActionCreator.restoreLocation).toHaveBeenCalledWith({
-        location: '/test?x=1',
+        location: '?x=1',
         type: Store.TYPE_HTML5
       });
     });
@@ -141,13 +138,12 @@ describe('LocationHtml5', () => {
 
     it('should set url when store updated', () => {
       spyOn(html5, 'setUrl');
-      Store.getPathname.and.returnValue('/test');
       Store.getCleanQuery.and.returnValue({x: 1, y: 2});
       const onChange = Store.addThrottledChangeListener.calls.mostRecent().args[0];
 
       onChange();
       expect(html5.setUrl).toHaveBeenCalled();
-      expect(html5.setUrl).toHaveBeenCalledWith('/test?x=1&y=2');
+      expect(html5.setUrl).toHaveBeenCalledWith('?x=1&y=2');
     });
   });
 });

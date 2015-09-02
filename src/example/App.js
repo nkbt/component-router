@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {ComponentRouter, LocationHtml4, getDefault, Url} from '..';
+import {ComponentRouter, LocationHtml5, getDefault, Url} from '..';
 import styles from './App.css';
 
 import FooBar from './FooBar/FooBar';
@@ -41,30 +41,12 @@ const Header = React.createClass({
   }
 });
 
-//
-//  const Content = React.createClass({
-//    propTypes: {
-//      componentRouter: React.PropTypes.object
-//    },
-//
-//
-//    render() {
-//      const {Component} = this.props.componentRouter;
-//
-//      return (
-//        <div className={styles.content}>
-//          <Component />
-//        </div>
-//      );
-//    }
-//  });
-
 
 const App = React.createClass({
   render() {
     return (
       <div className={styles.app}>
-        <LocationHtml4 />
+        <LocationHtml5 />
 
         <Header />
 

@@ -3,18 +3,17 @@ import sortedObject from './sortedObject';
 
 
 const parseHref = (href) => {
-  const {pathname, query} = url.parse(href, true);
+  const {query} = url.parse(href, true);
 
-  return {pathname, query, href: url.format({pathname, query})};
+  return {query, href: url.format({query})};
 };
 
 
 const merge = (oldParams, newParams) => {
-  const pathname = newParams.pathname || oldParams.pathname;
   const query = sortedObject({...oldParams.query, ...newParams.query});
-  const href = url.format({pathname, query});
+  const href = url.format({query});
 
-  return {pathname, query, href};
+  return {query, href};
 };
 
 
