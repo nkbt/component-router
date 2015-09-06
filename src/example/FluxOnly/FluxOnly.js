@@ -1,5 +1,5 @@
 import React from 'react';
-import {Store, Url, LocationHtml4, ActionCreator} from '../..';
+import {Store, Url, ActionCreator} from '../..';
 import styles from './FluxOnly.css';
 
 const Switch = React.createClass({
@@ -28,37 +28,33 @@ const Switch = React.createClass({
   },
 
   switchComponents() {
-    // let query = Store.getQuery;
-    console.log(`Switch: switchComponents...`);
+    // let query = <p>Nothing clicked</p>;
+    let query = 'Nothing';
+
     if ('switch' in this.state.query) {
-      // return <p> Bub </p>;
-      // return 'Bub';
-      // return this.state.query.switch;
-      return <p>{this.state.query.switch}</p>;
-    } else {
-      // return <p> Sub </p>;
-      return 'Nothing clicked';
+      // query = <p>{this.state.query.switch} clicked</p>;
+      // query = `${this.state.query.switch} clicked`;
+      query = this.state.query.switch;
     }
+    return query;
   },
 
   onChange() {
-    console.log(`Switch: onChange...`);
     this.setState({
       query: Store.getQuery()
     });
   },
 
   render() {
-    // console.log(`Switch: render...`);
-      // <div className="content">
-    // console.dir(this.switchComponents(this.state.query));
-    console.log(`Switch: render...${this.switchComponents(this.state.query)}`);
     return (
       <div className={styles.content}>
-        Hey there....
-        <div>
-          {this.switchComponents()}
-        </div>
+        {
+        // <p>Current state is:</p>
+        // <div>
+        //   {this.switchComponents()}
+        // </div>
+        }
+        <p>Current state is: {this.switchComponents()} Clicked</p>
       </div>
     );
   }
@@ -70,13 +66,13 @@ const FluxWithUrls = React.createClass({
     return (
       <div className={styles.fluxonly}>
         <div>
-          <h2>Switch Between Different Components Using component-router's Urls</h2>
+          <h2>Using component-router's Urls</h2>
         </div>
         <div>
-          <Url query={{switch: 'first'}}>
+          <Url query={{switch: 'First'}}>
             Render First Component
           </Url>
-          <Url query={{switch: 'second'}}>
+          <Url query={{switch: 'Second'}}>
             Render Second Component
           </Url>
           <Switch />
@@ -89,22 +85,55 @@ const FluxWithUrls = React.createClass({
 
 const PureFlux = React.createClass({
 
-  onClick(newVal = {switch: "nothing"}, event) {
+  getInitialState() {
+    return {
+      query: Store.getQuery()
+    };
+  },
+
+  componentDidMount() {
+    this.unsubscribe =
+      Store.addThrottledChangeListener(this.onChange, 50);
+  },
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  },
+
+  onChange() {
+    this.setState({
+      query: Store.getQuery()
+    });
+  },
+
+  onClick(newVal = {switch: 'nothing'}, event) {
     event.preventDefault();
     Store.dispatch(ActionCreator.navigateTo({pathname: '/', query: newVal}));
   },
 
+  activeClass({switch: val}) {
+    let cName = '';
+
+    if (this.state.query[`switch`] === val) {
+      cName = 'active';
+    }
+    return cName;
+  },
+
   render() {
+    const first = {switch: 'First'};
+    const second = {switch: 'Second'};
+
     return (
       <div className={styles.fluxonly}>
         <div>
-          <h2>Switch Between Different Components Without Using any component-router Components</h2>
+          <h2>Using only anchor elements</h2>
         </div>
         <div>
-          <a onClick={this.onClick.bind(this, {switch: 'first'})}>
+          <a className={this.activeClass(first)} onClick={this.onClick.bind(this, first)}>
             Render First Component
           </a>
-          <a onClick={this.onClick.bind(this, {switch: 'second'})}>
+          <a className={this.activeClass(second)} onClick={this.onClick.bind(this, second)}>
             Render Second Component
           </a>
           <Switch />
@@ -118,10 +147,11 @@ const CompoundFlux = React.createClass({
   render() {
     return (
       <div>
+        <h1>Switch Components by subscribing directly to the Flux Store</h1>
         <div>
           <FluxWithUrls />
         </div>
-        <div>
+        <div className={styles.container}>
           <PureFlux />
         </div>
       </div>
