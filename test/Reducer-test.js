@@ -63,6 +63,7 @@ describe('Reducer', () => {
 
 
     it('should sort query params when restoring location', () => {
+      expect(sorted.calls.mostRecent().args).toEqual([{world: '123', name: 'barry'}]);
       expect(Object.keys(newState.query)).toEqual(['name', 'world']);
     });
   });
@@ -111,6 +112,7 @@ describe('Reducer', () => {
 
 
     it('should sort query params when adding default one', () => {
+      expect(sorted.calls.mostRecent().args).toEqual([{x: '1', y: '10', z: '100'}]);
       expect(Object.keys(newState.query)).toEqual(['x', 'y', 'z']);
     });
   });
@@ -160,6 +162,7 @@ describe('Reducer', () => {
         type: Constants.REMOVE_PARAM,
         payload: {namespace: 'x'}
       });
+      expect(sorted.calls.mostRecent().args).toEqual([{y: '10', z: '100'}]);
       expect(Object.keys(newState.query)).toEqual(['y', 'z']);
     });
   });
@@ -191,6 +194,7 @@ describe('Reducer', () => {
         type: Constants.NAVIGATE_TO,
         payload: {query: {y: 10}}
       });
+      expect(sorted.calls.mostRecent().args).toEqual([{y: '10'}]);
       expect(Object.keys(newState.query)).toEqual(['y']);
     });
   });
