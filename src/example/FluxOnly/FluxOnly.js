@@ -10,14 +10,6 @@ const Switch = React.createClass({
     };
   },
 
-  // shouldComponentUpdate(newProps, {query = {}}) {
-  //   return true;
-  //   // const config = newProps.config || {};
-
-  //   // return !shallowEqual(newProps, this.props) || !shallowEqual(config,
-  //   //     this.props.config) || !shallowEqual(query, this.state.query);
-  // },
-
   componentDidMount() {
     this.unsubscribe =
       Store.addThrottledChangeListener(this.onChange, 50);
@@ -28,12 +20,9 @@ const Switch = React.createClass({
   },
 
   switchComponents() {
-    // let query = <p>Nothing clicked</p>;
     let query = 'Nothing';
 
     if ('switch' in this.state.query) {
-      // query = <p>{this.state.query.switch} clicked</p>;
-      // query = `${this.state.query.switch} clicked`;
       query = this.state.query.switch;
     }
     return query;
@@ -48,12 +37,6 @@ const Switch = React.createClass({
   render() {
     return (
       <div className={styles.content}>
-        {
-        // <p>Current state is:</p>
-        // <div>
-        //   {this.switchComponents()}
-        // </div>
-        }
         <p>Current state is: {this.switchComponents()} Clicked</p>
       </div>
     );
