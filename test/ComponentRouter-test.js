@@ -1,21 +1,28 @@
-// import React from 'react';
-import React from 'react/addons';
+import React from 'react';
+// import React from 'react/addons';
 import createComponent from './utils/createComponent';
+import FooBar from '../src/example/FooBar/FooBar';
 
 
-fdescribe('ComponentRouter', () => {
+describe('ComponentRouter', () => {
   const ComponentRouterInjector = require('inject!../src/ComponentRouter');
   let Actions, Store, getDefault, ComponentRouter;
 
+  const ChartInjector = require('inject!../src/example/Quickstart/Chart');
+  const Chart = ChartInjector({
+    './Chart.css': jasmine.createSpyObj('styles', ['']),
+  });
+
 
   beforeEach(() => {
-    Actions = jasmine.createSpyObj('Actions', ['']);
+    // Actions = jasmine.createSpyObj('Actions', ['']);
   // let Actions, Store, getDefault, ComponentRouter;
   // let storeUnsubscribe, initProps;
 
 
   // beforeEach(() => {
   //   Actions = jasmine.createSpyObj('Actions', ['removeParam']);
+    Actions = jasmine.createSpyObj('Actions', ['removeParam', 'addDefaultParam']);
     Store = jasmine.createSpyObj('Store', ['']);
     getDefault = jasmine.createSpy('getDefault')
       .and.returnValue('pacman');
@@ -89,8 +96,67 @@ fdescribe('ComponentRouter', () => {
     });
 
     describe('checkDefaultParam', () => {
+      describe('when we have a default config value', () => {
+        beforeEach(() => {
+          initProps = {
+            namespace: 'page',
+            config: {
+              [getDefault()]: 'santa'
+            }
+          };
+        });
 
+        it('should add a Default parameter if not already set', () => {
+          Store.getDefaultParams.and.returnValue({page: 'not santa'});
+          div = document.createElement('div');
+          React.render(<ComponentRouter {...initProps}/>, div);
+          expect(ActionCreator.addDefaultParam).toHaveBeenCalled();
+        });
+
+        it('should not add a Default parameter if already set', () => {
+          Store.getDefaultParams.and.returnValue({page: 'santa'});
+          div = document.createElement('div');
+          React.render(<ComponentRouter {...initProps}/>, div);
+          expect(ActionCreator.addDefaultParam).not.toHaveBeenCalled();
+        });
+      });
     });
+
+  describe("render", () => {
+    describe("when passed a React Component as config", function () {
+      describe("without any children", function () {
+        it("should render that Component", function () {
+          // const config = <FooBar />;
+          const cr = createComponent(ComponentRouter, {namespace:'zoo',config: FooBar}).out;
+          // const cr = createComponent(ComponentRouter, namespace='zoo' {config: FooBar}).out;
+          expect(cr.type).toBe(<FooBar />.type);
+          // expect(cr.type).toBe('booga');
+          // expect(cr).toBe('booga');
+        });
+      });
+      describe("and it has children", function () {
+        it("should render the children", function () {
+          Store.getQuery.and.returnValue({page: 'foo'});
+          const cr = createComponent(ComponentRouter, {namespace: 'page', config: {page: Chart, foo: FooBar}}, <div></div>).out;
+          expect(cr.props.children).toEqual(<div></div>);
+        });
+      });
+    });
+    describe("when passed an object as config", function () {
+      describe("without any children", function () {
+        it("should render that Component", function () {
+          Store.getQuery.and.returnValue({page: 'foo'});
+          const cr = createComponent(ComponentRouter, {namespace: 'page', config: {foo: Chart, bar: FooBar}}).out;
+          expect(cr.type).toBe(<Chart />.type);
+        });
+      });
+      describe("and it has children", function () {
+        it("should render the children", function () {
+
+        });
+      });
+    });
+  });
 
   });
 
