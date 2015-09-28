@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import Constants from './Constants';
 import Store from './Store';
-import * as ActionCreator from './ActionCreator';
+import * as Actions from './Actions';
 import urlUtil from './urlUtil';
 import shallowEqual from 'react/lib/shallowEqual';
 
@@ -48,7 +48,7 @@ const Url = React.createClass({
 
   onClick(event) {
     event.preventDefault();
-    Store.dispatch(ActionCreator.navigateTo(this.props));
+    Store.dispatch(Actions.navigateTo(this.props));
   },
 
 

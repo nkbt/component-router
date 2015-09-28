@@ -2,7 +2,7 @@ import React from 'react';
 import url from 'url';
 import Constants from '../Constants';
 import Store from '../Store';
-import {restoreLocation} from '../ActionCreator';
+import {restoreLocation} from '../Actions';
 
 
 const Html4 = React.createClass({

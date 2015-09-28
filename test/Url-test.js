@@ -6,7 +6,7 @@ import createComponent from './utils/createComponent';
 
 describe('Url', () => {
   const UrlInjector = require('inject!../src/Url');
-  let Store, ActionCreator, urlUtil, Url;
+  let Store, Actions, urlUtil, Url;
   let storeUnsubscribe;
 
 
@@ -22,14 +22,14 @@ describe('Url', () => {
     Store.getType.and.returnValue('HTML6');
 
     Store.subscribe.and.returnValue(storeUnsubscribe);
-    ActionCreator = jasmine.createSpyObj('ActionCreator', ['navigateTo']);
+    Actions = jasmine.createSpyObj('Actions', ['navigateTo']);
     urlUtil = jasmine.createSpyObj('urlUtil', ['merge', 'isActive']);
   });
 
 
   beforeEach(() => Url = UrlInjector({
     './Store': Store,
-    './ActionCreator': ActionCreator,
+    './Actions': Actions,
     './urlUtil': urlUtil
   }));
 
@@ -136,8 +136,8 @@ describe('Url', () => {
 
       TestUtils.Simulate.click(a);
 
-      expect(ActionCreator.navigateTo).toHaveBeenCalled();
-      expect(ActionCreator.navigateTo)
+      expect(Actions.navigateTo).toHaveBeenCalled();
+      expect(Actions.navigateTo)
         .toHaveBeenCalledWith(jasmine.objectContaining({query: {x: 1}}));
     });
   });

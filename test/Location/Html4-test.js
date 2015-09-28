@@ -8,7 +8,7 @@ const w = global.mockedWindow;
 
 describe('LocationHtml4', () => {
   const Html4Injector = require('imports?window=>mockedWindow!inject!../../src/Location/Html4');
-  let Store, ActionCreator, Html4, div;
+  let Store, Actions, Html4, div;
   let storeUnsubscribe;
 
 
@@ -18,7 +18,7 @@ describe('LocationHtml4', () => {
     Store.subscribe.and.returnValue(storeUnsubscribe);
     Store.TYPE_HTML4 = 'html4';
 
-    ActionCreator = jasmine.createSpyObj('ActionCreator', ['restoreLocation']);
+    Actions = jasmine.createSpyObj('Actions', ['restoreLocation']);
 
     w.location = {hash: ''};
     w.addEventListener = jasmine.createSpy('addEventListener');
@@ -30,7 +30,7 @@ describe('LocationHtml4', () => {
 
   beforeEach(() => Html4 = Html4Injector({
     '../Store': Store,
-    '../ActionCreator': ActionCreator
+    '../Actions': Actions
   }));
 
 
@@ -48,7 +48,7 @@ describe('LocationHtml4', () => {
     });
 
     it('should restore url on load', () => {
-      expect(ActionCreator.restoreLocation).toHaveBeenCalled();
+      expect(Actions.restoreLocation).toHaveBeenCalled();
     });
 
 
@@ -129,8 +129,8 @@ describe('LocationHtml4', () => {
       w.location.hash = '#?x=1';
       onHashChange();
 
-      expect(ActionCreator.restoreLocation).toHaveBeenCalled();
-      expect(ActionCreator.restoreLocation).toHaveBeenCalledWith({
+      expect(Actions.restoreLocation).toHaveBeenCalled();
+      expect(Actions.restoreLocation).toHaveBeenCalledWith({
         location: '?x=1',
         locationType: Store.TYPE_HTML4
       });
