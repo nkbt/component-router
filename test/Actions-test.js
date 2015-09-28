@@ -1,6 +1,6 @@
-describe('ActionCreator', () => {
-  const ActionCreatorInjector = require('inject!../src/ActionCreator');
-  let Constants, ActionCreator;
+describe('Actions', () => {
+  const ActionsInjector = require('inject!../src/Actions');
+  let Constants, Actions;
 
 
   beforeEach(() => {
@@ -8,17 +8,17 @@ describe('ActionCreator', () => {
   });
 
 
-  beforeEach(() => ActionCreator = ActionCreatorInjector({
+  beforeEach(() => Actions = ActionsInjector({
     './Constants': Constants
   }));
 
 
   it('should return an appropriate NAVIGATE_TO action', () => {
     Constants.NAVIGATE_TO = 'test';
-    const action = ActionCreator.navigateTo({query: 'query'});
+    const action = Actions.navigateTo({query: 'query'});
 
     expect(action).toEqual({
-      actionType: 'test',
+      type: 'test',
       payload: {query: 'query'}
     });
   });
@@ -26,10 +26,10 @@ describe('ActionCreator', () => {
 
   it('should return an appropriate ADD_DEFAULT_PARAM action', () => {
     Constants.ADD_DEFAULT_PARAM = 'test';
-    const action = ActionCreator.addDefaultParam({namespace: 'namespace', value: 'value'});
+    const action = Actions.addDefaultParam({namespace: 'namespace', value: 'value'});
 
     expect(action).toEqual({
-      actionType: 'test',
+      type: 'test',
       payload: {namespace: 'namespace', value: 'value'}
     });
   });
@@ -37,10 +37,10 @@ describe('ActionCreator', () => {
 
   it('should return an appropriate REMOVE_PARAM action', () => {
     Constants.REMOVE_PARAM = 'test';
-    const action = ActionCreator.removeParam({namespace: 'namespace'});
+    const action = Actions.removeParam({namespace: 'namespace'});
 
     expect(action).toEqual({
-      actionType: 'test',
+      type: 'test',
       payload: {namespace: 'namespace'}
     });
   });
@@ -48,13 +48,13 @@ describe('ActionCreator', () => {
 
   it('should return an appropriate RESTORE_LOCATION action', () => {
     Constants.RESTORE_LOCATION = 'test';
-    const action = ActionCreator.restoreLocation({location: 'location'});
+    const action = Actions.restoreLocation({location: 'location'});
 
     expect(action).toEqual({
-      actionType: 'test',
+      type: 'test',
       payload: {
         location: 'location',
-        type: undefined
+        locationType: undefined
       }
     });
   });

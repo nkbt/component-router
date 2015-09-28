@@ -48,7 +48,7 @@ describe('Reducer', () => {
     beforeEach(() => {
       createReducer();
       action = {
-        actionType: Constants.RESTORE_LOCATION,
+        type: Constants.RESTORE_LOCATION,
         payload: {location: '/hello?world=123'}
       };
       newState = Reducer(undefined, action);
@@ -74,15 +74,15 @@ describe('Reducer', () => {
       let state;
 
       state = Reducer(state, {
-        actionType: Constants.RESTORE_LOCATION,
+        type: Constants.RESTORE_LOCATION,
         payload: {location: '/?x=1'}
       });
       state = Reducer(state, {
-        actionType: Constants.ADD_DEFAULT_PARAM,
+        type: Constants.ADD_DEFAULT_PARAM,
         payload: {namespace: 'y', value: 10}
       });
       state = Reducer(state, {
-        actionType: Constants.ADD_DEFAULT_PARAM,
+        type: Constants.ADD_DEFAULT_PARAM,
         payload: {namespace: 'z', value: 100}
       });
       newState = state;
@@ -101,7 +101,7 @@ describe('Reducer', () => {
 
     it('should not override existing query param with default one', () => {
       newState = Reducer(newState, {
-        actionType: Constants.ADD_DEFAULT_PARAM,
+        type: Constants.ADD_DEFAULT_PARAM,
         payload: {namespace: 'x', value: 123}
       });
       expect(newState.query).toEqual({x: '1', y: '10', z: '100'});
@@ -122,11 +122,11 @@ describe('Reducer', () => {
       let state;
 
       state = Reducer(state, {
-        actionType: Constants.RESTORE_LOCATION,
+        type: Constants.RESTORE_LOCATION,
         payload: {location: '/?x=1&y=10'}
       });
       state = Reducer(state, {
-        actionType: Constants.ADD_DEFAULT_PARAM,
+        type: Constants.ADD_DEFAULT_PARAM,
         payload: {namespace: 'z', value: 100}
       });
       newState = state;
@@ -136,7 +136,7 @@ describe('Reducer', () => {
     it('should remove param from query', () => {
       expect(newState.query).toEqual({x: '1', y: '10', z: '100'});
       newState = Reducer(newState, {
-        actionType: Constants.REMOVE_PARAM,
+        type: Constants.REMOVE_PARAM,
         payload: {namespace: 'x'}
       });
       expect(newState.query).toEqual({y: '10', z: '100'});
@@ -146,7 +146,7 @@ describe('Reducer', () => {
     it('should remove param from default params', () => {
       expect(newState.defaultParams).toEqual({z: '100'});
       newState = Reducer(newState, {
-        actionType: Constants.REMOVE_PARAM,
+        type: Constants.REMOVE_PARAM,
         payload: {namespace: 'z'}
       });
       expect(newState.defaultParams).toEqual({});
@@ -155,7 +155,7 @@ describe('Reducer', () => {
 
     it('should sort query params upon removal', () => {
       newState = Reducer(newState, {
-        actionType: Constants.REMOVE_PARAM,
+        type: Constants.REMOVE_PARAM,
         payload: {namespace: 'x'}
       });
       expect(sorted.calls.mostRecent().args).toEqual([{y: '10', z: '100'}]);
@@ -169,7 +169,7 @@ describe('Reducer', () => {
     beforeEach(() => {
       createReducer();
       newState = Reducer(newState, {
-        actionType: Constants.ADD_DEFAULT_PARAM,
+        type: Constants.ADD_DEFAULT_PARAM,
         payload: {namespace: 'y', value: 2}
       });
     });
@@ -177,7 +177,7 @@ describe('Reducer', () => {
 
     it('should merge params', () => {
       newState = Reducer(newState, {
-        actionType: Constants.NAVIGATE_TO,
+        type: Constants.NAVIGATE_TO,
         payload: {query: {y: 10}}
       });
       expect(newState.query).toEqual({y: '10'});
@@ -186,7 +186,7 @@ describe('Reducer', () => {
 
     it('should sort query params', () => {
       newState = Reducer(newState, {
-        actionType: Constants.NAVIGATE_TO,
+        type: Constants.NAVIGATE_TO,
         payload: {query: {y: 10}}
       });
       expect(sorted.calls.mostRecent().args).toEqual([{y: '10'}]);

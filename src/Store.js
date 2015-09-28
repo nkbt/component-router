@@ -1,4 +1,3 @@
-import throttle from 'lodash.throttle';
 import sortedObject from './sortedObject';
 import {createStore} from 'redux';
 import reducer from './Reducer';
@@ -32,17 +31,6 @@ const Store = {
 
   getType() {
     return this.getState().type;
-  },
-
-
-  addThrottledChangeListener(callback, timeout = 200, options = {leading: false, trailing: true}) {
-    const throttledCallback = throttle(callback, timeout, options);
-    const unsubscribe = this.subscribe(throttledCallback);
-
-    return () => {
-      unsubscribe();
-      throttledCallback.cancel();
-    };
   },
 
 

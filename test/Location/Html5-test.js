@@ -8,7 +8,7 @@ const w = global.mockedWindow;
 
 describe('LocationHtml5', () => {
   const Html5Injector = require('imports?window=>mockedWindow!inject!../../src/Location/Html5');
-  let Store, ActionCreator, Html5, div;
+  let Store, Actions, Html5, div;
   let storeUnsubscribe;
 
 
@@ -18,7 +18,7 @@ describe('LocationHtml5', () => {
     Store.subscribe.and.returnValue(storeUnsubscribe);
     Store.TYPE_HTML5 = 'html5';
 
-    ActionCreator = jasmine.createSpyObj('ActionCreator', ['restoreLocation']);
+    Actions = jasmine.createSpyObj('Actions', ['restoreLocation']);
 
     w.location = {search: ''};
     w.addEventListener = jasmine.createSpy('addEventListener');
@@ -30,7 +30,7 @@ describe('LocationHtml5', () => {
 
   beforeEach(() => Html5 = Html5Injector({
     '../Store': Store,
-    '../ActionCreator': ActionCreator
+    '../Actions': Actions
   }));
 
 
@@ -48,7 +48,7 @@ describe('LocationHtml5', () => {
     });
 
     it('should restore url on load', () => {
-      expect(ActionCreator.restoreLocation).toHaveBeenCalled();
+      expect(Actions.restoreLocation).toHaveBeenCalled();
     });
 
 
@@ -127,10 +127,10 @@ describe('LocationHtml5', () => {
 
       onPopstate();
 
-      expect(ActionCreator.restoreLocation).toHaveBeenCalled();
-      expect(ActionCreator.restoreLocation).toHaveBeenCalledWith({
+      expect(Actions.restoreLocation).toHaveBeenCalled();
+      expect(Actions.restoreLocation).toHaveBeenCalledWith({
         location: '?x=1',
-        type: Store.TYPE_HTML5
+        locationType: Store.TYPE_HTML5
       });
     });
 

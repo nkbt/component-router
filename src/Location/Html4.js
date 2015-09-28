@@ -2,7 +2,7 @@ import React from 'react';
 import url from 'url';
 import Constants from '../Constants';
 import Store from '../Store';
-import {restoreLocation} from '../ActionCreator';
+import {restoreLocation} from '../Actions';
 
 
 const Html4 = React.createClass({
@@ -24,7 +24,7 @@ const Html4 = React.createClass({
 
 
   restoreUrl() {
-    Store.dispatch(restoreLocation({location: this.getUrl(), type: Constants.TYPE_HTML4}));
+    Store.dispatch(restoreLocation({location: this.getUrl(), locationType: Constants.TYPE_HTML4}));
   },
 
 

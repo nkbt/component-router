@@ -2,24 +2,24 @@ import Constants from './Constants';
 
 
 export const navigateTo = ({query}) => ({
-  actionType: Constants.NAVIGATE_TO,
+  type: Constants.NAVIGATE_TO,
   payload: {query}
 });
 
 
 export const addDefaultParam = ({namespace, value}) => ({
-  actionType: Constants.ADD_DEFAULT_PARAM,
+  type: Constants.ADD_DEFAULT_PARAM,
   payload: {namespace, value}
 });
 
 
 export const removeParam = ({namespace}) => ({
-  actionType: Constants.REMOVE_PARAM,
+  type: Constants.REMOVE_PARAM,
   payload: {namespace}
 });
 
 
-export const restoreLocation = ({location, type}) => ({
-  actionType: Constants.RESTORE_LOCATION,
-  payload: {location, type}
+export const restoreLocation = ({location, locationType}) => ({
+  type: Constants.RESTORE_LOCATION,
+  payload: {location, locationType}
 });

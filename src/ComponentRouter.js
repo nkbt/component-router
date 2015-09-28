@@ -1,6 +1,6 @@
 import React from 'react';
 import Store from './Store';
-import * as ActionCreator from './ActionCreator';
+import * as Actions from './Actions';
 import isFunction from 'lodash.isfunction';
 import getDefault from './getDefault';
 import shallowEqual from 'react/lib/shallowEqual';
@@ -49,7 +49,7 @@ const ComponentRouter = React.createClass({
 
   componentWillUnmount() {
     this.unsubscribe();
-    Store.dispatch(ActionCreator.removeParam({
+    Store.dispatch(Actions.removeParam({
       namespace: this.props.namespace}));
   },
 
@@ -59,7 +59,7 @@ const ComponentRouter = React.createClass({
     const defaultParams = Store.getDefaultParams();
 
     if (value && (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== value)) {
-      Store.dispatch(ActionCreator.addDefaultParam({namespace, value}));
+      Store.dispatch(Actions.addDefaultParam({namespace, value}));
     }
   },
 

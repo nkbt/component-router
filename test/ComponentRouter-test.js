@@ -1,17 +1,17 @@
 describe('ComponentRouter', () => {
   const ComponentRouterInjector = require('inject!../src/ComponentRouter');
-  let ActionCreator, Store, getDefault, ComponentRouter;
+  let Actions, Store, getDefault, ComponentRouter;
 
 
   beforeEach(() => {
-    ActionCreator = jasmine.createSpyObj('ActionCreator', ['']);
+    Actions = jasmine.createSpyObj('Actions', ['']);
     Store = jasmine.createSpyObj('Store', ['']);
     getDefault = jasmine.createSpy('getDefault');
   });
 
 
   beforeEach(() => ComponentRouter = ComponentRouterInjector({
-    './ActionCreator': ActionCreator,
+    './Actions': Actions,
     './Store': Store,
     './getDefault': getDefault
   }));
