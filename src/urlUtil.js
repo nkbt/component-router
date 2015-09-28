@@ -2,7 +2,7 @@ import url from 'url';
 import sortedObject from './sortedObject';
 
 
-const parseHref = (href) => {
+const parseHref = href => {
   const {query} = url.parse(href, true);
 
   return {query, href: url.format({query})};

@@ -1,6 +1,6 @@
 # component-router
 
-[![Gitter](https://badges.gitter.im/Join Chat.svg)](https://gitter.im/nkbt/help)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nkbt/help)
 
 [![Circle CI](https://circleci.com/gh/in-flux/component-router.svg?style=svg)](https://circleci.com/gh/in-flux/component-router)
 [![Coverage Status](https://coveralls.io/repos/in-flux/component-router/badge.svg?branch=master)](https://coveralls.io/r/in-flux/component-router?branch=master)
