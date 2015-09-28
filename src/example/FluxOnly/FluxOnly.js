@@ -5,9 +5,7 @@ import styles from './FluxOnly.css';
 const Switch = React.createClass({
 
   getInitialState() {
-    return {
-      query: Store.getQuery()
-    };
+    return Store.getQuery();
   },
 
   componentDidMount() {
@@ -22,16 +20,14 @@ const Switch = React.createClass({
   switchComponents() {
     let query = 'Nothing';
 
-    if ('switch' in this.state.query) {
-      query = this.state.query.switch;
+    if ('switch' in this.state) {
+      query = this.state.switch;
     }
     return query;
   },
 
   onChange() {
-    this.setState({
-      query: Store.getQuery()
-    });
+    this.setState(Store.getQuery());
   },
 
   render() {
@@ -69,9 +65,7 @@ const FluxWithUrls = React.createClass({
 const PureFlux = React.createClass({
 
   getInitialState() {
-    return {
-      query: Store.getQuery()
-    };
+    return Store.getQuery();
   },
 
   componentDidMount() {
@@ -84,9 +78,7 @@ const PureFlux = React.createClass({
   },
 
   onChange() {
-    this.setState({
-      query: Store.getQuery()
-    });
+    this.setState(Store.getQuery());
   },
 
   onClick(newVal = {switch: 'nothing'}, event) {
@@ -97,7 +89,7 @@ const PureFlux = React.createClass({
   activeClass({switch: val}) {
     let cName = '';
 
-    if (this.state.query[`switch`] === val) {
+    if (this.state[`switch`] === val) {
       cName = 'active';
     }
     return cName;
