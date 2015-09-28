@@ -18,8 +18,8 @@ describe('Store', () => {
     });
   };
 
-  describe('getState helper methods', function () {
-    beforeEach(function () {
+  describe('getState helper methods', () => {
+    beforeEach(() => {
       createStore();
       Store.getState = jasmine.createSpy('getState')
         .and.returnValue({
@@ -33,22 +33,22 @@ describe('Store', () => {
     });
 
 
-    describe('getQuery', function () {
-      it('should return the query from getState()', function () {
+    describe('getQuery', () => {
+      it('should return the query from getState()', () => {
         expect(Store.getQuery()).toEqual({x: '400'});
       });
     });
 
 
-    describe('getType', function () {
-      it('should return the type from getState()', function () {
+    describe('getType', () => {
+      it('should return the type from getState()', () => {
         expect(Store.getType()).toBe('HTML6');
       });
     });
 
 
-    describe('getDefaultParams', function () {
-      it('should return the defaultParams from getState()', function () {
+    describe('getDefaultParams', () => {
+      it('should return the defaultParams from getState()', () => {
         expect(Store.getDefaultParams()).toEqual({
           page: 'admin',
           day: 'today'

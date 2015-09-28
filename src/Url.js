@@ -30,14 +30,14 @@ const Url = React.createClass({
   },
 
 
-  shouldComponentUpdate(newProps, newState) {
-    return !shallowEqual(newProps, this.props) || !shallowEqual(newState,
-        this.state) || !shallowEqual(newProps.query, this.props.query);
+  componentDidMount() {
+    this.unsubscribe = Store.subscribe(this.onChange);
   },
 
 
-  componentDidMount() {
-    this.unsubscribe = Store.subscribe(this.onChange);
+  shouldComponentUpdate(newProps, newState) {
+    return !shallowEqual(newProps, this.props) || !shallowEqual(newState,
+        this.state) || !shallowEqual(newProps.query, this.props.query);
   },
 
 

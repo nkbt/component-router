@@ -21,18 +21,16 @@ const ComponentRouter = React.createClass({
   },
 
 
-  shouldComponentUpdate(newProps, {query = {}}) {
-    const config = newProps.config || {};
-
-    return !shallowEqual(newProps, this.props) || !shallowEqual(config,
-        this.props.config) || !shallowEqual(query, this.state.query);
-  },
-
-
   getInitialState() {
     return {
       query: Store.getQuery()
     };
+  },
+
+
+  componentDidMount() {
+    this.unsubscribe = Store.subscribe(this.onChange);
+    this.checkDefaultParam(this.props);
   },
 
 
@@ -41,9 +39,11 @@ const ComponentRouter = React.createClass({
   },
 
 
-  componentDidMount() {
-    this.unsubscribe = Store.subscribe(this.onChange);
-    this.checkDefaultParam(this.props);
+  shouldComponentUpdate(newProps, {query = {}}) {
+    const config = newProps.config || {};
+
+    return !shallowEqual(newProps, this.props) || !shallowEqual(config,
+        this.props.config) || !shallowEqual(query, this.state.query);
   },
 
 
