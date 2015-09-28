@@ -1,5 +1,5 @@
 import React from 'react';
-import {Store, Url, ActionCreator} from '../..';
+import {Store, Url, Actions} from '../..';
 import styles from './FluxOnly.css';
 
 const Switch = React.createClass({
@@ -10,7 +10,7 @@ const Switch = React.createClass({
 
   componentDidMount() {
     this.unsubscribe =
-      Store.addThrottledChangeListener(this.onChange, 50);
+      Store.subscribe(this.onChange);
   },
 
   componentWillUnmount() {
@@ -70,7 +70,7 @@ const PureFlux = React.createClass({
 
   componentDidMount() {
     this.unsubscribe =
-      Store.addThrottledChangeListener(this.onChange, 50);
+      Store.subscribe(this.onChange);
   },
 
   componentWillUnmount() {
@@ -84,7 +84,7 @@ const PureFlux = React.createClass({
   onClick(newVal) {
     return event => {
       event.preventDefault();
-      Store.dispatch(ActionCreator.navigateTo({pathname: '/', query: newVal}));
+      Store.dispatch(Actions.navigateTo({pathname: '/', query: newVal}));
     };
   },
 

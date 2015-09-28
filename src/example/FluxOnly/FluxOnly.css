@@ -20,7 +20,7 @@
 }
 
 .fluxonly button {
-  padding: 0.5rem;
+  padding: 0.8rem;
 }
 
 .fluxonly :global .active, .container :global .active {
