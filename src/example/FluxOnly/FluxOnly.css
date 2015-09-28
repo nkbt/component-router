@@ -13,10 +13,14 @@
   margin-bottom: 1rem;
 }
 
-.fluxonly a {
+.fluxonly a, .fluxonly button {
   margin: 1rem;
   color: #06c;
   text-decoration: none;
+}
+
+.fluxonly button {
+  padding: 0.5rem;
 }
 
 .fluxonly :global .active, .container :global .active {

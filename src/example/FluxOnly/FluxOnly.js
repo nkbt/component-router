@@ -81,9 +81,11 @@ const PureFlux = React.createClass({
     this.setState(Store.getQuery());
   },
 
-  onClick(newVal = {switch: 'nothing'}, event) {
-    event.preventDefault();
-    Store.dispatch(ActionCreator.navigateTo({pathname: '/', query: newVal}));
+  onClick(newVal) {
+    return event => {
+      event.preventDefault();
+      Store.dispatch(ActionCreator.navigateTo({pathname: '/', query: newVal}));
+    };
   },
 
   activeClass({switch: val}) {
@@ -105,12 +107,12 @@ const PureFlux = React.createClass({
           <h2>Using only anchor elements</h2>
         </div>
         <div>
-          <a className={this.activeClass(first)} onClick={this.onClick.bind(this, first)}>
+          <button className={this.activeClass(first)} onClick={this.onClick(first)}>
             Render First Component
-          </a>
-          <a className={this.activeClass(second)} onClick={this.onClick.bind(this, second)}>
+          </button>
+          <button className={this.activeClass(second)} onClick={this.onClick(second)}>
             Render Second Component
-          </a>
+          </button>
           <Switch />
         </div>
       </div>
