@@ -2,7 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import Constants from './Constants';
 import Store from './Store';
-import ActionCreator from './ActionCreator';
+import * as ActionCreator from './ActionCreator';
 import urlUtil from './urlUtil';
 import shallowEqual from 'react/lib/shallowEqual';
 
@@ -37,7 +37,7 @@ const Url = React.createClass({
 
 
   componentDidMount() {
-    this.unsubscribe = Store.addThrottledChangeListener(this.onChange, 50);
+    this.unsubscribe = Store.subscribe(this.onChange);
   },
 
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import Store from './Store';
-import ActionCreator from './ActionCreator';
+import * as ActionCreator from './ActionCreator';
 import isFunction from 'lodash.isfunction';
 import getDefault from './getDefault';
 import shallowEqual from 'react/lib/shallowEqual';
@@ -42,8 +42,7 @@ const ComponentRouter = React.createClass({
 
 
   componentDidMount() {
-    this.unsubscribe =
-      Store.addThrottledChangeListener(this.onChange, 50);
+    this.unsubscribe = Store.subscribe(this.onChange);
     this.checkDefaultParam(this.props);
   },
 
