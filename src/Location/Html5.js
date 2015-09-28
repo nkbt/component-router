@@ -2,7 +2,7 @@ import React from 'react';
 import url from 'url';
 import Constants from '../Constants';
 import Store from '../Store';
-import ActionCreator from '../ActionCreator';
+import {restoreLocation} from '../ActionCreator';
 
 
 const Html5 = React.createClass({
@@ -12,7 +12,7 @@ const Html5 = React.createClass({
 
 
   componentDidMount() {
-    this.paramsUnsubscribe = Store.addThrottledChangeListener(this.onChange, 50);
+    this.paramsUnsubscribe = Store.subscribe(this.onChange);
     window.addEventListener('popstate', this.restoreUrl);
   },
 
@@ -24,8 +24,7 @@ const Html5 = React.createClass({
 
 
   restoreUrl() {
-    Store.dispatch(ActionCreator.restoreLocation({
-      location: this.getUrl(), type: Constants.TYPE_HTML5}));
+    Store.dispatch(restoreLocation({location: this.getUrl(), type: Constants.TYPE_HTML5}));
   },
 
 

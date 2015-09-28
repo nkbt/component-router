@@ -43,6 +43,11 @@ const Store = {
       unsubscribe();
       throttledCallback.cancel();
     };
+  },
+
+
+  addChangeListener(...args) {
+    return this.subscribe(...args);
   }
 };
 

@@ -1,32 +1,25 @@
 import Constants from './Constants';
 
 
-export default {
-  navigateTo({query}) {
-    return {
-      actionType: Constants.NAVIGATE_TO,
-      payload: {query}
-    };
-  },
+export const navigateTo = ({query}) => ({
+  actionType: Constants.NAVIGATE_TO,
+  payload: {query}
+});
 
-  addDefaultParam({namespace, value}) {
-    return {
-      actionType: Constants.ADD_DEFAULT_PARAM,
-      payload: {namespace, value}
-    };
-  },
 
-  removeParam({namespace}) {
-    return {
-      actionType: Constants.REMOVE_PARAM,
-      payload: {namespace}
-    };
-  },
+export const addDefaultParam = ({namespace, value}) => ({
+  actionType: Constants.ADD_DEFAULT_PARAM,
+  payload: {namespace, value}
+});
 
-  restoreLocation({location, type}) {
-    return {
-      actionType: Constants.RESTORE_LOCATION,
-      payload: {location, type}
-    };
-  }
-};
+
+export const removeParam = ({namespace}) => ({
+  actionType: Constants.REMOVE_PARAM,
+  payload: {namespace}
+});
+
+
+export const restoreLocation = ({location, type}) => ({
+  actionType: Constants.RESTORE_LOCATION,
+  payload: {location, type}
+});

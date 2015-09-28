@@ -1,20 +1,10 @@
-import ComponentRouter from './ComponentRouter';
-import Url from './Url';
-import ActionCreator from './ActionCreator';
-import Store from './Store';
-import Constants from './Constants';
-import LocationHtml4 from './Location/Html4';
-import LocationHtml5 from './Location/Html5';
-import getDefault from './getDefault';
+import {navigateTo, restoreLocation, addDefaultParam, removeParam} from './ActionCreator';
 
-
-export default {
-  ComponentRouter,
-  Url,
-  ActionCreator,
-  Store,
-  Constants,
-  getDefault,
-  LocationHtml4,
-  LocationHtml5
-};
+export {default as ComponentRouter} from './ComponentRouter';
+export {default as Url} from './Url';
+export {default as Store} from './Store';
+export {default as Constants} from './Constants';
+export {default as LocationHtml4} from './Location/Html4';
+export {default as LocationHtml5} from './Location/Html5';
+export {default as getDefault} from './getDefault';
+export const ActionCreator = {navigateTo, restoreLocation, addDefaultParam, removeParam};
