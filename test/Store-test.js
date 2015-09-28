@@ -58,29 +58,6 @@ describe('Store', () => {
   });
 
 
-  describe('addThrottledChangeListener', () => {
-    beforeEach(() => {
-      createStore();
-      Store.subscribe = jasmine.createSpy('subscribe');
-    });
-
-
-    it('should call subscribe once', () => {
-      Store.addThrottledChangeListener(x => x);
-      expect(Store.subscribe.calls.count()).toBe(1);
-    });
-
-
-    it('should return a function that calls unsubscribe', () => {
-      const reduxUnsubscribe = jasmine.createSpy('unsubscribe');
-
-      Store.subscribe.and.returnValue(reduxUnsubscribe);
-      Store.addThrottledChangeListener(x => x)();
-      expect(reduxUnsubscribe.calls.count()).toBe(1);
-    });
-  });
-
-
   describe('getCleanQuery', () => {
     beforeEach(() => {
       createStore();
