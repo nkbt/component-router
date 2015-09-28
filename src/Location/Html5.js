@@ -24,7 +24,7 @@ const Html5 = React.createClass({
 
 
   restoreUrl() {
-    Store.dispatch(restoreLocation({location: this.getUrl(), type: Constants.TYPE_HTML5}));
+    Store.dispatch(restoreLocation({location: this.getUrl(), locationType: Constants.TYPE_HTML5}));
   },
 
 

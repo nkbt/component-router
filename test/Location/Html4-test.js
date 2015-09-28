@@ -132,7 +132,7 @@ describe('LocationHtml4', () => {
       expect(ActionCreator.restoreLocation).toHaveBeenCalled();
       expect(ActionCreator.restoreLocation).toHaveBeenCalledWith({
         location: '?x=1',
-        type: Store.TYPE_HTML4
+        locationType: Store.TYPE_HTML4
       });
     });
 

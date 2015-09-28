@@ -18,7 +18,7 @@ describe('ActionCreator', () => {
     const action = ActionCreator.navigateTo({query: 'query'});
 
     expect(action).toEqual({
-      actionType: 'test',
+      type: 'test',
       payload: {query: 'query'}
     });
   });
@@ -29,7 +29,7 @@ describe('ActionCreator', () => {
     const action = ActionCreator.addDefaultParam({namespace: 'namespace', value: 'value'});
 
     expect(action).toEqual({
-      actionType: 'test',
+      type: 'test',
       payload: {namespace: 'namespace', value: 'value'}
     });
   });
@@ -40,7 +40,7 @@ describe('ActionCreator', () => {
     const action = ActionCreator.removeParam({namespace: 'namespace'});
 
     expect(action).toEqual({
-      actionType: 'test',
+      type: 'test',
       payload: {namespace: 'namespace'}
     });
   });
@@ -51,10 +51,10 @@ describe('ActionCreator', () => {
     const action = ActionCreator.restoreLocation({location: 'location'});
 
     expect(action).toEqual({
-      actionType: 'test',
+      type: 'test',
       payload: {
         location: 'location',
-        type: undefined
+        locationType: undefined
       }
     });
   });
