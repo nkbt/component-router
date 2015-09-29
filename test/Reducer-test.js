@@ -48,8 +48,7 @@ describe('Reducer', () => {
     beforeEach(() => {
       createReducer();
       action = {
-        // type: Constants.RESTORE_LOCATION,
-        actionType: Constants.RESTORE_LOCATION,
+        type: Constants.RESTORE_LOCATION,
         payload: {location: '/hello?world=123&name=barry'}
 
       };

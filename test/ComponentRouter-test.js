@@ -5,10 +5,11 @@ import FooBar from '../src/example/FooBar/FooBar';
 
 describe('ComponentRouter', () => {
   const ComponentRouterInjector = require('inject!../src/ComponentRouter');
-  let Actions, Store, getDefault, ComponentRouter;
+  let Actions, Store, ComponentRouter;
+  let storeUnsubscribe, getDefault, initProps;
 
   const Chart = React.createClass({
-    render: function() {
+    render() {
       return (
         <div />
       );
@@ -16,13 +17,6 @@ describe('ComponentRouter', () => {
   });
 
   beforeEach(() => {
-    // Actions = jasmine.createSpyObj('Actions', ['']);
-  // let Actions, Store, getDefault, ComponentRouter;
-  // let storeUnsubscribe, initProps;
-
-
-  // beforeEach(() => {
-  //   Actions = jasmine.createSpyObj('Actions', ['removeParam']);
     Actions = jasmine.createSpyObj('Actions', ['removeParam', 'addDefaultParam']);
     Store = jasmine.createSpyObj('Store', ['']);
     getDefault = jasmine.createSpy('getDefault')
@@ -30,37 +24,11 @@ describe('ComponentRouter', () => {
   });
 
 
-  // beforeEach(() => ComponentRouter = ComponentRouterInjector({
-  //   './Actions': Actions,
-  //   './Store': Store,
-  //   './getDefault': getDefault
-  // }));
-  // // beforeEach(() => {
-  // //   storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
-  // //   // const initState = {
-  // //   //   query: {},
-  // //   //   defaultParams: {},
-  // //   //   type: Constants.TYPE_HTML5
-  // //   // };
-  // //   Store = jasmine.createSpyObj('Store', [
-  // //     'addThrottledChangeListener', 'dispatch', 'getQuery', 'getDefaultParams']);
-  // //   Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
-  // //   Store.getQuery.and.returnValue({});
-  // //   initProps = {
-  // //     namespace: 'page',
-  // //     config: {}
-  // //   };
-  // //   ComponentRouter = ComponentRouterInjector({
-  // //     './ActionCreator': ActionCreator,
-  // //     './Store': Store,
-  // //     './getDefault': getDefault
-  // //   });
-  // // });
   beforeEach(() => {
     storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
-    Store = jasmine.createSpyObj('Store', [
-      'addThrottledChangeListener', 'dispatch', 'getQuery', 'getDefaultParams']);
-    Store.addThrottledChangeListener.and.returnValue(storeUnsubscribe);
+    Store = jasmine.createSpyObj('Store', ['subscribe',
+      'unsubscribe', 'dispatch', 'getQuery', 'getDefaultParams']);
+    Store.subscribe.and.returnValue(storeUnsubscribe);
     Store.getQuery.and.returnValue({});
     initProps = {
       namespace: 'page',
@@ -79,9 +47,7 @@ describe('ComponentRouter', () => {
   });
 
   describe('Lifecycle', () => {
-    let comp;
-    let div;
-    let mock;
+    let div, mock;
 
     beforeEach(() => {
       div = document.createElement('div');
@@ -90,9 +56,8 @@ describe('ComponentRouter', () => {
     });
 
     it('should add a listener on mount', () => {
-      expect(Store.addThrottledChangeListener).toHaveBeenCalled();
-      expect(Store.addThrottledChangeListener.calls.mostRecent().args[0]).toEqual(mock.onChange);
-      expect(Store.addThrottledChangeListener.calls.mostRecent().args[1]).toEqual(50);
+      expect(Store.subscribe).toHaveBeenCalled();
+      expect(Store.subscribe.calls.mostRecent().args[0]).toEqual(mock.onChange);
     });
 
     it('should check default params on render', () => {
@@ -102,8 +67,9 @@ describe('ComponentRouter', () => {
     it('should unsubscribe from Store changes when unmounted', () => {
       React.unmountComponentAtNode(div);
       expect(storeUnsubscribe).toHaveBeenCalled();
-      expect(ActionCreator.removeParam).toHaveBeenCalled();
-      expect(ActionCreator.removeParam.calls.mostRecent().args[0]).toEqual({namespace: initProps.namespace});
+      expect(Actions.removeParam).toHaveBeenCalled();
+      expect(Actions.removeParam.calls.mostRecent().args[0])
+        .toEqual({namespace: initProps.namespace});
     });
 
     describe('checkDefaultParam', () => {
@@ -121,35 +87,38 @@ describe('ComponentRouter', () => {
           Store.getDefaultParams.and.returnValue({page: 'not santa'});
           div = document.createElement('div');
           React.render(<ComponentRouter {...initProps}/>, div);
-          expect(ActionCreator.addDefaultParam).toHaveBeenCalled();
+          expect(Actions.addDefaultParam).toHaveBeenCalled();
         });
 
         it('should not add a Default parameter if already set', () => {
           Store.getDefaultParams.and.returnValue({page: 'santa'});
           div = document.createElement('div');
           React.render(<ComponentRouter {...initProps}/>, div);
-          expect(ActionCreator.addDefaultParam).not.toHaveBeenCalled();
+          expect(Actions.addDefaultParam).not.toHaveBeenCalled();
         });
       });
     });
+  });
 
-  describe("render", () => {
-    describe("when passed a React Component as config", function () {
-      describe("without any children", function () {
-        it("should render that Component", function () {
+  describe('render', () => {
+    describe('when passed a React Component as config', () => {
+      describe('without any children', () => {
+        it('should render that Component', () => {
           const namespace = {namespace: 'zoo'};
           const config = {config: FooBar};
           const cr = createComponent(ComponentRouter, {...namespace, ...config}).out;
+
           expect(cr.type).toBe(<FooBar />.type);
         });
       });
 
-      describe("and it has children", function () {
-        it("should render the children", function () {
+      describe('and it has children', () => {
+        it('should render the children', () => {
           // Store.getQuery.and.returnValue({page: 'foo'});
           const config = {config: FooBar};
           const namespace = {namespace: 'page'};
           const cr = createComponent(ComponentRouter, {...namespace, ...config}, <div></div>).out;
+
           expect(cr.type).toEqual('div');
           expect(cr.props.componentRouter.namespace).toEqual('page');
           expect(cr.props.componentRouter.value).toBeUndefined();
@@ -160,23 +129,25 @@ describe('ComponentRouter', () => {
       });
     });
 
-    describe("when passed an object as config", function () {
-      describe("without any children", function () {
-        it("should render that Component", function () {
+    describe('when passed an object as config', () => {
+      describe('without any children', () => {
+        it('should render that Component', () => {
           Store.getQuery.and.returnValue({page: 'foo'});
           const namespace = {namespace: 'page'};
           const config = {foo: Chart, bar: FooBar};
           const cr = createComponent(ComponentRouter, {...namespace, config}).out;
+
           expect(cr.type).toBe(<Chart />.type);
         });
       });
 
-      describe("and it has children", function () {
-        it("should render the children", function () {
+      describe('and it has children', () => {
+        it('should render the children', () => {
           Store.getQuery.and.returnValue({page: 'foo'});
           const config = {page: Chart, foo: FooBar};
           const namespace = {namespace: 'page'};
           const cr = createComponent(ComponentRouter, {...namespace, config}, <div></div>).out;
+
           expect(cr.type).toEqual('div');
           expect(cr.props.componentRouter.namespace).toEqual('page');
           expect(cr.props.componentRouter.value).toEqual('foo');
@@ -184,9 +155,7 @@ describe('ComponentRouter', () => {
           expect(cr.props.componentRouter.keys).toEqual(Object.keys(config));
           expect(cr.props.componentRouter.Component).toEqual(FooBar);
         });
-
       });
     });
-  });
   });
 });
