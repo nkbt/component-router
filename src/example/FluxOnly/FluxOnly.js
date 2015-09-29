@@ -20,8 +20,8 @@ const Switch = React.createClass({
   switchComponents() {
     let query = 'Nothing';
 
-    if ('switch' in this.state) {
-      query = this.state.switch;
+    if ('switchBlock' in this.state) {
+      query = this.state.switchBlock;
     }
     return query;
   },
@@ -48,10 +48,10 @@ const FluxWithUrls = React.createClass({
           <h2>Using component-router's Urls</h2>
         </div>
         <div>
-          <Url query={{switch: 'First'}}>
+          <Url query={{switchBlock: 'First'}}>
             Render First Component
           </Url>
-          <Url query={{switch: 'Second'}}>
+          <Url query={{switchBlock: 'Second'}}>
             Render Second Component
           </Url>
           <Switch />
@@ -88,18 +88,18 @@ const PureFlux = React.createClass({
     };
   },
 
-  activeClass({switch: val}) {
+  activeClass({switchBlock: val}) {
     let cName = '';
 
-    if (this.state.switch === val) {
+    if (this.state.switchBlock === val) {
       cName = 'active';
     }
     return cName;
   },
 
   render() {
-    const first = {switch: 'First'};
-    const second = {switch: 'Second'};
+    const first = {switchBlock: 'First'};
+    const second = {switchBlock: 'Second'};
 
     return (
       <div className={styles.fluxonly}>
@@ -121,6 +121,10 @@ const PureFlux = React.createClass({
 });
 
 const CompoundFlux = React.createClass({
+  componentWillUnmount() {
+    Store.dispatch(Actions.removeParam({namespace: 'switchBlock'}));
+  },
+
   render() {
     return (
       <div>
