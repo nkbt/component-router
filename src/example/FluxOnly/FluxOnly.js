@@ -45,7 +45,7 @@ const FluxWithUrls = React.createClass({
     return (
       <div className={styles.fluxonly}>
         <div>
-          <h2>Using component-router's Urls</h2>
+          <h2>Using component-router Urls</h2>
         </div>
         <div>
           <Url query={{switchBlock: 'First'}}>
