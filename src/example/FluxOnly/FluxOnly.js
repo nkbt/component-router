@@ -91,7 +91,7 @@ const PureFlux = React.createClass({
   activeClass({switch: val}) {
     let cName = '';
 
-    if (this.state[`switch`] === val) {
+    if (this.state.switch === val) {
       cName = 'active';
     }
     return cName;
