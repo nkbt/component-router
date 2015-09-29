@@ -8,6 +8,7 @@ import Quickstart from './Quickstart/Quickstart';
 import Links from './Links/Links';
 import Blocks from './Blocks/Blocks';
 import DynamicList from './DynamicList/DynamicList';
+import FluxOnly from './FluxOnly/FluxOnly';
 
 
 const Header = React.createClass({
@@ -30,6 +31,9 @@ const Header = React.createClass({
             </li>
             <li>
               <Url query={{page: 'dynamic'}} isActiveClass={styles.active}>Dynamic values</Url>
+            </li>
+            <li>
+              <Url query={{page: 'flux'}} isActiveClass={styles.active}>Flux Only</Url>
             </li>
             <li className={styles.github}>
               <a href="https://github.com/in-flux/component-router" target="_blank">GitHub</a>
@@ -56,7 +60,8 @@ const App = React.createClass({
           quickstart: Quickstart,
           links: Links,
           blocks: Blocks,
-          dynamic: DynamicList
+          dynamic: DynamicList,
+          flux: FluxOnly
         }} className={styles.content} />
 
       </div>

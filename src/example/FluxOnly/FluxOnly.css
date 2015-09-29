@@ -1,0 +1,40 @@
+.fluxonly {
+  display: flex;
+  position: relative;
+  padding: 2rem;
+
+  /*flex: 1 auto;*/
+  flex-direction: column;
+  order: 1;
+  justify-content: space-around;
+}
+
+.fluxonly h2 {
+  margin-bottom: 1rem;
+}
+
+.fluxonly a, .fluxonly button {
+  margin: 1rem;
+  color: #06c;
+  text-decoration: none;
+}
+
+.fluxonly button {
+  padding: 0.8rem;
+}
+
+.fluxonly :global .active, .container :global .active {
+  color: #f00;
+}
+
+.content {
+  order: 2;
+  flex: 1;
+  display: flex;
+  margin: 1rem;
+  /*flex-direction: column;*/
+  /*min-height: 400px;*/
+}
+.container {
+  background: rgba(0, 0, 255, 0.2);
+}
