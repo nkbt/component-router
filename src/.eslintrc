@@ -197,7 +197,7 @@
     "key-spacing": [2, {"beforeColon": false, "afterColon": true}], // enforce spacing between keys and values in object literal properties
     "lines-around-comment": [2, {"beforeBlockComment": true, "afterBlockComment": false, "afterLineComment": false}], // enforces empty lines around comments
     "linebreak-style": [2, "unix"], //disallow mixed 'LF' and 'CRLF' as linebreaks
-    "max-nested-callbacks": [2, 3], // specify the maximum depth callbacks can be nested
+    "max-nested-callbacks": [2, 4], // specify the maximum depth callbacks can be nested
     "new-cap": [2, {"newIsCap": true, "capIsNew": false}], // require a capital letter for constructors
     "new-parens": 2, // disallow the omission of parentheses when invoking a constructor with no arguments
     "newline-after-var": [2, "always"], // require or disallow an empty newline after variable declarations
