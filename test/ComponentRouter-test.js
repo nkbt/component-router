@@ -1,7 +1,5 @@
 import React from 'react/addons';
 import createComponent from './utils/createComponent';
-import FooBar from '../src/example/FooBar/FooBar';
-
 
 describe('ComponentRouter', () => {
   const ComponentRouterInjector = require('inject!../src/ComponentRouter');
@@ -15,19 +13,23 @@ describe('ComponentRouter', () => {
       );
     }
   });
+  const FooBar = React.createClass({
+    render() {
+      return (
+        <div />
+      );
+    }
+  });
 
   beforeEach(() => {
     Actions = jasmine.createSpyObj('Actions', ['removeParam', 'addDefaultParam']);
     Store = jasmine.createSpyObj('Store', ['']);
     getDefault = jasmine.createSpy('getDefault')
       .and.returnValue('pacman');
-  });
 
-
-  beforeEach(() => {
-    storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store = jasmine.createSpyObj('Store', ['subscribe',
       'unsubscribe', 'dispatch', 'getQuery', 'getDefaultParams']);
+    storeUnsubscribe = jasmine.createSpy('storeUnsubscribe');
     Store.subscribe.and.returnValue(storeUnsubscribe);
     Store.getQuery.and.returnValue({});
     initProps = {
