@@ -7,6 +7,8 @@
 
   "rules": {
     "one-var": 0,
-    "no-undefined": 0
+    "no-undefined": 0,
+    "max-nested-callbacks": 0, // allow describe/context functions to be deeply nested
+
   }
 }
