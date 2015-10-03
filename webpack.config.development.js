@@ -6,6 +6,9 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
 
 
+require('babel/polyfill');
+
+
 module.exports = {
   devtool: 'eval',
 
