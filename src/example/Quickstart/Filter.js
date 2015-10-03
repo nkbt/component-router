@@ -1,5 +1,5 @@
 import React from 'react';
-import {Spring} from 'react-motion';
+import {Motion, spring} from 'react-motion';
 import {Url} from '../..';
 import styles from './Filter.css';
 
@@ -74,13 +74,14 @@ const Filter = React.createClass({
 
   render() {
     const {isOpened} = this.props;
+    const width = isOpened ? Math.min(window.innerWidth / 5, 550) : 65;
 
     return (
-      <Spring endValue={{val: isOpened ? Math.min(window.innerWidth / 5, 550) : 65}}>
-        {({val: width}) => (
-          <Content width={width} isOpened={isOpened} />
+      <Motion style={{width: spring(width)}}>
+        {style => (
+          <Content width={style.width} isOpened={isOpened} />
         )}
-      </Spring>
+      </Motion>
     );
   }
 });
