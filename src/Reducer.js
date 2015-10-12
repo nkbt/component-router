@@ -3,7 +3,7 @@ import Constants from './Constants';
 import urlUtil from './urlUtil';
 import isNull from 'lodash.isnull';
 import isUndefined from 'lodash.isundefined';
-import shallowEqual from 'react/lib/shallowEqual';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 
 
 const initialState = {

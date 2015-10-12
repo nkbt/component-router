@@ -3,7 +3,7 @@ import Store from './Store';
 import * as Actions from './Actions';
 import isFunction from 'lodash.isfunction';
 import getDefault from './getDefault';
-import shallowEqual from 'react/lib/shallowEqual';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 
 
 const Empty = React.createClass({
