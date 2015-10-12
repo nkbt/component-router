@@ -4,7 +4,7 @@ import Constants from './Constants';
 import Store from './Store';
 import * as Actions from './Actions';
 import urlUtil from './urlUtil';
-import shallowEqual from 'react/lib/shallowEqual';
+import shallowEqual from 'fbjs/lib/shallowEqual';
 
 
 const Url = React.createClass({
@@ -48,7 +48,10 @@ const Url = React.createClass({
 
   onClick(event) {
     event.preventDefault();
-    Store.dispatch(Actions.navigateTo(this.props));
+
+    const {query} = this.props;
+
+    Store.dispatch(Actions.navigateTo({query}));
   },
 
 
