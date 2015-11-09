@@ -24,8 +24,7 @@
   "license": "MIT",
   "homepage": "https://github.com/in-flux/component-router",
   "dependencies": {
-    "react": "^0.13.3",
-    "flux": "^2.0.3"
+    "react": "^0.13 || ^0.14"
   },
   "ignore": [
     "**/.*",
