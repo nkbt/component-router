@@ -58,15 +58,10 @@
   },
   "homepage": "https://github.com/in-flux/component-router",
   "peerDependencies": {
-    "react": "^0.13 || ^0.14",
-    "redux": "3",
-    "classnames": "2"
+    "redux": "3"
   },
   "dependencies": {
-    "fbjs": "^0.3.1",
-    "lodash.isfunction": "^3.0.6",
-    "lodash.isnull": "^3.0.0",
-    "lodash.isundefined": "^3.0.1"
+    "fbjs": "^0.3.1"
   },
   "devDependencies": {
     "babel": "^6.0.15",
