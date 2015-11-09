@@ -1,31 +1,41 @@
 import sortedObject from './sortedObject';
 import Constants from './Constants';
 import urlUtil from './urlUtil';
-import isNull from 'lodash.isnull';
-import isUndefined from 'lodash.isundefined';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
 
 const initialState = {
   query: {},
+  cleanQuery: {},
   defaultParams: {},
   locationType: Constants.TYPE_HTML5
 };
 
 
-const changeParams = ({defaultParams, query, locationType}, params) => {
+export const cleanupQuery = ({query, defaultParams}) => {
+  return sortedObject(Object.keys(query).reduce((clean, key) => {
+    if (defaultParams.hasOwnProperty(key) && query[key] === defaultParams[key]) {
+      return clean;
+    }
+    return {...clean, [key]: query[key]};
+  }, {}));
+};
+
+
+const changeParams = (state, params) => {
+  const {defaultParams, query} = state;
   const newParams = urlUtil.merge({query}, params);
   const newQuery = sortedObject({...defaultParams, ...newParams.query});
 
-  if (!shallowEqual(newQuery, query)) {
-    return {
-      locationType,
-      defaultParams: {...defaultParams},
-      query: {...newQuery}
-    };
+  if (shallowEqual(newQuery, query)) {
+    return {};
   }
 
-  return {defaultParams, query, locationType};
+  return {
+    ...state,
+    query: {...newQuery},
+    cleanQuery: cleanupQuery(newQuery)
+  };
 };
 
 
@@ -66,7 +76,7 @@ const removeParam = ({defaultParams, query, locationType}, {namespace}) => {
 
 
 const safeParams = ({query}) => {
-  const newQuery = isNull(query) || isUndefined(query) ? {} : query;
+  const newQuery = query === null || query === undefined ? {} : query;
 
   Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
 
@@ -86,7 +96,7 @@ const restoreLocation = ({defaultParams, query}, url, locationType = Constants.T
 };
 
 
-export default ({defaultParams, query, locationType} = {
+export const reducer = ({defaultParams, query, locationType} = {
   defaultParams: {...initialState.defaultParams},
   query: {...initialState.query},
   locationType: initialState.locationType

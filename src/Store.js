@@ -1,6 +1,6 @@
 import sortedObject from './sortedObject';
 import {createStore} from 'redux';
-import reducer from './Reducer';
+import {reducer} from './reducer';
 
 
 const Store = {
@@ -31,11 +31,6 @@ const Store = {
 
   getType() {
     return this.getState().type;
-  },
-
-
-  addChangeListener(...args) {
-    return this.subscribe(...args);
   }
 };
 
