@@ -28,50 +28,55 @@ const changeParams = (state, params) => {
   const newQuery = sortedObject({...defaultParams, ...newParams.query});
 
   if (shallowEqual(newQuery, query)) {
-    return {};
+    return state;
   }
 
   return {
     ...state,
-    query: {...newQuery},
-    cleanQuery: cleanupQuery(newQuery)
+    query: newQuery,
+    cleanQuery: cleanupQuery({query: newQuery, defaultParams})
   };
 };
 
 
-const addDefaultParam = ({defaultParams, query, locationType}, {namespace, value}) => {
+const addDefaultParam = (state, {namespace, value}) => {
+  const {defaultParams, query} = state;
   const stringValue = `${value}`;
 
-  if (!defaultParams.hasOwnProperty(namespace) || defaultParams[namespace] !== stringValue) {
-    return {
-      locationType,
-      defaultParams: {...defaultParams, [namespace]: stringValue},
-      query: sortedObject({...defaultParams, [namespace]: stringValue, ...query})
-    };
+  if (defaultParams.hasOwnProperty(namespace) && defaultParams[namespace] === stringValue) {
+    return state;
   }
 
-  return {defaultParams, query, locationType};
+  const newDefaultParams = {...defaultParams, [namespace]: stringValue};
+  const newQuery = sortedObject({...newDefaultParams, ...query});
+
+  return {
+    ...state,
+    defaultParams: newDefaultParams,
+    query: newQuery,
+    cleanQuery: cleanupQuery({query: newQuery, defaultParams: newDefaultParams})
+  };
 };
 
 
-const removeParam = ({defaultParams, query, locationType}, {namespace}) => {
-  const defaultParamsCopy = {...defaultParams};
+const removeParam = (state, {namespace}) => {
+  const {defaultParams, query} = state;
+  const newDefaultParams = {...defaultParams};
+  const newQuery = {...query};
 
-  if (defaultParamsCopy.hasOwnProperty(namespace)) {
-    delete defaultParamsCopy[namespace];
+  if (newDefaultParams.hasOwnProperty(namespace)) {
+    delete newDefaultParams[namespace];
+  }
+  if (newQuery.hasOwnProperty(namespace)) {
+    delete newQuery[namespace];
   }
 
-  const queryCopy = {...query};
-  let newQuery;
-
-  if (queryCopy.hasOwnProperty(namespace)) {
-    delete queryCopy[namespace];
-    newQuery = sortedObject({...queryCopy});
-  } else {
-    newQuery = {...queryCopy};
-  }
-
-  return {defaultParams: defaultParamsCopy, query: newQuery, locationType};
+  return {
+    ...state,
+    defaultParams: newDefaultParams,
+    query: newQuery,
+    cleanQuery: cleanupQuery({query: newQuery, defaultParams: newDefaultParams})
+  };
 };
 
 
@@ -80,25 +85,25 @@ const safeParams = ({query}) => {
 
   Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
 
-  return {
-    query: newQuery
-  };
+  return {query: newQuery};
 };
 
 
-const restoreLocation = ({defaultParams, query}, url, locationType = Constants.TYPE_HTML5) => {
+const restoreLocation = (state, url, locationType = Constants.TYPE_HTML5) => {
+  const {defaultParams} = state;
   const {query: newQuery} = safeParams(urlUtil.parseHref(url));
-  const updatedParams = changeParams({defaultParams, query, locationType}, {
+  const newState = changeParams({...state, locationType}, {
     query: {...defaultParams, ...newQuery}
   });
 
-  return {...updatedParams, locationType};
+  return {...newState, locationType};
 };
 
 
 export const reducer = ({defaultParams, query, locationType} = {
   defaultParams: {...initialState.defaultParams},
   query: {...initialState.query},
+  cleanQuery: {...initialState.query},
   locationType: initialState.locationType
 }, {type, payload}) => {
   switch (type) {
