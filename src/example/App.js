@@ -1,7 +1,8 @@
 import React from 'react';
 
 import {store} from '../store';
-import {navigateTo} from '../actions';
+import {navigateTo, addDefaultParam} from '../actions';
+import {locationHistory} from '../locationHistory';
 import styles from './App.css';
 
 
@@ -52,6 +53,7 @@ const Header = React.createClass({
 
 
   getDefaultProps() {
+    store.dispatch(addDefaultParam('page', 'quickstart'));
     return {page: 'quickstart'};
   },
 
@@ -97,13 +99,26 @@ const Header = React.createClass({
 });
 
 
-const App = () => (
-  <div className={styles.app}>
-    <ComponentRouteContainer>
-      {({query: {page}}) => <Header page={page} />}
-    </ComponentRouteContainer>
-  </div>
-);
+const App = React.createClass({
+  componentDidMount() {
+    this.unsubscribe = locationHistory(store);
+  },
+
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  },
+
+  render() {
+    return (
+      <div className={styles.app}>
+        <ComponentRouteContainer>
+          {({query: {page}}) => <Header page={page} />}
+        </ComponentRouteContainer>
+      </div>
+    );
+  }
+});
 
 
 export default App;
