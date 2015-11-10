@@ -22,9 +22,18 @@ export const cleanupQuery = ({query, defaultParams}) => {
 };
 
 
+const safeParams = ({query}) => {
+  const newQuery = query === null || query === undefined ? {} : query;
+
+  Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
+
+  return {query: newQuery};
+};
+
+
 const changeParams = (state, params) => {
   const {defaultParams, query} = state;
-  const newParams = urlUtil.merge({query}, params);
+  const newParams = urlUtil.merge({query}, safeParams(params));
   const newQuery = sortedObject({...defaultParams, ...newParams.query});
 
   if (shallowEqual(newQuery, query)) {
@@ -80,18 +89,9 @@ const removeParam = (state, {namespace}) => {
 };
 
 
-const safeParams = ({query}) => {
-  const newQuery = query === null || query === undefined ? {} : query;
-
-  Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
-
-  return {query: newQuery};
-};
-
-
-const restoreLocation = (state, url, locationType = Constants.TYPE_HTML5) => {
+const restoreLocation = (state, {location, locationType = Constants.TYPE_HTML5}) => {
   const {defaultParams} = state;
-  const {query: newQuery} = safeParams(urlUtil.parseHref(url));
+  const {query: newQuery} = safeParams(urlUtil.parseHref(location));
   const newState = changeParams({...state, locationType}, {
     query: {...defaultParams, ...newQuery}
   });
@@ -100,27 +100,21 @@ const restoreLocation = (state, url, locationType = Constants.TYPE_HTML5) => {
 };
 
 
-export const reducer = ({defaultParams, query, locationType} = {
-  defaultParams: {...initialState.defaultParams},
-  query: {...initialState.query},
-  cleanQuery: {...initialState.query},
-  locationType: initialState.locationType
-}, {type, payload}) => {
+export const componentRouter = (state = initialState, {type, payload}) => {
   switch (type) {
     case Constants.NAVIGATE_TO:
-      return changeParams({defaultParams, query, locationType}, safeParams(payload));
+      return changeParams(state, payload);
 
     case Constants.ADD_DEFAULT_PARAM:
-      return addDefaultParam({defaultParams, query, locationType}, payload);
+      return addDefaultParam(state, payload);
 
     case Constants.REMOVE_PARAM:
-      return removeParam({defaultParams, query, locationType}, payload);
+      return removeParam(state, payload);
 
     case Constants.RESTORE_LOCATION:
-      return restoreLocation({defaultParams, query, locationType},
-        payload.location, payload.locationType);
+      return restoreLocation(state, payload);
 
     default:
-      return {defaultParams, query, locationType};
+      return state;
   }
 };
