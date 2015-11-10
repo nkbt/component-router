@@ -1,6 +1,15 @@
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {restoreLocation} from './actions';
-import {format} from 'url';
+import {stringify} from 'qs';
+
+
+export const url = ({pathname, query, hash}) => {
+  const qs = stringify(query, {strictNullHandling: true});
+  const search = qs.length > 0 ? `?${qs}` : '';
+
+  return [pathname, search, hash].join('');
+};
+
 
 const updated = callback => {
   let lastQuery;
@@ -11,30 +20,26 @@ const updated = callback => {
     }
 
     lastQuery = query;
-    callback(format({pathname, query, hash}));
+    callback(url({pathname, query, hash}));
   };
 };
 
 
-const push = history => updated(url => history.pushState({}, url));
+const push = history => updated(href => history.pushState({}, href));
 
 
 export const location = (createHistory, type) => store => {
   const history = createHistory();
   const historyPush = push(history);
-  let currentPathname;
-  let currentHash;
 
   const historyUnsubscribe = history.listen(({pathname, search, hash}) => {
-    currentPathname = pathname;
-    currentHash = hash;
-    store.dispatch(restoreLocation(search, type));
+    store.dispatch(restoreLocation({pathname, search, hash}, type));
   });
 
   const storeUnsubscribe = store.subscribe(() => historyPush({
-    pathname: currentPathname,
+    pathname: store.getState().pathname,
     query: store.getState().cleanQuery,
-    hash: currentHash
+    hash: store.getState().hash
   }));
 
   return () => {

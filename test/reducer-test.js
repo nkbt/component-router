@@ -26,7 +26,7 @@ test('componentRouter / Init', t => {
 test('componentRouter / Restore location', t => {
   const action = {
     type: Constants.RESTORE_LOCATION,
-    payload: {location: '/hello?world=123&name=barry'}
+    payload: {location: {search: '?world=123&name=barry'}}
   };
 
   t.deepEqual(componentRouter(undefined, action).query,
@@ -45,7 +45,7 @@ test('componentRouter / Default params', t => {
   const prepare = () => {
     let state = componentRouter(undefined, {
       type: Constants.RESTORE_LOCATION,
-      payload: {location: '/?x=1'}
+      payload: {location: {search: '?x=1'}}
     });
 
     state = componentRouter(state, {
@@ -90,7 +90,7 @@ test('componentRouter / Remove param', t => {
   const prepare = () => {
     let state = componentRouter(undefined, {
       type: Constants.RESTORE_LOCATION,
-      payload: {location: '/?x=1&y=10'}
+      payload: {location: {search: '?x=1&y=10'}}
     });
 
     state = componentRouter(state, {

@@ -19,7 +19,7 @@ export const removeParam = namespace => ({
 });
 
 
-export const restoreLocation = (location, locationType) => ({
+export const restoreLocation = ({pathname, search, hash}, locationType) => ({
   type: Constants.RESTORE_LOCATION,
-  payload: {location, locationType}
+  payload: {location: {pathname, search, hash}, locationType}
 });

@@ -22,11 +22,11 @@ test('actions', t => {
   );
 
   t.deepEqual(
-    actions.restoreLocation('location'),
+    actions.restoreLocation({search: ''}),
     {
       type: Constants.RESTORE_LOCATION,
       payload: {
-        location: 'location',
+        location: {pathname: undefined, search: '', hash: undefined},
         locationType: undefined
       }
     },

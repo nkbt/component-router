@@ -1,10 +1,12 @@
 import sortedObject from './sortedObject';
 import Constants from './Constants';
-import urlUtil from './urlUtil';
 import shallowEqual from 'fbjs/lib/shallowEqual';
+import {parse} from 'qs';
 
 
 const initialState = {
+  pathname: '/',
+  hash: '',
   query: {},
   cleanQuery: {},
   defaultParams: {},
@@ -22,19 +24,18 @@ export const cleanupQuery = ({query, defaultParams}) => {
 };
 
 
-const safeParams = ({query}) => {
-  const newQuery = query === null || query === undefined ? {} : query;
+const safeQuery = (query = {}) => {
+  const newQuery = query === null ? {} : query;
 
   Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
 
-  return {query: newQuery};
+  return newQuery;
 };
 
 
 const changeParams = (state, params) => {
   const {defaultParams, query} = state;
-  const newParams = urlUtil.merge({query}, safeParams(params));
-  const newQuery = sortedObject({...defaultParams, ...newParams.query});
+  const newQuery = sortedObject({...defaultParams, ...query, ...safeQuery(params.query)});
 
   if (shallowEqual(newQuery, query)) {
     return state;
@@ -91,12 +92,13 @@ const removeParam = (state, {namespace}) => {
 
 const restoreLocation = (state, {location, locationType = Constants.LOCATION_HISTORY}) => {
   const {defaultParams} = state;
-  const {query: newQuery} = safeParams(urlUtil.parseHref(location));
+  const {pathname, search, hash} = location;
+  const newQuery = safeQuery(parse(search.substr(1), {strictNullHandling: true}));
   const newState = changeParams({...state, locationType}, {
     query: {...defaultParams, ...newQuery}
   });
 
-  return {...newState, locationType};
+  return {...newState, pathname, hash, locationType};
 };
 
 
