@@ -1,6 +1,7 @@
 import createHistory from 'history/lib/createBrowserHistory';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {restoreLocation} from './actions';
+import Constants from './Constants';
 import {format} from 'url';
 
 const updated = callback => {
@@ -29,7 +30,7 @@ export const locationHistory = store => {
   const historyUnsubscribe = history.listen(({pathname, search, hash}) => {
     currentPathname = pathname;
     currentHash = hash;
-    store.dispatch(restoreLocation(search));
+    store.dispatch(restoreLocation(search, Constants.LOCATION_HISTORY));
   });
 
   const storeUnsubscribe = store.subscribe(() => historyPush({

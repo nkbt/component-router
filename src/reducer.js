@@ -8,7 +8,7 @@ const initialState = {
   query: {},
   cleanQuery: {},
   defaultParams: {},
-  locationType: Constants.TYPE_HTML5
+  locationType: Constants.LOCATION_HISTORY
 };
 
 
@@ -89,7 +89,7 @@ const removeParam = (state, {namespace}) => {
 };
 
 
-const restoreLocation = (state, {location, locationType = Constants.TYPE_HTML5}) => {
+const restoreLocation = (state, {location, locationType = Constants.LOCATION_HISTORY}) => {
   const {defaultParams} = state;
   const {query: newQuery} = safeParams(urlUtil.parseHref(location));
   const newState = changeParams({...state, locationType}, {

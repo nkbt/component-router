@@ -1,7 +1,7 @@
 import React from 'react';
 
 import {store} from '../store';
-import {navigateTo, addDefaultParam} from '../actions';
+import {navigateTo, addDefaultParam, removeParam} from '../actions';
 import {locationHistory} from '../locationHistory';
 import styles from './App.css';
 
@@ -42,6 +42,46 @@ const ComponentRouteContainer = React.createClass({
     const {children: render} = this.props;
 
     return render(this.state);
+  }
+});
+
+
+// TODO: move to a separate npm package
+const NOT_FOUND = '__NOT_FOUND__';
+const createComponentRouteHandler = namespace => handlers => React.createClass({
+  propTypes: {
+    defaultValue: React.PropTypes.string,
+    [namespace]: React.PropTypes.string
+  },
+
+
+  componentWillMount() {
+  },
+
+
+  componentDidMount() {
+    if (this.props.defaultValue) {
+      store.dispatch(addDefaultParam(namespace, this.props.defaultValue));
+    }
+  },
+
+
+  componentWillUnmount() {
+    if (this.props.defaultValue) {
+      store.dispatch(removeParam(namespace));
+    }
+  },
+
+
+  render() {
+    const {defaultValue, ...props} = this.props;
+    const currentValue = props[namespace] === undefined ? defaultValue : props[namespace];
+
+    if (currentValue === undefined || !handlers.hasOwnProperty(currentValue)) {
+      return handlers[NOT_FOUND] ? React.createElement(handlers[NOT_FOUND]) : null;
+    }
+
+    return React.createElement(handlers[currentValue], {...props, [namespace]: currentValue});
   }
 });
 
@@ -99,6 +139,13 @@ const Header = React.createClass({
 });
 
 
+const ComponenentRouteHandler = createComponentRouteHandler('page')({
+  [NOT_FOUND]: () => <h1>Not Found.</h1>,
+  quickstart: () => <h1>Quickstart</h1>,
+  foobar: () => <h1>FooBar</h1>
+});
+
+
 const App = React.createClass({
   componentDidMount() {
     this.unsubscribe = locationHistory(store);
@@ -113,7 +160,12 @@ const App = React.createClass({
     return (
       <div className={styles.app}>
         <ComponentRouteContainer>
-          {({query: {page}}) => <Header page={page} />}
+          {({query: {page}}) => (
+            <div>
+              <Header page={page} />
+              <ComponenentRouteHandler defaultValue="quickstart" page={page} />
+            </div>
+          )}
         </ComponentRouteContainer>
       </div>
     );
