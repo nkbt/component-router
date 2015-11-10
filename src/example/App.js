@@ -1,39 +1,90 @@
 import React from 'react';
 
-import {ComponentRouter, LocationHtml5, getDefault, Url} from '..';
+import {store} from '../store';
+import {navigateTo} from '../actions';
 import styles from './App.css';
 
-import FooBar from './FooBar/FooBar';
-import Quickstart from './Quickstart/Quickstart';
-import Links from './Links/Links';
-import Blocks from './Blocks/Blocks';
-import DynamicList from './DynamicList/DynamicList';
-import FluxOnly from './FluxOnly/FluxOnly';
+
+// TODO: move to a separate npm package
+const ComponentRouteContainer = React.createClass({
+  propTypes: {
+    children: React.PropTypes.func.isRequired
+  },
+
+
+  getInitialState() {
+    return store.getState();
+  },
+
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(this.onChange);
+  },
+
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  },
+
+
+  onClick(page) {
+    store.dispatch(navigateTo({page}));
+  },
+
+
+  onChange() {
+    this.replaceState(store.getState());
+  },
+
+
+  render() {
+    const {children: render} = this.props;
+
+    return render(this.state);
+  }
+});
 
 
 const Header = React.createClass({
+  propTypes: {
+    page: React.PropTypes.string
+  },
+
+
+  getDefaultProps() {
+    return {page: 'quickstart'};
+  },
+
+
+  onClick(page) {
+    return event => {
+      event.preventDefault();
+      store.dispatch(navigateTo({page}));
+    };
+  },
+
+
+  getClassName(page) {
+    return page === this.props.page ? styles.active : '';
+  },
+
+
   render() {
     return (
       <header className={styles.header}>
         <nav className={styles.nav}>
           <ul>
             <li>
-              <Url query={{page: 'quickstart'}} isActiveClass={styles.active}>Quickstart</Url>
+              <a
+                href="#"
+                onClick={this.onClick('quickstart')}
+                className={this.getClassName('quickstart')}>Quickstart</a>
             </li>
             <li>
-              <Url query={{page: 'foobar'}} isActiveClass={styles.active}>FooBar</Url>
-            </li>
-            <li>
-              <Url query={{page: 'links'}} isActiveClass={styles.active}>Random Links</Url>
-            </li>
-            <li>
-              <Url query={{page: 'blocks'}} isActiveClass={styles.active}>Blocks</Url>
-            </li>
-            <li>
-              <Url query={{page: 'dynamic'}} isActiveClass={styles.active}>Dynamic values</Url>
-            </li>
-            <li>
-              <Url query={{page: 'flux'}} isActiveClass={styles.active}>Flux Only</Url>
+              <a
+                href="#"
+                onClick={this.onClick('foobar')}
+                className={this.getClassName('foobar')}>FooBar</a>
             </li>
             <li className={styles.github}>
               <a href="https://github.com/in-flux/component-router" target="_blank">GitHub</a>
@@ -46,28 +97,13 @@ const Header = React.createClass({
 });
 
 
-const App = React.createClass({
-  render() {
-    return (
-      <div className={styles.app}>
-        <LocationHtml5 />
-
-        <Header />
-
-        <ComponentRouter namespace="page" config={{
-          [getDefault()]: 'quickstart',
-          foobar: FooBar,
-          quickstart: Quickstart,
-          links: Links,
-          blocks: Blocks,
-          dynamic: DynamicList,
-          flux: FluxOnly
-        }} className={styles.content} />
-
-      </div>
-    );
-  }
-});
+const App = () => (
+  <div className={styles.app}>
+    <ComponentRouteContainer>
+      {({query: {page}}) => <Header page={page} />}
+    </ComponentRouteContainer>
+  </div>
+);
 
 
 export default App;
