@@ -2,7 +2,7 @@ import React from 'react';
 
 import {store} from '../store';
 import {navigateTo, addDefaultParam, removeParam} from '../actions';
-import {locationHistory} from '../locationHistory';
+import {locationHistory as location} from '../locationHistory';
 import styles from './App.css';
 
 
@@ -148,7 +148,7 @@ const ComponenentRouteHandler = createComponentRouteHandler('page')({
 
 const App = React.createClass({
   componentDidMount() {
-    this.unsubscribe = locationHistory(store);
+    this.unsubscribe = location(store);
   },
 
 
