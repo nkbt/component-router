@@ -1,25 +1,25 @@
 import Constants from './Constants';
 
 
-export const navigateTo = ({query}) => ({
+export const navigateTo = query => ({
   type: Constants.NAVIGATE_TO,
   payload: {query}
 });
 
 
-export const addDefaultParam = ({namespace, value}) => ({
+export const addDefaultParam = (namespace, value) => ({
   type: Constants.ADD_DEFAULT_PARAM,
   payload: {namespace, value}
 });
 
 
-export const removeParam = ({namespace}) => ({
+export const removeParam = namespace => ({
   type: Constants.REMOVE_PARAM,
   payload: {namespace}
 });
 
 
-export const restoreLocation = ({location, locationType}) => ({
+export const restoreLocation = (location, locationType) => ({
   type: Constants.RESTORE_LOCATION,
   payload: {location, locationType}
 });
