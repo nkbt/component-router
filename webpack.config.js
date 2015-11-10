@@ -11,7 +11,7 @@ var babelLoader = 'babel?' +
   });
 
 
-require('babel/polyfill');
+require('babel-polyfill');
 
 
 module.exports = {
