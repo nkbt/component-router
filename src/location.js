@@ -1,6 +1,6 @@
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {restoreLocation} from './actions';
-import {stringify} from 'qs';
+import {stringify} from 'qs/dist/qs';
 import {store} from './store';
 
 

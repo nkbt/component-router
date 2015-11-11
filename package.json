@@ -4,7 +4,7 @@
   "description": "Flux-based component routing solution",
   "main": "lib/index.js",
   "scripts": {
-    "babel-node": "node_modules/.bin/babel-node --presets es2015,react --plugins transform-es2015-modules-commonjs,transform-object-rest-spread --ignore /__nothing__/ --only src,test,test-e2e,node_modules/qs",
+    "babel-node": "node_modules/.bin/babel-node --presets es2015,react --plugins transform-es2015-modules-commonjs,transform-object-rest-spread",
     "babel": "babel --presets es2015,react --plugins transform-es2015-modules-commonjs,transform-object-rest-spread",
     "pregh-pages": "git fetch origin",
     "gh-pages": "git checkout gh-pages && git rebase origin/master --force-rebase && npm run build && git add . && git commit --amend --no-edit && git push --force && git checkout master",

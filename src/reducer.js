@@ -1,7 +1,7 @@
 import sortedObject from './sortedObject';
 import Constants from './Constants';
 import shallowEqual from 'fbjs/lib/shallowEqual';
-import {parse} from 'qs';
+import {parse} from 'qs/dist/qs';
 
 
 const initialState = {
