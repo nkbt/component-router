@@ -1,6 +1,7 @@
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {restoreLocation} from './actions';
 import {stringify} from 'qs';
+import {store} from './store';
 
 
 export const url = ({pathname, query, hash}) => {
@@ -28,7 +29,7 @@ const updated = callback => {
 const push = history => updated(href => history.pushState({}, href));
 
 
-export const location = (createHistory, type) => store => {
+export const location = (createHistory, type) => () => {
   const history = createHistory();
   const historyPush = push(history);
 

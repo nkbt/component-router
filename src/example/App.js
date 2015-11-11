@@ -1,9 +1,78 @@
 import React from 'react';
 
-import {store} from '../store';
-import {navigateTo, addDefaultParam, removeParam} from '../actions';
-import {locationHistory as location} from '../locationHistory';
+import {actions, store, locationHistory as location, href} from '..';
 import styles from './App.css';
+
+
+// TODO: move to a separate npm package
+const UrlContainer = React.createClass({
+  propTypes: {
+    children: React.PropTypes.func.isRequired
+  },
+
+
+  getInitialState() {
+    return store.getState();
+  },
+
+
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(this.onChange);
+  },
+
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  },
+
+
+  isLMB(event) {
+    const {button, metaKey, shiftKey, ctrlKey, altKey} = event;
+
+    return button === 0 && !metaKey && !shiftKey && !ctrlKey && !altKey;
+  },
+
+
+  onClick(props) {
+    return event => {
+      // React only on normal left-button clicks
+      if (this.isLMB(event)) {
+        event.preventDefault();
+        store.dispatch(actions.navigateTo(props));
+      }
+    };
+  },
+
+
+  onChange() {
+    this.replaceState(store.getState());
+  },
+
+
+  render() {
+    const {children: render, ...props} = this.props;
+
+    return render({href: href(props), onClick: this.onClick(props)});
+  }
+});
+
+const Url = React.createClass({
+  propTypes: {
+    children: React.PropTypes.node,
+    query: React.PropTypes.object.isRequired
+  },
+
+
+  render() {
+    const {query, children, ...props} = this.props;
+
+    return (
+      <UrlContainer {...query}>
+        {urlProps => <a {...urlProps} {...props}>{children}</a>}
+      </UrlContainer>
+    );
+  }
+});
 
 
 // TODO: move to a separate npm package
@@ -25,11 +94,6 @@ const ComponentRouteContainer = React.createClass({
 
   componentWillUnmount() {
     this.unsubscribe();
-  },
-
-
-  onClick(page) {
-    store.dispatch(navigateTo({page}));
   },
 
 
@@ -61,14 +125,14 @@ const createComponentRouteHandler = namespace => handlers => React.createClass({
 
   componentDidMount() {
     if (this.props.defaultValue) {
-      store.dispatch(addDefaultParam(namespace, this.props.defaultValue));
+      store.dispatch(actions.addDefaultParam(namespace, this.props.defaultValue));
     }
   },
 
 
   componentWillUnmount() {
     if (this.props.defaultValue) {
-      store.dispatch(removeParam(namespace));
+      store.dispatch(actions.removeParam(namespace));
     }
   },
 
@@ -88,21 +152,7 @@ const createComponentRouteHandler = namespace => handlers => React.createClass({
 
 const Header = React.createClass({
   propTypes: {
-    page: React.PropTypes.string
-  },
-
-
-  getDefaultProps() {
-    store.dispatch(addDefaultParam('page', 'quickstart'));
-    return {page: 'quickstart'};
-  },
-
-
-  onClick(page) {
-    return event => {
-      event.preventDefault();
-      store.dispatch(navigateTo({page}));
-    };
+    page: React.PropTypes.string.isRequired
   },
 
 
@@ -117,16 +167,14 @@ const Header = React.createClass({
         <nav className={styles.nav}>
           <ul>
             <li>
-              <a
-                href="#"
-                onClick={this.onClick('quickstart')}
-                className={this.getClassName('quickstart')}>Quickstart</a>
+              <Url query={{page: 'quickstart'}} className={this.getClassName('quickstart')}>
+                Quickstart
+              </Url>
             </li>
             <li>
-              <a
-                href="#"
-                onClick={this.onClick('foobar')}
-                className={this.getClassName('foobar')}>FooBar</a>
+              <Url query={{page: 'foobar'}} className={this.getClassName('foobar')}>
+                FooBar
+              </Url>
             </li>
             <li className={styles.github}>
               <a href="https://github.com/in-flux/component-router" target="_blank">GitHub</a>
@@ -148,7 +196,7 @@ const ComponenentRouteHandler = createComponentRouteHandler('page')({
 
 const App = React.createClass({
   componentDidMount() {
-    this.unsubscribe = location(store);
+    this.unsubscribe = location();
   },
 
 

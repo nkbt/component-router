@@ -24,7 +24,7 @@ export const cleanupQuery = ({query, defaultParams}) => {
 };
 
 
-const safeQuery = (query = {}) => {
+export const safeQuery = (query = {}) => {
   const newQuery = query === null ? {} : query;
 
   Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
@@ -33,7 +33,7 @@ const safeQuery = (query = {}) => {
 };
 
 
-const changeParams = (state, params) => {
+export const changeParams = (state, params) => {
   const {defaultParams, query} = state;
   const newQuery = sortedObject({...defaultParams, ...query, ...safeQuery(params.query)});
 
@@ -49,7 +49,7 @@ const changeParams = (state, params) => {
 };
 
 
-const addDefaultParam = (state, {namespace, value}) => {
+export const addDefaultParam = (state, {namespace, value}) => {
   const {defaultParams, query} = state;
   const stringValue = `${value}`;
 
@@ -69,7 +69,7 @@ const addDefaultParam = (state, {namespace, value}) => {
 };
 
 
-const removeParam = (state, {namespace}) => {
+export const removeParam = (state, {namespace}) => {
   const {defaultParams, query} = state;
   const newDefaultParams = {...defaultParams};
   const newQuery = {...query};
@@ -90,7 +90,7 @@ const removeParam = (state, {namespace}) => {
 };
 
 
-const restoreLocation = (state, {location, locationType = Constants.LOCATION_HISTORY}) => {
+export const restoreLocation = (state, {location, locationType = Constants.LOCATION_HISTORY}) => {
   const {defaultParams} = state;
   const {pathname, search, hash} = location;
   const newQuery = safeQuery(parse(search.substr(1), {strictNullHandling: true}));
