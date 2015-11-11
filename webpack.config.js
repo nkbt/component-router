@@ -11,9 +11,6 @@ var babelLoader = 'babel?' +
   });
 
 
-require('babel-polyfill');
-
-
 module.exports = {
   devtool: 'source-map',
   entry: [
