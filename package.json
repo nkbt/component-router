@@ -1,6 +1,6 @@
 {
   "name": "component-router",
-  "version": "3.0.0-alpha.3",
+  "version": "3.0.0-alpha.4",
   "description": "Flux-based component routing solution",
   "main": "lib/index.js",
   "scripts": {
