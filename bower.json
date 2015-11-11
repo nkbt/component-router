@@ -1,6 +1,6 @@
 {
   "name": "component-router",
-  "version": "2.1.1",
+  "version": "0.0.0",
   "description": "Flux-based component routing solution",
   "main": "component-router.js",
   "repository": {
@@ -23,10 +23,6 @@
   ],
   "license": "MIT",
   "homepage": "https://github.com/in-flux/component-router",
-  "dependencies": {
-    "react": "^0.13.3",
-    "flux": "^2.0.3"
-  },
   "ignore": [
     "**/.*",
     "node_modules",

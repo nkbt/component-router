@@ -4,9 +4,14 @@
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var path = require('path');
+var babelLoader = 'babel?' +
+  JSON.stringify({
+    presets: ['es2015', 'react'],
+    plugins: ['transform-es2015-modules-commonjs', 'transform-object-rest-spread']
+  });
 
 
-require('babel/polyfill');
+require('babel-polyfill');
 
 
 module.exports = {
@@ -30,11 +35,11 @@ module.exports = {
   ],
   module: {
     loaders: [
-      {test: /\.js$/, loaders: ['react-hot', 'babel'], include: [path.resolve('src')]},
       {
         test: /\.css$/,
         loader: 'style!css?modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]'
-      }
+      },
+      {test: /\.js$/, loaders: ['react-hot', babelLoader], include: [path.resolve('src')]}
     ],
     preLoaders: [
       {test: /\.js$/, loaders: ['eslint'], include: [path.resolve('src')]}

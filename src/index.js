@@ -1,10 +1,10 @@
-import {navigateTo, restoreLocation, addDefaultParam, removeParam} from './Actions';
+import {navigateTo, restoreLocation, addDefaultParam, removeParam} from './actions';
 
-export {default as ComponentRouter} from './ComponentRouter';
-export {default as Url} from './Url';
-export {default as Store} from './Store';
+export {componentRouter} from './reducer';
+export {store} from './store';
+export {href, isActive} from './href';
+export {location} from './location';
+export {locationHash} from './locationHash';
+export {locationHistory} from './locationHistory';
 export {default as Constants} from './Constants';
-export {default as LocationHtml4} from './Location/Html4';
-export {default as LocationHtml5} from './Location/Html5';
-export {default as getDefault} from './getDefault';
-export const Actions = {navigateTo, restoreLocation, addDefaultParam, removeParam};
+export const actions = {navigateTo, restoreLocation, addDefaultParam, removeParam};
