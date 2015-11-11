@@ -38,11 +38,11 @@
   list-style: none;
 }
 
-.nav ul li {
+.nav li {
   display: inline-block;
 }
 
-.nav ul li a {
+.tab {
   display: inline-block;
   padding: 0 2em;
   color: #fff;
@@ -51,16 +51,16 @@
   border-radius: 5px 5px 0 0;
   margin-right: 5px;
   margin-top: 8px;
-  transition: background 200ms;
+  transition: background-color 200ms;
 
 }
 
-.nav ul li a:hover {
-  background: rgba(255, 255, 255, 0.2);
+.tab:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
 
-.nav ul li a.active {
-  background: #fff;
+.tab[data-active="true"] {
+  background-color: #fff;
   color: #06c;
 }
 

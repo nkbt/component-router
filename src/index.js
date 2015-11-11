@@ -2,7 +2,7 @@ import {navigateTo, restoreLocation, addDefaultParam, removeParam} from './actio
 
 export {componentRouter} from './reducer';
 export {store} from './store';
-export {href} from './href';
+export {href, isActive} from './href';
 export {location} from './location';
 export {locationHash} from './locationHash';
 export {locationHistory} from './locationHistory';

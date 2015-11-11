@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {actions, store, locationHistory as location, href} from '..';
+import {actions, store, locationHistory as location, href, isActive} from '../index';
 import styles from './App.css';
 
 
@@ -52,7 +52,11 @@ const UrlContainer = React.createClass({
   render() {
     const {children: render, ...props} = this.props;
 
-    return render({href: href(props), onClick: this.onClick(props)});
+    return render({
+      href: href(props),
+      onClick: this.onClick(props),
+      'data-active': isActive(props)
+    });
   }
 });
 
@@ -167,17 +171,16 @@ const Header = React.createClass({
         <nav className={styles.nav}>
           <ul>
             <li>
-              <Url query={{page: 'quickstart'}} className={this.getClassName('quickstart')}>
-                Quickstart
-              </Url>
+              <Url query={{page: 'quickstart'}} className={styles.tab}>Quickstart</Url>
             </li>
             <li>
-              <Url query={{page: 'foobar'}} className={this.getClassName('foobar')}>
-                FooBar
-              </Url>
+              <Url query={{page: 'foobar'}} className={styles.tab}>FooBar</Url>
             </li>
             <li className={styles.github}>
-              <a href="https://github.com/in-flux/component-router" target="_blank">GitHub</a>
+              <a
+                href="https://github.com/in-flux/component-router"
+                target="_blank"
+                className={styles.tab}>GitHub</a>
             </li>
           </ul>
         </nav>
