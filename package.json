@@ -29,7 +29,7 @@
     "bower:register": "./scripts/register.sh"
   },
   "engines": {
-    "node": ">=0.10"
+    "node": ">=4"
   },
   "os": [
     "darwin",
