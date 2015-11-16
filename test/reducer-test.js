@@ -1,5 +1,5 @@
 import test from 'tape';
-import {componentRouter} from '../src/reducer';
+import {initialState, restoreLocation, componentRouter} from '../src/reducer';
 import Constants from '../src/Constants';
 
 test('componentRouter', t => {
@@ -24,18 +24,22 @@ test('componentRouter / Init', t => {
 
 
 test('componentRouter / Restore location', t => {
-  const action = {
-    type: Constants.RESTORE_LOCATION,
-    payload: {location: {search: '?world=123&name=barry'}}
-  };
-
-  t.deepEqual(componentRouter(undefined, action).query,
+  t.deepEqual(restoreLocation(initialState,
+    {location: {search: '?world=123&name=barry'}}).query,
     {world: '123', name: 'barry'},
     'should restore query from location');
 
-  t.deepEqual(Object.keys(componentRouter(undefined, action).query),
+  t.deepEqual(Object.keys(restoreLocation(initialState,
+    {location: {search: '?world=123&name=barry'}}).query),
     ['name', 'world'],
     'should sort query params alphabetically when restoring location');
+
+
+  const state = restoreLocation(initialState, {location: {search: '?world=123&name=barry'}});
+
+  t.deepEqual(restoreLocation(state, {location: {search: '?something=else'}}).query,
+    {something: 'else'},
+    'should override query upon restore');
 
   t.end();
 });

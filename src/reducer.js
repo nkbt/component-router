@@ -4,7 +4,7 @@ import shallowEqual from 'fbjs/lib/shallowEqual';
 import {parse} from 'qs';
 
 
-const initialState = {
+export const initialState = {
   pathname: '/',
   hash: '',
   query: {},
@@ -93,12 +93,16 @@ export const removeParam = (state, {namespace}) => {
 export const restoreLocation = (state, {location, locationType = Constants.LOCATION_HISTORY}) => {
   const {defaultParams} = state;
   const {pathname, search, hash} = location;
-  const newQuery = safeQuery(parse(search.substr(1), {strictNullHandling: true}));
-  const newState = changeParams({...state, locationType}, {
-    query: {...defaultParams, ...newQuery}
-  });
+  const newQuery = sortedObject(safeQuery(parse(search.substr(1), {strictNullHandling: true})));
 
-  return {...newState, pathname, hash, locationType};
+  return {
+    ...state,
+    pathname,
+    hash,
+    query: newQuery,
+    cleanQuery: cleanupQuery({query: newQuery, defaultParams}),
+    locationType
+  };
 };
 
 
