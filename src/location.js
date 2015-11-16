@@ -32,12 +32,18 @@ const push = history => updated(href => history.pushState({}, href));
 export const location = (createHistory, type) => () => {
   const history = createHistory();
   const historyPush = push(history);
+  let timer;
+
+  const batchedHistoryPush = (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => historyPush(...args), 0);
+  };
 
   const historyUnsubscribe = history.listen(({pathname, search, hash}) => {
     store.dispatch(restoreLocation({pathname, search, hash}, type));
   });
 
-  const storeUnsubscribe = store.subscribe(() => historyPush({
+  const storeUnsubscribe = store.subscribe(() => batchedHistoryPush({
     pathname: store.getState().pathname,
     query: store.getState().cleanQuery,
     hash: store.getState().hash
