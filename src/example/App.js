@@ -211,12 +211,12 @@ const App = React.createClass({
     return (
       <div className={styles.app}>
         <ComponentRouteContainer>
-          {({query: {page}}) => page ? (
+          {({query: {page}}) => (
             <div>
-              <Header page={page} />
+              {page ? <Header page={page} /> : null}
               <ComponenentRouteHandler defaultValue="quickstart" page={page} />
             </div>
-          ) : null}
+          )}
         </ComponentRouteContainer>
       </div>
     );

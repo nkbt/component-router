@@ -11,7 +11,7 @@ const path = require('path');
 const loaders = [
   {
     test: /\.css$/,
-    loader: 'style!css?modules&sourceMap&localIdentName=[name]__[local]___[hash:base64:5]',
+    loader: 'style!css?sourceMap&modules&localIdentName=[path][name]---[local]',
     include: [path.resolve('src/example')]
   },
   {
@@ -42,7 +42,6 @@ const development = {
   devtool: '#source-map',
 
   entry: [
-    './src/example/reset.css',
     './src/example/Example.js',
     'webpack-dev-server/client?http://localhost:8080',
     'webpack/hot/only-dev-server'
