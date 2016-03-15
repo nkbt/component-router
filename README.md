@@ -3,8 +3,8 @@
 [![Gitter](https://img.shields.io/gitter/room/nkbt/help.svg?style=flat-square)](https://gitter.im/nkbt/help)
 
 [![CircleCI](https://img.shields.io/circleci/project/in-flux/component-router.svg?style=flat-square&label=nix-build)](https://circleci.com/gh/in-flux/component-router)
-[![AppVeyor](https://img.shields.io/appveyor/ci/in-flux/component-router.svg?style=flat-square&label=win-build)](https://ci.appveyor.com/project/in-flux/component-router)
-[![Coveralls](https://img.shields.io/coveralls/in-flux/component-router.svg?style=flat-square)](https://coveralls.io/r/in-flux/component-router)
+[![AppVeyor](https://img.shields.io/appveyor/ci/nkbt/component-router.svg?style=flat-square&label=win-build)](https://ci.appveyor.com/project/nkbt/component-router)
+[![Coverage](https://img.shields.io/codecov/c/github/in-flux/component-router.svg?style=flat-square)](https://codecov.io/github/in-flux/component-router?branch=master)
 [![Dependencies](https://img.shields.io/david/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router)
 [![Dev Dependencies](https://img.shields.io/david/dev/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router#info=devDependencies)
 
