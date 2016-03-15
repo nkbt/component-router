@@ -29,7 +29,7 @@ const updated = callback => {
 };
 
 
-const push = history => updated(href => history.push({}, href));
+const push = history => updated(location => history.push(location));
 
 
 export const location = (createHistory, type) => () => {

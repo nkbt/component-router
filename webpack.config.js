@@ -39,7 +39,7 @@ const stats = {colors: true};
 
 
 const development = {
-  devtool: '#cheap-module-eval-source-map',
+  devtool: '#source-map',
 
   entry: [
     './src/example/reset.css',
@@ -98,7 +98,6 @@ const dist = {
   resolve,
   stats,
   externals: {
-    react: {root: 'React', commonjs2: 'react', commonjs: 'react', amd: 'react'}
   }
 };
 
@@ -124,7 +123,6 @@ const min = {
   resolve,
   stats,
   externals: {
-    react: {root: 'React', commonjs2: 'react', commonjs: 'react', amd: 'react'}
   }
 };
 

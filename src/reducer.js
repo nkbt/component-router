@@ -15,12 +15,13 @@ export const initialState = {
 
 
 export const cleanupQuery = ({query, defaultParams}) =>
-  sortedObject(Object.keys(query).reduce((clean, key) => {
-    if (defaultParams.hasOwnProperty(key) && query[key] === defaultParams[key]) {
-      return clean;
-    }
-    return {...clean, [key]: query[key]};
-  }, {}));
+  sortedObject(Object.keys(query)
+    .reduce((clean, key) => {
+      if (defaultParams.hasOwnProperty(key) && query[key] === defaultParams[key]) {
+        return clean;
+      }
+      return {...clean, [key]: query[key]};
+    }, {}));
 
 
 export const safeQuery = (query = {}) => {
@@ -42,10 +43,12 @@ export const changeParams = (state, params) => {
     return state;
   }
 
+  const cleanQuery = cleanupQuery({query: newQuery, defaultParams});
+
   return {
     ...state,
     query: newQuery,
-    cleanQuery: cleanupQuery({query: newQuery, defaultParams})
+    cleanQuery
   };
 };
 
