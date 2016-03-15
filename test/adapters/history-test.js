@@ -1,5 +1,5 @@
 import test from 'tape';
-import {locationHistory} from '../src/locationHistory';
+import {locationHistory} from '../../src/adapters/history';
 
 
 test('locationHistory', t => {

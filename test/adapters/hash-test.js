@@ -1,5 +1,5 @@
 import test from 'tape';
-import {locationHash} from '../src/locationHash';
+import {locationHash} from '../../src/adapters/hash';
 
 
 test('locationHash', t => {
