@@ -76,7 +76,7 @@ export const addDefaultParam = (state, {namespace, value}) => {
 export const removeParam = (state, {namespace}) => {
   const {defaultParams, query} = state;
   const newDefaultParams = {...defaultParams};
-  const newQuery = {...query};
+  const newQuery = sortedObject({...defaultParams, ...query});
 
   if (newDefaultParams.hasOwnProperty(namespace)) {
     delete newDefaultParams[namespace];
@@ -97,7 +97,10 @@ export const removeParam = (state, {namespace}) => {
 export const restoreLocation = (state, {location, locationType = Constants.LOCATION_HISTORY}) => {
   const {defaultParams} = state;
   const {pathname, search, hash} = location;
-  const newQuery = sortedObject(safeQuery(parse(search.substr(1), {strictNullHandling: true})));
+
+  const newQuery = sortedObject({
+    ...defaultParams,
+    ...safeQuery(parse(search.substr(1), {strictNullHandling: true}))});
 
   return {
     ...state,
