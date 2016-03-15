@@ -23,11 +23,11 @@ The idea of partial routing is coming from the need to track state of independen
 Commonly used routers are mostly hierarchical. The great example of such a router is [react-router](https://github.com/rackt/react-router).
 Unfortunately it is not possible to store component's state independently from the other component in a different "branch" of hierarchy.
 
-They work perfectly for most of the UIs. 
+They work perfectly for most of the UIs.
 But as soon as we are trying to build a complex UI with multiple independent components and each of those has own state you would like to preserve, it becomes a challenging task. ComponentRouter was created to provide a simple way of keeping such state in the URL with query params.
 
 
-Here is an example of such interface. 
+Here is an example of such interface.
 
 1. Chart block, which can be switched from `bar` to `pie`
 2. Filter block, that can be `opened` or `closed`
@@ -53,11 +53,11 @@ Here is an example of such interface.
 |  |                                                   |                       |
 |  +---------------------------------------------------+                       |
 |                                                                              |
-+------------------------------------------------------------------------------+ 
++------------------------------------------------------------------------------+
 ```
 
 As you can see each of these blocks has its own independent navigation and, for example, Filter can be closed or opened independently from currently displayed Chart type or Data tab selected.
- 
+
 1. We can always keep the state of each block, but you will loose that state on page refresh.
 2. We can keep their states in some specialized Flux Store and cache in `localStorage` or even user settings in database on the server. But we are losing ability to share this page with someone else (unless we have some special "copy/paste state" functionality)
 3. At last we can keep state of each component in the URL as query parameter, which solves both problems.
@@ -68,16 +68,40 @@ Key feature is to update all links on the page if any of visible blocks changed 
 
 ## Installation
 
-### npm
+### NPM
 
 ```sh
-npm install --save component-router
+npm install --save component-router redux fbjs history qs
 ```
 
-### bower
+Don't forget to manually install peer dependencies (`redux`, `fbjs`, `history`, `qs`) if you use npm@3.
 
+
+### Bower:
 ```sh
-bower install --save component-router
+bower install --save https://npmcdn.com/component-router/bower.zip
+```
+
+or in `bower.json`
+
+```json
+{
+  "dependencies": {
+    "component-router": "https://npmcdn.com/component-router/bower.zip"
+  }
+}
+```
+
+then include as
+```html
+<script src="bower_components/component-router/build/component-router.js"></script>
+```
+
+
+### 1998 Script Tag:
+```html
+<script src="https://npmcdn.com/component-router/build/component-router.js"></script>
+(Module exposed as `ComponentRouter`)
 ```
 
 
@@ -91,7 +115,7 @@ bower install --save component-router
 [http://codepen.io/nkbt/pen/BNXamG?editors=101](http://codepen.io/nkbt/pen/BNXamG)
 
 Since ComponentRouter is working with browser location and navigation, it is not really possible
-to debug router in Codepen's Editor mode, but completely possible in Debug mode: 
+to debug router in Codepen's Editor mode, but completely possible in Debug mode:
 [http://s.codepen.io/nkbt/debug/BNXamG] (http://s.codepen.io/nkbt/debug/BNXamG)
 
 
@@ -131,10 +155,10 @@ React.render(<App />, document.body);
 
 ## Quick-start
 
-Quick-start is a step-by-step walk-through to implement UI based on ASCII example from above. 
+Quick-start is a step-by-step walk-through to implement UI based on ASCII example from above.
 
-### 1. Add App and main blocks: Chart, Filter, Data 
-  
+### 1. Add App and main blocks: Chart, Filter, Data
+
   ```js
 import React from 'react';
 
@@ -173,7 +197,7 @@ const App = React.createClass({
 
 React.render(<App />, document.body);
   ```
-  
+
 ### 2. Add second-level blocks (not yet used for now)
   ```js
 const ChartBar = React.createClass({
@@ -216,7 +240,7 @@ const DataDestinations = React.createClass({
 ### 3. Add ComponentRouter
 
   Wrap each main component, give it a namespace and config
-  
+
   Also render Location provider (LocationHtml5 for History-API links or LocationHtml4 for hash-links).
 
   ```js
@@ -305,18 +329,21 @@ const Data = React.createClass({
 ### 5. PROFIT
 
   Compile your code, the routing is now completed.
-  
-  
+
+
   ![Quickstart.gif](./src/example/quickstart.gif)
-  
+
   **NOTE** href changes, so we can open link in new tab.
-  
-  
+
+
   You can see the full QuickStart example on Demo page http://in-flux.github.io/component-router/example/#/?page=quickstart.
-  
+
 ## Development and testing
 
-To run comprehensive example covering all `ComponentRouter` features, use `npm start`, which will compile `src/example/Example.js`
+Currently is being developed and tested with the latest stable `Node 5` on `OSX` and `Windows`.
+Should be ok with Node 4, but not guaranteed.
+
+To run example covering all `ComponentRouter` features, use `npm start`, which will compile `src/example/Example.js`
 
 ```bash
 git clone git@github.com:in-flux/component-router.git
@@ -331,9 +358,15 @@ open http://localhost:8080
 
 ## Tests
 
-1. UI for manual testing - `npm start`, open `http://localhost:8080`
-2. Automated tests are in `./test` and should be run with `npm run test:dev` (watch mode)
-3. Coverage report is generated by running `npm run test:cov`
+```bash
+npm test
+
+# to run tests in watch mode for development
+npm run test:dev
+
+# to generate test coverage (./reports/coverage)
+npm run test:cov
+```
 
 ## License
 
