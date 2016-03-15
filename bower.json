@@ -2,7 +2,12 @@
   "name": "component-router",
   "version": "0.0.0",
   "description": "Flux-based component routing solution",
-  "main": "component-router.js",
+  "main": [
+    "build/component-router.js",
+    "build/component-router.js.map",
+    "build/component-router.min.js",
+    "build/component-router.min.js.map"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/in-flux/component-router.git"

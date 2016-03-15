@@ -1,0 +1,25 @@
+{
+  "presets": [
+    "es2015",
+    "react"
+  ],
+  "plugins": [
+    "transform-object-rest-spread"
+  ],
+  "env": {
+    "development": {
+      "presets": ["react-hmre"]
+    },
+    "test": {
+      "plugins": [
+        [
+          "babel-plugin-webpack-loaders",
+          {
+            "config": "./webpack.config.js",
+            "verbose": false
+          }
+        ]
+      ]
+    }
+  }
+}

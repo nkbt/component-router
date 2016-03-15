@@ -1,9 +1,6 @@
-const sortedObject = input => {
-  const output = {};
-
-  Object.keys(input).sort().forEach(key => output[key] = input[key]);
-
-  return output;
-};
+const sortedObject = input =>
+  Object.keys(input)
+    .sort()
+    .reduce((result, key) => ({...result, [key]: input[key]}), {});
 
 export default sortedObject;
