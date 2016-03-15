@@ -1,11 +1,13 @@
-# component-router
+# component-router [![npm](https://img.shields.io/npm/v/component-router.svg?style=flat-square)](https://www.npmjs.com/package/component-router)
 
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/nkbt/help)
+[![Gitter](https://img.shields.io/gitter/room/nkbt/help.svg?style=flat-square)](https://gitter.im/nkbt/help)
 
-[![Circle CI](https://circleci.com/gh/in-flux/component-router.svg?style=svg)](https://circleci.com/gh/in-flux/component-router)
-[![Coverage Status](https://coveralls.io/repos/in-flux/component-router/badge.svg?branch=master)](https://coveralls.io/r/in-flux/component-router?branch=master)
-[![Dependency Status](https://david-dm.org/in-flux/component-router.svg)](https://david-dm.org/in-flux/component-router)
-[![devDependency Status](https://david-dm.org/in-flux/component-router/dev-status.svg)](https://david-dm.org/in-flux/component-router#info=devDependencies)
+[![CircleCI](https://img.shields.io/circleci/project/in-flux/component-router.svg?style=flat-square&label=nix-build)](https://circleci.com/gh/in-flux/component-router)
+[![AppVeyor](https://img.shields.io/appveyor/ci/in-flux/component-router.svg?style=flat-square&label=win-build)](https://ci.appveyor.com/project/in-flux/component-router)
+[![Coveralls](https://img.shields.io/coveralls/in-flux/component-router.svg?style=flat-square)](https://coveralls.io/r/in-flux/component-router)
+[![Dependencies](https://img.shields.io/david/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router)
+[![Dev Dependencies](https://img.shields.io/david/dev/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router#info=devDependencies)
+
 
 Flux-based routing solution for components
 
