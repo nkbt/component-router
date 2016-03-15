@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {actions, store, locationHistory as location, href, isActive} from '../ComponentRouter';
+import {actions, store, locationHistory as location, href, isActive} from '../index';
 import styles from './App.css';
 
 

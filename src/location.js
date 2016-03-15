@@ -4,12 +4,15 @@ import {stringify} from 'qs';
 import {store} from './store';
 
 
-export const url = ({pathname, query, hash}) => {
+const queryToSearch = query => {
   const qs = stringify(query, {strictNullHandling: true});
-  const search = qs.length > 0 ? `?${qs}` : '';
 
-  return [pathname, search, hash].join('');
+  return qs.length > 0 ? `?${qs}` : '';
 };
+
+
+export const url = ({pathname, query, hash}) =>
+  [pathname, queryToSearch(query), hash].join('');
 
 
 const updated = callback => {
@@ -21,12 +24,12 @@ const updated = callback => {
     }
 
     lastQuery = query;
-    callback(url({pathname, query, hash}));
+    callback({pathname, search: queryToSearch(query), hash});
   };
 };
 
 
-const push = history => updated(href => history.pushState({}, href));
+const push = history => updated(href => history.push({}, href));
 
 
 export const location = (createHistory, type) => () => {
@@ -39,9 +42,8 @@ export const location = (createHistory, type) => () => {
     timer = setTimeout(() => historyPush(...args), 0);
   };
 
-  const historyUnsubscribe = history.listen(({pathname, search, hash}) => {
-    store.dispatch(restoreLocation({pathname, search, hash}, type));
-  });
+  const historyUnsubscribe = history.listen(({pathname, search, hash}) =>
+    store.dispatch(restoreLocation({pathname, search, hash}, type)));
 
   const storeUnsubscribe = store.subscribe(() => batchedHistoryPush({
     pathname: store.getState().pathname,

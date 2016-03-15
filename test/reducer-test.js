@@ -128,12 +128,10 @@ test('componentRouter / Remove param', t => {
 
 
 test('componentRouter / Navigate to', t => {
-  const prepare = () => {
-    return componentRouter(undefined, {
-      type: Constants.ADD_DEFAULT_PARAM,
-      payload: {namespace: 'y', value: 2}
-    });
-  };
+  const prepare = () => componentRouter(undefined, {
+    type: Constants.ADD_DEFAULT_PARAM,
+    payload: {namespace: 'y', value: 2}
+  });
 
   t.deepEqual(
     componentRouter(prepare(), {type: Constants.NAVIGATE_TO, payload: {query: {x: 0}}}).query,

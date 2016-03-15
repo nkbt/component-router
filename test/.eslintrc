@@ -1,0 +1,7 @@
+{
+  "extends": "../.eslintrc",
+  "rules": {
+    "max-nested-callbacks": 0,
+    "no-undefined": 0
+  }
+}

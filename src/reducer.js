@@ -14,20 +14,21 @@ export const initialState = {
 };
 
 
-export const cleanupQuery = ({query, defaultParams}) => {
-  return sortedObject(Object.keys(query).reduce((clean, key) => {
+export const cleanupQuery = ({query, defaultParams}) =>
+  sortedObject(Object.keys(query).reduce((clean, key) => {
     if (defaultParams.hasOwnProperty(key) && query[key] === defaultParams[key]) {
       return clean;
     }
     return {...clean, [key]: query[key]};
   }, {}));
-};
 
 
 export const safeQuery = (query = {}) => {
   const newQuery = query === null ? {} : query;
 
-  Object.keys(newQuery).forEach(key => newQuery[key] = `${newQuery[key]}`);
+  Object.keys(newQuery).forEach(key => {
+    newQuery[key] = `${newQuery[key]}`;
+  });
 
   return newQuery;
 };
