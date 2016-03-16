@@ -2,9 +2,6 @@ import React from 'react';
 import {actions, store} from '../../..';
 
 
-export const NOT_FOUND = '__NOT_FOUND__';
-
-
 export default ({notFound}) => handlers => React.createClass({
   propTypes: {
     route: React.PropTypes.string.isRequired,

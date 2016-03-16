@@ -4,7 +4,9 @@ import {actions, store, href, isActive} from '../../../..';
 
 const UrlContainer = React.createClass({
   propTypes: {
-    children: React.PropTypes.func.isRequired
+    children: React.PropTypes.func.isRequired,
+    query: React.PropTypes.object,
+    pathname: React.PropTypes.string
   },
 
 
@@ -30,12 +32,12 @@ const UrlContainer = React.createClass({
   },
 
 
-  onClick(props) {
+  onClick({query, pathname}) {
     return event => {
       // React only on normal left-button clicks
       if (this.isLMB(event)) {
         event.preventDefault();
-        store.dispatch(actions.navigateTo(props));
+        store.dispatch(actions.navigateTo({query, pathname}));
       }
     };
   },
@@ -47,12 +49,12 @@ const UrlContainer = React.createClass({
 
 
   render() {
-    const {children: render, ...props} = this.props;
+    const {children: render, query, pathname} = this.props;
 
     return render({
-      href: href(props),
-      onClick: this.onClick(props),
-      'data-active': isActive(props)
+      href: href({query, pathname}),
+      onClick: this.onClick({query, pathname}),
+      'data-active': isActive({query, pathname})
     });
   }
 });

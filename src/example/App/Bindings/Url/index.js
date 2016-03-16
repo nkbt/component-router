@@ -14,7 +14,7 @@ const Url = React.createClass({
     const {query, href, children, ...props} = this.props;
 
     return (
-      <UrlContainer {...query}>
+      <UrlContainer {...{query, pathname: href}}>
         {urlProps => <a {...urlProps} {...props}>{children}</a>}
       </UrlContainer>
     );

@@ -40,10 +40,11 @@ export const safeQuery = (query = {}) => {
 
 
 export const changeParams = (state, params) => {
-  const {defaultParams, query} = state;
+  const {defaultParams, query, pathname} = state;
   const newQuery = sortedObject({...defaultParams, ...query, ...safeQuery(params.query)});
+  const newPathname = params.pathname || pathname;
 
-  if (shallowEqual(newQuery, query)) {
+  if (shallowEqual(newQuery, query) && newPathname === pathname) {
     return state;
   }
 
@@ -52,7 +53,7 @@ export const changeParams = (state, params) => {
   return {
     ...state,
     query: newQuery,
-    pathname: params.pathname || state.pathname,
+    pathname: newPathname,
     cleanQuery
   };
 };

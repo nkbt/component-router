@@ -4,8 +4,11 @@ import Constants from '../src/Constants';
 
 test('actions', t => {
   t.deepEqual(
-    actions.navigateTo({some: 'thing'}),
-    {type: Constants.NAVIGATE_TO, payload: {query: {some: 'thing'}}},
+    actions.navigateTo({query: {some: 'thing'}}),
+    {
+      type: Constants.NAVIGATE_TO,
+      payload: {pathname: undefined, query: {some: 'thing'}}
+    },
     'should return a NAVIGATE_TO action'
   );
 
