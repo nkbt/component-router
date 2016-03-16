@@ -2,6 +2,8 @@ import sortedObject from './sortedObject';
 import Constants from './Constants';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {parse} from 'qs';
+import {parseRoute, defaultRoute} from './pathname/parse';
+import {matchRoute} from './pathname/match';
 
 
 export const initialState = {
@@ -10,6 +12,8 @@ export const initialState = {
   query: {},
   cleanQuery: {},
   defaultParams: {},
+  routes: {},
+  currentRoute: defaultRoute,
   locationType: Constants.LOCATION_HISTORY
 };
 
@@ -48,6 +52,7 @@ export const changeParams = (state, params) => {
   return {
     ...state,
     query: newQuery,
+    pathname: params.pathname || state.pathname,
     cleanQuery
   };
 };
@@ -100,7 +105,8 @@ export const restoreLocation = (state, {location, locationType = Constants.LOCAT
 
   const newQuery = sortedObject({
     ...defaultParams,
-    ...safeQuery(parse(search.substr(1), {strictNullHandling: true}))});
+    ...safeQuery(parse(search.substr(1), {strictNullHandling: true}))
+  });
 
   return {
     ...state,
@@ -108,9 +114,24 @@ export const restoreLocation = (state, {location, locationType = Constants.LOCAT
     hash,
     query: newQuery,
     cleanQuery: cleanupQuery({query: newQuery, defaultParams}),
+    currentRoute: matchRoute(state.routes, defaultRoute)(pathname),
     locationType
   };
 };
+
+
+export const addRoute = (state, payload) => ({
+  ...state,
+  routes: {...state.routes, [payload.route]: parseRoute(payload.route)}
+});
+
+
+export const removeRoute = (state, payload) => ({
+  ...state,
+  routes: Object.keys(state.routes)
+    .filter(key => key !== payload.route)
+    .reduce((result, key) => ({...result, [key]: state.routes[key]}), {})
+});
 
 
 export const componentRouter = (state = initialState, {type, payload}) => {
@@ -126,6 +147,12 @@ export const componentRouter = (state = initialState, {type, payload}) => {
 
     case Constants.RESTORE_LOCATION:
       return restoreLocation(state, payload);
+
+    case Constants.ADD_ROUTE:
+      return addRoute(state, payload);
+
+    case Constants.REMOVE_ROUTE:
+      return removeRoute(state, payload);
 
     default:
       return state;

@@ -4,10 +4,11 @@ import {store} from './store';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 
 
-export const href = query => {
-  const {pathname, cleanQuery, hash} = changeParams(store.getState(), {query});
+export const href = ({pathname, query}) => {
+  const {pathname: newPathname, cleanQuery, hash} = changeParams(store.getState(),
+    {pathname, query});
 
-  return url({pathname, query: cleanQuery, hash});
+  return url({pathname: newPathname, query: cleanQuery, hash});
 };
 
 
