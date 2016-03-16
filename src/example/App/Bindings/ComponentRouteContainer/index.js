@@ -31,7 +31,7 @@ const ComponentRouteContainer = React.createClass({
   render() {
     const {children: render} = this.props;
 
-    return render(this.state);
+    return render(this.state);U
   }
 });
 
