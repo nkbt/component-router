@@ -119,7 +119,7 @@
     "no-octal": 2, // disallow use of octal literals (recommended)
     "no-octal-escape": 2, // disallow use of octal escape sequences in string literals, such as var foo = "Copyright \251";
     "no-param-reassign": 2, // disallow reassignment of function parameters
-    "no-process-env": 2, // disallow use of process.env
+    "no-process-env": 0, // disallow use of process.env
     "no-proto": 2, // disallow usage of __proto__ property
     "no-redeclare": 2, // disallow declaring the same variable more than once (recommended)
     "no-return-assign": 2, // disallow use of assignment in return statement
@@ -164,7 +164,7 @@
     "no-shadow-restricted-names": 2, // disallow shadowing of names such as arguments
     "no-undef": 2, // disallow use of undeclared variables unless mentioned in a /*global */ block (recommended)
     "no-undef-init": 2, // disallow use of undefined when initializing variables
-    "no-undefined": 2, // disallow use of undefined variable
+    "no-undefined": 0, // disallow use of undefined variable
     "no-unused-vars": 2, // disallow declaration of variables that are not used in the code (recommended)
     "no-use-before-define": 2, // disallow use of variables before they are defined
 

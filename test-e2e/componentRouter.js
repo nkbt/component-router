@@ -8,8 +8,8 @@ module.exports = {
     browser
       .url(`${browser.launchUrl}/`)
       .waitForElementVisible('body', WAIT)
-      .assert.containsText('body', 'Quickstart')
-      .assert.containsText('body', 'FooBar')
+      .assert.containsText('body', '{"pathname":"/quickstart","query":{"page":"quickstart"}}')
+      .assert.containsText('body', '{"pathname":"/foobar","query":{"page":"quickstart"}}')
       .end();
   }
 };

@@ -17,13 +17,15 @@ export const url = ({pathname, query, hash}) =>
 
 const updated = callback => {
   let lastQuery;
+  let lastPathname;
 
   return ({pathname, query, hash}) => {
-    if (shallowEqual(lastQuery, query)) {
+    if (shallowEqual(lastQuery, query) && lastPathname === pathname) {
       return;
     }
 
     lastQuery = query;
+    lastPathname = pathname;
     callback({pathname, search: queryToSearch(query), hash});
   };
 };
