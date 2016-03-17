@@ -1,7 +1,7 @@
 import sortedObject from './sortedObject';
 import Constants from './Constants';
 import shallowEqual from 'fbjs/lib/shallowEqual';
-import {parse} from 'qs';
+import {parse, stringify} from 'qs';
 import {parseRoute, defaultRoute} from './pathname/parse';
 import {matchRoute} from './pathname/match';
 
@@ -16,7 +16,6 @@ export const initialState = {
   currentRoute: defaultRoute,
   locationType: Constants.LOCATION_HISTORY
 };
-
 
 export const cleanupQuery = ({query, defaultParams}) =>
   sortedObject(Object.keys(query)
@@ -133,6 +132,25 @@ export const removeRoute = (state, payload) => ({
     .filter(key => key !== payload.route)
     .reduce((result, key) => ({...result, [key]: state.routes[key]}), {})
 });
+
+
+export const href = (state, payload) => {
+  const {pathname, cleanQuery, hash} = changeParams(state, payload);
+  const search = stringify(cleanQuery, {strictNullHandling: true});
+
+  return [pathname, search.length > 0 ? `?${search}` : '', hash].join('');
+};
+
+
+export const isActive = (state, {pathname, query}) => {
+  const {
+    pathname: newPathname, cleanQuery
+  } = changeParams(state, {pathname, query});
+
+
+  return shallowEqual(cleanQuery, state.cleanQuery) &&
+    newPathname === state.pathname;
+};
 
 
 export const componentRouter = (state = initialState, {type, payload}) => {

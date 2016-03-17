@@ -1,15 +1,13 @@
 'use strict';
 
 
-const WAIT = 1000;
-
 module.exports = {
-  'Test for component appears on the screen'(browser) {
+  'Smoketest'(browser) {
     browser
       .url(`${browser.launchUrl}/`)
-      .waitForElementVisible('body', WAIT)
-      .assert.containsText('body', '{"pathname":"/quickstart","query":{"page":"quickstart"}}')
-      .assert.containsText('body', '{"pathname":"/foobar","query":{"page":"quickstart"}}')
+      .waitForElementVisible('body', 1000)
+      .assert.containsText('header', '/foo')
+      .assert.containsText('header', '/bar')
       .end();
   }
 };

@@ -1,19 +1,29 @@
 import React from 'react';
-import {locationHistory as location, store, actions, href, isActive} from '../..';
+import {locationHistory as location, createStore, actions, href, isActive} from '../..';
 import css from './App.css';
+
+
+const navigateTo = (store, params) => event => {
+  event.preventDefault();
+  store.dispatch(actions.navigateTo(params));
+};
+
 
 const Header = React.createClass({
   propTypes: {
-    links: React.PropTypes.array
+    store: React.PropTypes.object
   },
 
+
   getInitialState() {
-    return store.getState();
+    return this.props.store.getState();
   },
 
 
   componentDidMount() {
-    this.unsubscribe = store.subscribe(this.onChange);
+    const {store} = this.props;
+
+    this.unsubscribe = store.subscribe(() => this.replaceState(store.getState()));
   },
 
 
@@ -21,45 +31,27 @@ const Header = React.createClass({
     this.unsubscribe();
   },
 
-
-  onChange() {
-    this.replaceState(store.getState());
-  },
-
-
-  navigateTo(params) {
-    return event => {
-      event.preventDefault();
-      store.dispatch(actions.navigateTo(params));
-    }
-  },
-
-
   render() {
-    const {links} = this.props;
-
-    const makeLink = params => {
-      const {query, pathname} = this.state;
-      const mergedParams = {
-        pathname,
-        ...params,
-        query: {...query, ...params.query}
-      };
-      return (
-        <a className={css.tab}
-          href={href(mergedParams)}
-          data-active={isActive(mergedParams)}
-          onClick={this.navigateTo(mergedParams)}>
-          {JSON.stringify(mergedParams)}
-        </a>
-      )
-    };
+    const {store} = this.props;
 
     return (
       <header className={css.header}>
         <nav className={css.nav}>
           <ul>
-            {links.map(params => <li key={JSON.stringify(params)}>{makeLink(params)}</li>)}
+            <li>
+              <a
+                className={`${css.tab}
+                  ${isActive(this.state, {pathname: '/foo'}) ? css.active : null}`}
+                href={href(this.state, {pathname: '/foo'})}
+                onClick={navigateTo(store, {pathname: '/foo'})}>/foo</a>
+            </li>
+            <li>
+              <a
+                className={`${css.tab}
+                  ${isActive(this.state, {pathname: '/bar'}) ? css.active : null}`}
+                href={href(this.state, {pathname: '/bar'})}
+                onClick={navigateTo(store, {pathname: '/bar'})}>/bar</a>
+            </li>
           </ul>
         </nav>
       </header>
@@ -69,13 +61,20 @@ const Header = React.createClass({
 
 
 const Component = React.createClass({
+  propTypes: {
+    store: React.PropTypes.object
+  },
+
+
   getInitialState() {
-    return store.getState();
+    return this.props.store.getState();
   },
 
 
   componentDidMount() {
-    this.unsubscribe = store.subscribe(this.onChange);
+    const {store} = this.props;
+
+    this.unsubscribe = store.subscribe(() => this.replaceState(store.getState()));
   },
 
 
@@ -84,59 +83,72 @@ const Component = React.createClass({
   },
 
 
-  onChange() {
-    this.replaceState(store.getState());
-  },
-
-
   render() {
+    const {store} = this.props;
+
     return (
-      <div>
-        <p>Pathname: {this.state.pathname}</p>
-        <p>Query: {JSON.stringify(this.state.query)}</p>
-        <p>Defaults: {JSON.stringify(this.state.defaultParams)}</p>
-        <p>Cleaned query (no defaults): {JSON.stringify(this.state.cleanQuery)}</p>
+      <div className={css.content}>
+        <section>
+          <a
+            className={`${css.link}
+              ${isActive(this.state, {query: {component: 'bla'}}) ? css.active : null}`}
+            href={href(this.state, {query: {component: 'bla'}})}
+            onClick={navigateTo(store, {query: {component: 'bla'}})}>component: bla</a>
+          <a
+            className={`${css.link}
+              ${isActive(this.state, {query: {component: 'baz'}}) ? css.active : null}`}
+            href={href(this.state, {query: {component: 'baz'}})}
+            onClick={navigateTo(store, {query: {component: 'baz'}})}>component: baz</a>
+        </section>
+        <section>
+          Pathname: {this.state.pathname}
+        </section>
+        <section>
+          Query:
+          <pre>{JSON.stringify(this.state.query, null, 2)}</pre>
+        </section>
+        <section>
+          Defaults:
+          <pre>{JSON.stringify(this.state.defaultParams, null, 2)}</pre>
+        </section>
+        <section>
+          Cleaned query (no defaults):
+          <pre>{JSON.stringify(this.state.cleanQuery, null, 2)}</pre>
+        </section>
       </div>
     );
   }
 });
 
-const links = [
-  {pathname: '/quickstart'},
-  {pathname: '/foobar'},
-  {query: {page: 'quickstart'}},
-  {query: {page: 'foobar'}}
-];
-
 
 const App = React.createClass({
+  componentWillMount() {
+    this.store = createStore();
+
+    // Add defaults for component routing
+    this.store.dispatch(actions.addDefaultParam('component', 'baz'));
+
+    // Add routes
+    this.store.dispatch(actions.addRoute('/foo'));
+    this.store.dispatch(actions.addRoute('/bar'));
+  },
+
+
   componentDidMount() {
-    this.unsubscribe = location();
-
-    links
-      .filter(({pathname}) => pathname)
-      .forEach(({pathname}) => store.dispatch(actions.addRoute(pathname)));
-
-    store.dispatch(actions.addDefaultParam('page', 'quickstart'));
+    this.locationUnsubscribe = location({store: this.store});
   },
 
 
   componentWillUnmount() {
-    this.unsubscribe();
-
-    links
-      .filter(({pathname}) => pathname)
-      .forEach(({pathname}) => store.dispatch(actions.removeRoute(pathname)));
-
-    store.dispatch(actions.removeParam('page'));
+    this.locationUnsubscribe();
   },
 
-  render() {
 
+  render() {
     return (
       <div className={css.app}>
-        <Header links={links} />
-        <Component />
+        <Header store={this.store} />
+        <Component store={this.store} />
       </div>
     );
   }

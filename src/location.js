@@ -1,18 +1,6 @@
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {restoreLocation} from './actions';
 import {stringify} from 'qs';
-import {store} from './store';
-
-
-const queryToSearch = query => {
-  const qs = stringify(query, {strictNullHandling: true});
-
-  return qs.length > 0 ? `?${qs}` : '';
-};
-
-
-export const url = ({pathname, query, hash}) =>
-  [pathname, queryToSearch(query), hash].join('');
 
 
 const updated = callback => {
@@ -23,10 +11,11 @@ const updated = callback => {
     if (shallowEqual(lastQuery, query) && lastPathname === pathname) {
       return;
     }
+    const search = stringify(query, {strictNullHandling: true});
 
     lastQuery = query;
     lastPathname = pathname;
-    callback({pathname, search: queryToSearch(query), hash});
+    callback({pathname, search: search.length > 0 ? `?${search}` : '', hash});
   };
 };
 
@@ -34,7 +23,7 @@ const updated = callback => {
 const push = history => updated(location => history.push(location));
 
 
-export const location = (createHistory, type) => () => {
+export const location = (createHistory, type) => ({store}) => {
   const history = createHistory();
   const historyPush = push(history);
   let timer;
