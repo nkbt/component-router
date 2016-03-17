@@ -1,5 +1,5 @@
 import test from 'tape';
-import {initialState, restoreLocation, componentRouter} from '../src/reducer';
+import {initialState, restoreLocation, componentRouter, href, isActive} from '../src/reducer';
 import Constants from '../src/Constants';
 
 test('componentRouter', t => {
@@ -150,5 +150,17 @@ test('componentRouter / Navigate to', t => {
     ['a', 'x', 'y'],
     'should sort query params');
 
+  t.end();
+});
+
+
+test('componentRouter /href', t => {
+  t.ok(href instanceof Function, 'should be function');
+  t.end();
+});
+
+
+test('componentRouter / isActive', t => {
+  t.ok(isActive instanceof Function, 'should be function');
   t.end();
 });
