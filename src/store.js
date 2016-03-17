@@ -1,10 +1,10 @@
-import {createStore} from 'redux';
+import {createStore as createReduxStore} from 'redux';
 import {componentRouter} from './reducer';
 
 
-const factory = () => {
+const factory = initialState => {
   if (process.env.NODE_ENV === 'production') {
-    return createStore(componentRouter);
+    return createReduxStore(componentRouter, initialState);
   }
 
   const devTools = typeof global.window === 'object' &&
@@ -12,10 +12,11 @@ const factory = () => {
     global.window.devToolsExtension;
 
   if (!devTools) {
-    return createStore(componentRouter);
+    return createReduxStore(componentRouter, initialState);
   }
 
-  return createStore(componentRouter, undefined, devTools());
+  return createReduxStore(componentRouter, initialState, devTools());
 };
 
-export const store = factory();
+
+export const createStore = factory;

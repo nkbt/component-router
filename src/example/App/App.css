@@ -21,6 +21,15 @@
   padding: 2em;
 }
 
+.content pre {
+  margin-top: 0.5em;
+  font-family: Monospaced, monospace;
+}
+
+.content section {
+  margin: 1em 0;
+}
+
 .header {
   background: #06c;
   display: flex;
@@ -55,15 +64,24 @@
 
 }
 
-.tab:hover {
+.tab:hover:not(.active) {
   background-color: rgba(255, 255, 255, 0.2);
 }
 
-.tab[data-active="true"] {
+.tab.active {
   background-color: #fff;
   color: #06c;
 }
 
 .github {
   float: right;
+}
+
+.link {
+  color: #06c;
+  padding: 0.5em 1em;
+}
+
+.link.active {
+  border: 1px solid #06c;
 }
