@@ -120,10 +120,12 @@ export const restoreLocation = (state, {location, locationType = Constants.LOCAT
 };
 
 
-export const addRoute = (state, payload) => ({
-  ...state,
-  routes: {...state.routes, [payload.route]: parseRoute(payload.route)}
-});
+export const addRoute = (state, payload) => {
+  const routes = {...state.routes, [payload.route]: parseRoute(payload.route)};
+  const currentRoute = matchRoute(routes, defaultRoute)(state.pathname);
+
+  return {...state, routes, currentRoute};
+};
 
 
 export const removeRoute = (state, payload) => ({
