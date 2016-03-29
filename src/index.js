@@ -7,6 +7,7 @@ export {createStore} from './store';
 export {location} from './location';
 export {locationHash} from './adapters/hash';
 export {locationHistory} from './adapters/history';
+export {locationNode} from './adapters/node';
 export {default as Constants} from './Constants';
 export const actions = {
   navigateTo, restoreLocation, addDefaultParam, removeParam, addRoute, removeRoute
