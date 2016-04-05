@@ -23,32 +23,30 @@ const updated = callback => {
 const push = history => updated(location => history.push(location));
 
 
-export const location = (createHistory, type) => {
+export const location = (createHistory, type) => ({store, namespace = 'componentRouter'}) => {
   const history = createHistory();
   const historyPush = push(history);
 
-  return ({store, namespace = 'componentRouter'}) => {
-    let timer;
+  let timer;
 
-    const batchedHistoryPush = (...args) => {
-      clearTimeout(timer);
-      timer = setTimeout(() => historyPush(...args), 0);
-    };
+  const batchedHistoryPush = (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => historyPush(...args), 0);
+  };
 
-    const getState = () => store.getState()[namespace];
+  const getState = () => store.getState()[namespace];
 
-    const historyUnsubscribe = history.listen(({pathname, search, hash}) =>
-      store.dispatch(restoreLocation({pathname, search, hash}, type)));
+  const historyUnsubscribe = history.listen(({pathname, search, hash}) =>
+    store.dispatch(restoreLocation({pathname, search, hash}, type)));
 
-    const storeUnsubscribe = store.subscribe(() => batchedHistoryPush({
-      pathname: getState().pathname,
-      query: getState().cleanQuery,
-      hash: getState().hash
-    }));
+  const storeUnsubscribe = store.subscribe(() => batchedHistoryPush({
+    pathname: getState().pathname,
+    query: getState().cleanQuery,
+    hash: getState().hash
+  }));
 
-    return () => {
-      historyUnsubscribe();
-      storeUnsubscribe();
-    };
+  return () => {
+    historyUnsubscribe();
+    storeUnsubscribe();
   };
 };
