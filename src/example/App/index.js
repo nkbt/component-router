@@ -11,7 +11,7 @@ store.dispatch(actions.addRoute('/foo'));
 store.dispatch(actions.addRoute('/bar'));
 
 
-location({store, getComponentRouterState: state => state.componentRouter});
+location({store, namespace: 'componentRouter'});
 
 
 const navigateTo = params => event => {

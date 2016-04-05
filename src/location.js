@@ -23,13 +23,11 @@ const updated = callback => {
 const push = history => updated(location => history.push(location));
 
 
-const getDefaultComponentRouterState = state => state.componentRouter;
+export const location = (createHistory, type) => {
+  const history = createHistory();
+  const historyPush = push(history);
 
-
-export const location = (createHistory, type) =>
-  ({store, getComponentRouterState = getDefaultComponentRouterState}) => {
-    const history = createHistory();
-    const historyPush = push(history);
+  return ({store, namespace = 'componentRouter'}) => {
     let timer;
 
     const batchedHistoryPush = (...args) => {
@@ -37,13 +35,15 @@ export const location = (createHistory, type) =>
       timer = setTimeout(() => historyPush(...args), 0);
     };
 
+    const getState = () => store.getState()[namespace];
+
     const historyUnsubscribe = history.listen(({pathname, search, hash}) =>
       store.dispatch(restoreLocation({pathname, search, hash}, type)));
 
     const storeUnsubscribe = store.subscribe(() => batchedHistoryPush({
-      pathname: getComponentRouterState(store.getState()).pathname,
-      query: getComponentRouterState(store.getState()).cleanQuery,
-      hash: getComponentRouterState(store.getState()).hash
+      pathname: getState().pathname,
+      query: getState().cleanQuery,
+      hash: getState().hash
     }));
 
     return () => {
@@ -51,3 +51,4 @@ export const location = (createHistory, type) =>
       storeUnsubscribe();
     };
   };
+};
