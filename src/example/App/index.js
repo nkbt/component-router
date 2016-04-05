@@ -111,6 +111,14 @@ const Bar = () => (
   </div>
 );
 
+
+const NotFound = () => (
+  <div className={css.content}>
+    <h1>Not Found</h1>
+  </div>
+);
+
+
 const routes = {
   '/foo': Foo,
   '/bar': Bar
@@ -135,13 +143,13 @@ const App = React.createClass({
 
   render() {
     const {routingState} = this.state;
-    const CurrentComponent = routes[routingState.currentRoute.route];
+    const CurrentComponent = routes[routingState.currentRoute.route] || NotFound;
 
     return (
       <div className={css.app}>
         <Header routingState={routingState} />
         <CurrentComponent routingState={routingState} />
-        <section>
+        <section className={css.content}>
           Routing state:
           <pre>{JSON.stringify(routingState, null, 2)}</pre>
         </section>
