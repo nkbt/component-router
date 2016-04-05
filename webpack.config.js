@@ -33,7 +33,7 @@ const stats = {colors: true};
 
 
 const development = {
-  devtool: '#source-map',
+  devtool: '#eval',
 
   entry: [
     './src/example/Example.js',

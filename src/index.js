@@ -3,7 +3,6 @@ import {
 } from './actions';
 
 export {componentRouter, href, isActive} from './reducer';
-export {createStore} from './store';
 export {location} from './location';
 export {locationHash} from './adapters/hash';
 export {locationHistory} from './adapters/history';
