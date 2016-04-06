@@ -50,7 +50,7 @@ const GlobalLinks = React.createClass({
 });
 
 
-const ComponenentLinks = React.createClass({
+const ComponentLinks = React.createClass({
   propTypes: {
     routingState: React.PropTypes.object
   },
@@ -100,7 +100,7 @@ const Foo = ({...props}) => (
   <div className={css.content}>
     <h1>Foo</h1>
     <section>
-      <ComponenentLinks {...props} />
+      <ComponentLinks {...props} />
     </section>
   </div>
 );
