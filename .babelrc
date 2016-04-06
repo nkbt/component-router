@@ -9,17 +9,6 @@
   "env": {
     "development": {
       "presets": ["react-hmre"]
-    },
-    "test": {
-      "plugins": [
-        [
-          "babel-plugin-webpack-loaders",
-          {
-            "config": "./webpack.config.js",
-            "verbose": false
-          }
-        ]
-      ]
     }
   }
 }

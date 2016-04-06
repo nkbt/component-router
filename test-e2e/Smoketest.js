@@ -6,8 +6,7 @@ module.exports = {
     browser
       .url(`${browser.launchUrl}/`)
       .waitForElementVisible('body', 1000)
-      .assert.containsText('header', '/foo')
-      .assert.containsText('header', '/bar')
+      .assert.containsText('body', require('../package.json').name)
       .end();
   }
 };
