@@ -1,6 +1,7 @@
 import React from 'react';
 import {locationHistory as location, actions, href, isActive} from '../..';
 import {createStore} from './store';
+import {name} from '../../../package.json';
 import css from './App.css';
 
 
@@ -147,6 +148,7 @@ const App = React.createClass({
 
     return (
       <div className={css.app}>
+        <h1>{name}</h1>
         <Header routingState={routingState} />
         <CurrentComponent routingState={routingState} />
         <section className={css.content}>
