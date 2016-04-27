@@ -23,7 +23,9 @@ const updated = callback => {
 const push = history => updated(location => history.push(location));
 
 
-export const location = (createHistory, type) => ({store, namespace = 'componentRouter'}) => {
+export const location = (createHistory, type) => ({
+  store, namespace = 'componentRouter', debounceTimeout = 50
+}) => {
   const history = createHistory();
   const historyPush = push(history);
 
@@ -31,7 +33,7 @@ export const location = (createHistory, type) => ({store, namespace = 'component
 
   const batchedHistoryPush = (...args) => {
     clearTimeout(timer);
-    timer = setTimeout(() => historyPush(...args), 0);
+    timer = setTimeout(() => historyPush(...args), debounceTimeout);
   };
 
   const getState = () => store.getState()[namespace];
