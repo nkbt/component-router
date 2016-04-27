@@ -48,12 +48,14 @@ export const changeParams = (state, params) => {
   }
 
   const cleanQuery = cleanupQuery({query: newQuery, defaultParams});
+  const currentRoute = matchRoute(state.routes, defaultRoute)(newPathname);
 
   return {
     ...state,
     query: newQuery,
     pathname: newPathname,
-    cleanQuery
+    cleanQuery,
+    currentRoute
   };
 };
 
