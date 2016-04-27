@@ -157,7 +157,7 @@ export const isActive = (state, {pathname, query}) => {
 };
 
 
-export const componentRouter = (state = initialState, {type, payload}) => {
+const reduce = (state, {type, payload}) => {
   switch (type) {
     case Constants.NAVIGATE_TO:
       return changeParams(state, payload);
@@ -180,4 +180,11 @@ export const componentRouter = (state = initialState, {type, payload}) => {
     default:
       return state;
   }
+};
+
+
+export const componentRouter = (state = initialState, {type, payload}) => {
+  const newState = reduce(state, {type, payload});
+
+  return shallowEqual(state, newState) ? state : newState;
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import {shouldComponentUpdate} from 'react/lib/ReactComponentWithPureRenderMixin';
 import {locationHistory as location, actions, href, isActive} from '../..';
 import {createStore} from './store';
 import {name} from '../../../package.json';
@@ -25,6 +26,10 @@ const GlobalLinks = React.createClass({
   propTypes: {
     routingState: React.PropTypes.object
   },
+
+
+  shouldComponentUpdate,
+
 
   render() {
     const {routingState} = this.props;
@@ -61,7 +66,11 @@ const ComponentLinks = React.createClass({
   },
 
 
+  shouldComponentUpdate,
+
+
   componentWillUnmount() {
+    console.log(`index.js:66    componentWillUnmount ComponentLinks`)
     store.dispatch(actions.removeParam('component'));
   },
 
@@ -129,6 +138,9 @@ const App = React.createClass({
   getInitialState() {
     return {routingState: store.getState().componentRouter};
   },
+
+
+  shouldComponentUpdate,
 
 
   componentDidMount() {

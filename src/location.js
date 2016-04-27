@@ -3,7 +3,7 @@ import {restoreLocation} from './actions';
 import {stringify} from 'qs';
 
 
-const updated = callback => {
+const maybePush = callback => {
   let lastQuery;
   let lastPathname;
 
@@ -20,7 +20,20 @@ const updated = callback => {
 };
 
 
-const push = history => updated(location => history.push(location));
+const maybeRestore = callback => {
+  let state = {};
+
+  return ({pathname, search, hash}) => {
+    if (shallowEqual(state, {pathname, search, hash})) {
+      return;
+    }
+    state = {pathname, search, hash};
+    callback(state);
+  };
+};
+
+
+const push = history => maybePush(location => history.push(location));
 
 
 export const location = (createHistory, type) => ({
@@ -38,8 +51,8 @@ export const location = (createHistory, type) => ({
 
   const getState = () => store.getState()[namespace];
 
-  const historyUnsubscribe = history.listen(({pathname, search, hash}) =>
-    store.dispatch(restoreLocation({pathname, search, hash}, type)));
+  const historyUnsubscribe = history.listen(maybeRestore(({pathname, search, hash}) =>
+    store.dispatch(restoreLocation({pathname, search, hash}, type))));
 
   const storeUnsubscribe = store.subscribe(() => batchedHistoryPush({
     pathname: getState().pathname,
