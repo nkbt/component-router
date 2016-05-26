@@ -1,20 +1,21 @@
 .app {
+  padding: 2em 0;
   font-family: Helvetica, Arial, sans-serif;
 }
 
 .app h1 {
+  padding: 0.2em 1em 0.7em 1em;
   font-size: 2em;
-  padding: 0.2em 0 0.7em 0;
 }
 
 .app h2 {
-  font-size: 1.6em;
   padding: 0.2em 0 0.7em 0;
+  font-size: 1.6em;
 }
 
 .app h3 {
-  font-size: 1.2em;
   padding: 0.2em 0 0.7em 0;
+  font-size: 1.2em;
 }
 
 .content {
@@ -31,15 +32,15 @@
 }
 
 .header {
-  background: #06c;
   display: flex;
-  justify-content: space-between;
   height: 44px;
+  background: #06c;
+  justify-content: space-between;
 }
 
 .nav {
-  line-height: 2em;
   margin-left: 36px;
+  line-height: 2em;
   flex: 1;
 }
 
@@ -53,13 +54,13 @@
 
 .tab {
   display: inline-block;
+  margin-top: 9px;
+  margin-right: 5px;
   padding: 0 2em;
-  color: #fff;
-  text-decoration: none;
   height: 36px;
   border-radius: 5px 5px 0 0;
-  margin-right: 5px;
-  margin-top: 9px;
+  color: #fff;
+  text-decoration: none;
   transition: background-color 200ms;
 
 }
@@ -78,8 +79,8 @@
 }
 
 .link {
-  color: #06c;
   padding: 0.5em 1em;
+  color: #06c;
 }
 
 .link[data-active="true"] {

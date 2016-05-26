@@ -71,9 +71,8 @@ Key feature is to update all links on the page if any of visible blocks changed 
 ## Installation
 
 ### NPM
-
 ```sh
-npm install --save component-router redux fbjs history qs
+npm install --save redux fbjs history qs component-router
 ```
 
 Don't forget to manually install peer dependencies (`redux`, `fbjs`, `history`, `qs`) if you use npm@3.
@@ -82,21 +81,6 @@ Don't forget to manually install peer dependencies (`redux`, `fbjs`, `history`, 
 ### Bower:
 ```sh
 bower install --save https://npmcdn.com/component-router/bower.zip
-```
-
-or in `bower.json`
-
-```json
-{
-  "dependencies": {
-    "component-router": "https://npmcdn.com/component-router/bower.zip"
-  }
-}
-```
-
-then include as
-```html
-<script src="bower_components/component-router/build/component-router.js"></script>
 ```
 
 
@@ -109,8 +93,7 @@ then include as
 
 ## Demo
 
-[http://in-flux.github.io/component-router/example](http://in-flux.github.io/component-router/example)
-
+[http://in-flux.github.io/component-router](http://in-flux.github.io/component-router)
 
 ## Codepen demo
 
@@ -163,6 +146,7 @@ Quick-start is a step-by-step walk-through to implement UI based on ASCII exampl
 
   ```js
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 const Chart = React.createClass({
   render() {
@@ -197,8 +181,10 @@ const App = React.createClass({
   }
 });
 
-React.render(<App />, document.body);
-  ```
+const appRoot = document.createElement('div');
+document.body.appendChild(appRoot);
+ReactDOM.render(<App />, appRoot);
+```
 
 ### 2. Add second-level blocks (not yet used for now)
   ```js
@@ -342,32 +328,31 @@ const Data = React.createClass({
 
 ## Development and testing
 
-Currently is being developed and tested with the latest stable `Node 5` on `OSX` and `Windows`.
-Should be ok with Node 4, but not guaranteed.
+Currently is being developed and tested with the latest stable `Node 6` on `OSX` and `Windows`.
 
-To run example covering all `ComponentRouter` features, use `npm start`, which will compile `src/example/Example.js`
+To run example covering all `ComponentRouter` features, use `npm start dev`, which will compile `src/example/Example.js`
 
 ```bash
 git clone git@github.com:in-flux/component-router.git
 cd component-router
 npm install
-npm start
+npm start dev
 
 # then
 open http://localhost:8080
 ```
 
-
 ## Tests
 
 ```bash
-npm test
-
-# to run tests in watch mode for development
-npm run test:dev
+# to run tests
+npm start test
 
 # to generate test coverage (./reports/coverage)
-npm run test:cov
+npm start test.cov
+
+# to run end-to-end tests
+npm start test.e2e
 ```
 
 ## License
