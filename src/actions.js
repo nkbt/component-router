@@ -1,38 +1,45 @@
-import Constants from './Constants';
+import {
+  NAVIGATE_TO,
+  RESTORE_LOCATION,
+  ADD_DEFAULT_PARAM,
+  REMOVE_PARAM,
+  ADD_ROUTE,
+  REMOVE_ROUTE
+} from './constants';
 
 
 export const navigateTo = ({pathname, query}) => ({
-  type: Constants.NAVIGATE_TO,
+  type: NAVIGATE_TO,
   payload: {pathname, query}
 });
 
 
 export const restoreLocation = ({pathname, search, hash}, locationType) => ({
-  type: Constants.RESTORE_LOCATION,
+  type: RESTORE_LOCATION,
   payload: {location: {pathname, search, hash}, locationType}
 });
 
 
 export const addDefaultParam = (namespace, value) => ({
-  type: Constants.ADD_DEFAULT_PARAM,
+  type: ADD_DEFAULT_PARAM,
   payload: {namespace, value}
 });
 
 
 export const removeParam = namespace => ({
-  type: Constants.REMOVE_PARAM,
+  type: REMOVE_PARAM,
   payload: {namespace}
 });
 
 
 export const addRoute = route => ({
-  type: Constants.ADD_ROUTE,
+  type: ADD_ROUTE,
   payload: {route}
 });
 
 
 export const removeRoute = route => ({
-  type: Constants.REMOVE_ROUTE,
+  type: REMOVE_ROUTE,
   payload: {route}
 });
 

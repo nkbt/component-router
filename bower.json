@@ -1,7 +1,7 @@
 {
   "name": "component-router",
   "version": "0.0.0",
-  "description": "Flux-based component routing solution",
+  "description": "Redux-based component routing solution",
   "main": [
     "build/component-router.js",
     "build/component-router.js.map",
@@ -18,13 +18,15 @@
     "flux-component",
     "react",
     "component router",
+    "redux router",
+    "reducer",
     "router",
     "partial router",
     "url-router",
     "url-state"
   ],
   "authors": [
-    "Nik Butenko <nik@butenko.me> (http://butenko.me/)"
+    "Nik Butenko <nik@butenko.me>"
   ],
   "license": "MIT",
   "homepage": "https://github.com/in-flux/component-router",

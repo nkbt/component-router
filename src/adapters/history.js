@@ -1,5 +1,6 @@
 import createHistory from 'history/lib/createBrowserHistory';
 import {location} from './../location';
-import Constants from './../Constants';
+import {LOCATION_HISTORY} from './../constants';
 
-export const locationHistory = location(createHistory, Constants.LOCATION_HISTORY);
+
+export const locationHistory = location(createHistory, LOCATION_HISTORY);

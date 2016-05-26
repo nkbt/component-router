@@ -1,0 +1,8 @@
+export const ADD_DEFAULT_PARAM = 'ADD_DEFAULT_PARAM';
+export const ADD_ROUTE = 'ADD_ROUTE';
+export const REMOVE_PARAM = 'REMOVE_PARAM';
+export const REMOVE_ROUTE = 'REMOVE_ROUTE';
+export const NAVIGATE_TO = 'NAVIGATE_TO';
+export const RESTORE_LOCATION = 'RESTORE_LOCATION';
+export const LOCATION_HASH = 'LOCATION_HASH';
+export const LOCATION_HISTORY = 'LOCATION_HISTORY';

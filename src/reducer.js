@@ -1,5 +1,13 @@
 import sortedObject from './sortedObject';
-import Constants from './Constants';
+import {
+  ADD_DEFAULT_PARAM,
+  ADD_ROUTE,
+  REMOVE_PARAM,
+  REMOVE_ROUTE,
+  NAVIGATE_TO,
+  RESTORE_LOCATION,
+  LOCATION_HISTORY
+} from './constants';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {parse, stringify} from 'qs';
 import {parseRoute, defaultRoute} from './pathname/parse';
@@ -14,7 +22,7 @@ export const initialState = {
   defaultParams: {},
   routes: {},
   currentRoute: defaultRoute,
-  locationType: Constants.LOCATION_HISTORY
+  locationType: LOCATION_HISTORY
 };
 
 export const cleanupQuery = ({query, defaultParams}) =>
@@ -101,7 +109,7 @@ export const removeParam = (state, {namespace}) => {
 };
 
 
-export const restoreLocation = (state, {location, locationType = Constants.LOCATION_HISTORY}) => {
+export const restoreLocation = (state, {location, locationType = LOCATION_HISTORY}) => {
   const {defaultParams} = state;
   const {pathname, search, hash} = location;
 
@@ -159,22 +167,22 @@ export const isActive = (state, {pathname, query}) => {
 
 const reduce = (state, {type, payload}) => {
   switch (type) {
-    case Constants.NAVIGATE_TO:
+    case NAVIGATE_TO:
       return changeParams(state, payload);
 
-    case Constants.ADD_DEFAULT_PARAM:
+    case ADD_DEFAULT_PARAM:
       return addDefaultParam(state, payload);
 
-    case Constants.REMOVE_PARAM:
+    case REMOVE_PARAM:
       return removeParam(state, payload);
 
-    case Constants.RESTORE_LOCATION:
+    case RESTORE_LOCATION:
       return restoreLocation(state, payload);
 
-    case Constants.ADD_ROUTE:
+    case ADD_ROUTE:
       return addRoute(state, payload);
 
-    case Constants.REMOVE_ROUTE:
+    case REMOVE_ROUTE:
       return removeRoute(state, payload);
 
     default:

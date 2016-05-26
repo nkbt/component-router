@@ -2,7 +2,6 @@ import React from 'react';
 import {shouldComponentUpdate} from 'react/lib/ReactComponentWithPureRenderMixin';
 import {locationHistory as location, actions, href, isActive} from '../..';
 import {createStore} from './store';
-import {name} from '../../../package.json';
 import css from './App.css';
 
 
@@ -70,7 +69,6 @@ const ComponentLinks = React.createClass({
 
 
   componentWillUnmount() {
-    console.log(`index.js:66    componentWillUnmount ComponentLinks`)
     store.dispatch(actions.removeParam('component'));
   },
 
@@ -160,7 +158,7 @@ const App = React.createClass({
 
     return (
       <div className={css.app}>
-        <h1>{name}</h1>
+        <h1>component-router</h1>
         <Header routingState={routingState} />
         <CurrentComponent routingState={routingState} />
         <section className={css.content}>

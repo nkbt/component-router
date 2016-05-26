@@ -1,6 +1,11 @@
 import test from 'tape';
 import {initialState, restoreLocation, componentRouter, href, isActive} from '../src/reducer';
-import Constants from '../src/Constants';
+import {
+  ADD_DEFAULT_PARAM,
+  REMOVE_PARAM,
+  NAVIGATE_TO,
+  RESTORE_LOCATION
+} from '../src/constants';
 
 test('componentRouter', t => {
   t.ok(componentRouter instanceof Function, 'should be function');
@@ -48,16 +53,16 @@ test('componentRouter / Restore location', t => {
 test('componentRouter / Default params', t => {
   const prepare = () => {
     let state = componentRouter(undefined, {
-      type: Constants.RESTORE_LOCATION,
+      type: RESTORE_LOCATION,
       payload: {location: {search: '?x=1'}}
     });
 
     state = componentRouter(state, {
-      type: Constants.ADD_DEFAULT_PARAM,
+      type: ADD_DEFAULT_PARAM,
       payload: {namespace: 'z', value: 100}
     });
     state = componentRouter(state, {
-      type: Constants.ADD_DEFAULT_PARAM,
+      type: ADD_DEFAULT_PARAM,
       payload: {namespace: 'y', value: 10}
     });
     return state;
@@ -73,14 +78,14 @@ test('componentRouter / Default params', t => {
 
   t.deepEqual(
     componentRouter(prepare(), {
-      type: Constants.ADD_DEFAULT_PARAM, payload: {namespace: 'x', value: 123}
+      type: ADD_DEFAULT_PARAM, payload: {namespace: 'x', value: 123}
     }).query,
     {x: '1', y: '10', z: '100'},
     'should not override existing query param with default one');
 
   t.deepEqual(
     Object.keys(componentRouter(prepare(), {
-      type: Constants.ADD_DEFAULT_PARAM,
+      type: ADD_DEFAULT_PARAM,
       payload: {namespace: 'a', value: 0}
     }).query),
     ['a', 'x', 'y', 'z'],
@@ -93,32 +98,32 @@ test('componentRouter / Default params', t => {
 test('componentRouter / Remove param', t => {
   const prepare = () => {
     let state = componentRouter(undefined, {
-      type: Constants.RESTORE_LOCATION,
+      type: RESTORE_LOCATION,
       payload: {location: {search: '?x=1&y=10'}}
     });
 
     state = componentRouter(state, {
-      type: Constants.ADD_DEFAULT_PARAM,
+      type: ADD_DEFAULT_PARAM,
       payload: {namespace: 'z', value: 100}
     });
     return state;
   };
 
   t.deepEqual(
-    componentRouter(prepare(), {type: Constants.REMOVE_PARAM, payload: {namespace: 'x'}}).query,
+    componentRouter(prepare(), {type: REMOVE_PARAM, payload: {namespace: 'x'}}).query,
     {y: '10', z: '100'},
     'should remove param from query');
 
   t.deepEqual(
     componentRouter(prepare(), {
-      type: Constants.REMOVE_PARAM, payload: {namespace: 'z'}
+      type: REMOVE_PARAM, payload: {namespace: 'z'}
     }).defaultParams,
     {},
     'should remove param from default params');
 
   t.deepEqual(
     Object.keys(componentRouter(prepare(), {
-      type: Constants.REMOVE_PARAM, payload: {namespace: 'x'}
+      type: REMOVE_PARAM, payload: {namespace: 'x'}
     }).query),
     ['y', 'z'],
     'should keep query sorted upon removal');
@@ -129,23 +134,23 @@ test('componentRouter / Remove param', t => {
 
 test('componentRouter / Navigate to', t => {
   const prepare = () => componentRouter(undefined, {
-    type: Constants.ADD_DEFAULT_PARAM,
+    type: ADD_DEFAULT_PARAM,
     payload: {namespace: 'y', value: 2}
   });
 
   t.deepEqual(
-    componentRouter(prepare(), {type: Constants.NAVIGATE_TO, payload: {query: {x: 0}}}).query,
+    componentRouter(prepare(), {type: NAVIGATE_TO, payload: {query: {x: 0}}}).query,
     {x: '0', y: '2'},
     'should merge query params');
 
   t.deepEqual(
-    componentRouter(prepare(), {type: Constants.NAVIGATE_TO, payload: {query: {y: 10}}}).query,
+    componentRouter(prepare(), {type: NAVIGATE_TO, payload: {query: {y: 10}}}).query,
     {y: '10'},
     'should override existing query params');
 
   t.deepEqual(
     Object.keys(componentRouter(prepare(), {
-      type: Constants.NAVIGATE_TO, payload: {query: {x: 0, a: 'a'}}
+      type: NAVIGATE_TO, payload: {query: {x: 0, a: 'a'}}
     }).query),
     ['a', 'x', 'y'],
     'should sort query params');
