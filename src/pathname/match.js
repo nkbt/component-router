@@ -1,5 +1,5 @@
-export const matchRoute = (routes, defaultRoute) => (pathname = '') => {
-  let matchedRoute = defaultRoute;
+export const matchRoute = routes => (pathname = '') => {
+  let matchedRoute = null;
 
   Object.keys(routes).some(r => {
     const match = pathname.match(new RegExp(routes[r].regex));

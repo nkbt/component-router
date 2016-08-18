@@ -10,7 +10,7 @@ import {
 } from './constants';
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {parse, stringify} from 'qs';
-import {parseRoute, defaultRoute} from './pathname/parse';
+import {parseRoute} from './pathname/parse';
 import {matchRoute} from './pathname/match';
 
 
@@ -21,7 +21,7 @@ export const initialState = {
   cleanQuery: {},
   defaultParams: {},
   routes: {},
-  currentRoute: defaultRoute,
+  currentRoute: null,
   locationType: LOCATION_HISTORY
 };
 
@@ -56,7 +56,7 @@ export const changeParams = (state, params) => {
   }
 
   const cleanQuery = cleanupQuery({query: newQuery, defaultParams});
-  const currentRoute = matchRoute(state.routes, defaultRoute)(newPathname);
+  const currentRoute = matchRoute(state.routes)(newPathname);
 
   return {
     ...state,
@@ -124,7 +124,7 @@ export const restoreLocation = (state, {location, locationType = LOCATION_HISTOR
     hash,
     query: newQuery,
     cleanQuery: cleanupQuery({query: newQuery, defaultParams}),
-    currentRoute: matchRoute(state.routes, defaultRoute)(pathname),
+    currentRoute: matchRoute(state.routes)(pathname),
     locationType
   };
 };
@@ -132,7 +132,7 @@ export const restoreLocation = (state, {location, locationType = LOCATION_HISTOR
 
 export const addRoute = (state, payload) => {
   const routes = {...state.routes, [payload.route]: parseRoute(payload.route)};
-  const currentRoute = matchRoute(routes, defaultRoute)(state.pathname);
+  const currentRoute = matchRoute(routes)(state.pathname);
 
   return {...state, routes, currentRoute};
 };
