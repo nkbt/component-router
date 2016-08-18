@@ -1,5 +1,8 @@
+export const emptyRoute = {route: null, regex: null, params: {}};
+
+
 export const matchRoute = routes => (pathname = '') => {
-  let matchedRoute = null;
+  let matchedRoute = emptyRoute;
 
   Object.keys(routes).some(r => {
     const match = pathname.match(new RegExp(routes[r].regex));

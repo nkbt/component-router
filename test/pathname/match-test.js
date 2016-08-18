@@ -13,16 +13,16 @@ const matcher = matchRoute(routes);
 
 test('Utils / router / matchRoute', t => {
   t.deepEquals(matcher(),
-    null,
-    'should return "null"');
+    {route: null, regex: null, params: {}},
+    'should return empty route');
 
   t.deepEquals(matcher('/'),
-    null,
-    'should return "null" for unknown / route');
+    {route: null, regex: null, params: {}},
+    'should return empty route for unknown / route');
 
   t.deepEquals(matcher('/some/very/deep/url'),
-    null,
-    'should return "null" for unknown /some/very/deep/url route');
+    {route: null, regex: null, params: {}},
+    'should return empty route for unknown /some/very/deep/url route');
 
   t.deepEquals(matcher('/dossier'),
     routes['/dossier'],
