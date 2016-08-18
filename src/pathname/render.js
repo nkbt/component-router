@@ -1,5 +1,4 @@
 import {routePartsRegex} from './parse';
-import invariant from 'fbjs/lib/invariant';
 
 
 export const renderRoute = (route = '/') => (params = {}) => {
@@ -17,7 +16,7 @@ export const renderRoute = (route = '/') => (params = {}) => {
     const name = part.substr(1);
 
     if (process.env.NODE_ENV !== 'production') {
-      invariant(params.hasOwnProperty(name),
+      require('fbjs/lib/invariant')(params.hasOwnProperty(name),
         `Param :${name} is not specified for route ${route}`);
     }
 

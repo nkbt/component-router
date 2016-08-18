@@ -1,4 +1,4 @@
-import createHistory from 'history/lib/createBrowserHistory';
+import {createHistory} from 'history';
 import {location} from './../location';
 import {LOCATION_HISTORY} from './../constants';
 
