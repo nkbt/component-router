@@ -37,18 +37,18 @@
     "url": "https://github.com/in-flux/component-router/issues"
   },
   "homepage": "https://github.com/in-flux/component-router",
-  "peerDependencies": {
-    "redux": "3",
-    "fbjs": "*"
-  },
   "dependencies": {
-    "history": "2",
+    "fbjs": "*",
+    "redux": "3",
+    "history": "3",
     "qs": "6"
   },
   "devDependencies": {
     "fbjs": "0.8.3",
-    "p-s": "0.9.0",
-    "react-component-template": "0.1.2",
+    "history": "3.0.0",
+    "p-s": "2.3.0",
+    "qs": "6.2.1",
+    "react-component-template": "0.1.5",
     "redux": "3.5.2"
   }
 }
