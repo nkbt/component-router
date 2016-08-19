@@ -7,10 +7,6 @@ import css from './App.css';
 
 const store = createStore();
 
-// Add routes
-store.dispatch(actions.addRoute('/foo'));
-store.dispatch(actions.addRoute('/bar'));
-
 
 location({store, namespace: 'componentRouter'});
 
@@ -38,6 +34,13 @@ const GlobalLinks = React.createClass({
         <li>
           <a
             className={css.tab}
+            data-active={isActive(routingState, {pathname: '/'})}
+            href={href(routingState, {pathname: '/'})}
+            onClick={navigateTo({pathname: '/'})}>Home</a>
+        </li>
+        <li>
+          <a
+            className={css.tab}
             data-active={isActive(routingState, {pathname: '/foo'})}
             href={href(routingState, {pathname: '/foo'})}
             onClick={navigateTo({pathname: '/foo'})}>/foo</a>
@@ -48,6 +51,13 @@ const GlobalLinks = React.createClass({
             data-active={isActive(routingState, {pathname: '/bar'})}
             href={href(routingState, {pathname: '/bar'})}
             onClick={navigateTo({pathname: '/bar'})}>/bar</a>
+        </li>
+        <li>
+          <a
+            className={css.tab}
+            data-active={isActive(routingState, {pathname: '/404'})}
+            href={href(routingState, {pathname: '/404'})}
+            onClick={navigateTo({pathname: '/404'})}>/404</a>
         </li>
       </ul>
     );
@@ -120,6 +130,13 @@ const Bar = () => (
 );
 
 
+const Home = () => (
+  <div className={css.content}>
+    <h1>Home</h1>
+  </div>
+);
+
+
 const NotFound = () => (
   <div className={css.content}>
     <h1>Not Found</h1>
@@ -128,9 +145,13 @@ const NotFound = () => (
 
 
 const routes = {
+  '/': Home,
   '/foo': Foo,
   '/bar': Bar
 };
+// Add routes
+Object.keys(routes).forEach(route => store.dispatch(actions.addRoute(route)));
+
 
 const App = React.createClass({
   getInitialState() {

@@ -1,27 +1,28 @@
-import {createStore as createReduxStore, combineReducers} from 'redux';
+import {createStore as createReduxStore, combineReducers, applyMiddleware, compose} from 'redux';
+import logger from 'redux-logger';
 import {componentRouter} from './../../reducer';
 
 
 const factory = initialState => {
-  if (process.env.NODE_ENV === 'production') {
-    return createReduxStore(combineReducers({
-      componentRouter
-    }), initialState);
-  }
+  const rootReducer = combineReducers({
+    componentRouter
+  });
 
-  const devTools = typeof global.window === 'object' &&
-    typeof global.window.devToolsExtension !== 'undefined' &&
-    global.window.devToolsExtension;
+  const devTools = typeof window !== 'undefined' && window.devToolsExtension;
+  const middleware = applyMiddleware(
+    logger({
+      level: 'info',
+      collapsed: true,
+      timestamp: false,
+      duration: true
+    })
+  );
 
   if (!devTools) {
-    return createReduxStore(combineReducers({
-      componentRouter
-    }), initialState);
+    return createReduxStore(rootReducer, initialState, middleware);
   }
 
-  return createReduxStore(combineReducers({
-    componentRouter
-  }), initialState, devTools());
+  return createReduxStore(rootReducer, initialState, compose(middleware, devTools()));
 };
 
 

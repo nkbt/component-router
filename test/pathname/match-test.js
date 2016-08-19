@@ -2,29 +2,27 @@ import {test} from 'tape';
 import {matchRoute} from './../../src/pathname/match';
 
 
-const defaultRoute = 'should be some defaultRoute object, but does not matter';
-
 const routes = {
   '/dossier': {regex: '^/dossier$', params: {}},
   '/dossier/:host': {regex: '^/dossier/([^/]+)$', params: {host: null}}
 };
 
 
-const matcher = matchRoute(routes, defaultRoute);
+const matcher = matchRoute(routes);
 
 
 test('Utils / router / matchRoute', t => {
   t.deepEquals(matcher(),
-    defaultRoute,
+    {route: null, regex: null, params: {}},
     'should return empty route');
 
   t.deepEquals(matcher('/'),
-    defaultRoute,
-    'should return "defaultRoute" for unknown / route');
+    {route: null, regex: null, params: {}},
+    'should return empty route for unknown / route');
 
   t.deepEquals(matcher('/some/very/deep/url'),
-    defaultRoute,
-    'should return "defaultRoute" for unknown /some/very/deep/url route');
+    {route: null, regex: null, params: {}},
+    'should return empty route for unknown /some/very/deep/url route');
 
   t.deepEquals(matcher('/dossier'),
     routes['/dossier'],
