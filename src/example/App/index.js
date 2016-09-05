@@ -64,7 +64,7 @@ const GlobalLinks = React.createClass({
   }
 });
 
-
+const componentsList = ['bla', 'baz', 'abc', 'zyx'];
 const ComponentLinks = React.createClass({
   propTypes: {
     routingState: React.PropTypes.object
@@ -72,6 +72,7 @@ const ComponentLinks = React.createClass({
 
   componentDidMount() {
     store.dispatch(actions.addDefaultParam('component', 'baz'));
+    store.dispatch(actions.addDefaultParam('sorting', 'Unsorted'));
   },
 
 
@@ -80,26 +81,62 @@ const ComponentLinks = React.createClass({
 
   componentWillUnmount() {
     store.dispatch(actions.removeParam('component'));
+    store.dispatch(actions.removeParam('sorting'));
   },
 
 
   render() {
     const {routingState} = this.props;
 
+    const sortIt = (original, direction) => {
+      if (direction === 'Unsorted') return original;
+
+      const sorted = original.slice(0).sort();
+
+      if (direction === 'Descending') {
+        sorted.reverse();
+      }
+
+      return sorted;
+    };
+
     return (
       <span>
-        <a
-          className={css.link}
-          data-active={isActive(routingState, {query: {component: 'bla'}})}
-          href={href(routingState, {query: {component: 'bla'}})}
-          onClick={navigateTo({query: {component: 'bla'}})}>component: bla</a>
-        <a
-          className={css.link}
-          data-active={isActive(routingState, {query: {component: 'baz'}})}
-          href={href(routingState, {query: {component: 'baz'}})}
-          onClick={navigateTo({query: {component: 'baz'}})}>component: baz</a>
+         <div>
+          <span>
+            <a
+              className={css.sorting}
+              data-active={isActive(routingState, {query: {sorting: 'Unsorted'}})}
+              href={href(routingState, {query: {sorting: 'Unsorted'}})}
+              onClick={navigateTo({query: {sorting: 'Unsorted'}})}>No sorting</a>
+          </span>
+          <span>
+            <a
+              className={css.sorting}
+              data-active={isActive(routingState, {query: {sorting: 'Ascending'}})}
+              href={href(routingState, {query: {sorting: 'Ascending'}})}
+              onClick={navigateTo({query: {sorting: 'Ascending'}})}>Ascending</a>
+          </span>
+          <span>
+            <a
+              className={css.sorting}
+              data-active={isActive(routingState, {query: {sorting: 'Descending'}})}
+              href={href(routingState, {query: {sorting: 'Descending'}})}
+              onClick={navigateTo({query: {sorting: 'Descending'}})}>Descending</a>
+          </span>
+        </div>
+        <hr />
+        <span>
+        {
+          sortIt(componentsList, routingState.query.sorting).map(c => (<a
+            key={c}
+            className={css.link}
+            data-active={isActive(routingState, {query: {component: c}})}
+            href={href(routingState, {query: {component: c}})}
+            onClick={navigateTo({query: {component: c}})}>component: {c}</a>))
+        }
+        </span>
       </span>
-
     );
   }
 });
@@ -180,8 +217,8 @@ const App = React.createClass({
     return (
       <div className={css.app}>
         <h1>component-router</h1>
-        <Header routingState={routingState} />
-        <CurrentComponent routingState={routingState} />
+        <Header routingState={routingState}/>
+        <CurrentComponent routingState={routingState}/>
         <section className={css.content}>
           Routing state:
           <pre>{JSON.stringify(routingState, null, 2)}</pre>

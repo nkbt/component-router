@@ -86,3 +86,12 @@
 .link[data-active="true"] {
   border: 1px solid #06c;
 }
+
+.sorting {
+  padding: 0.5em 1em;
+  color: #06c;
+}
+
+.sorting[data-active="true"] {
+  color: red;
+}
