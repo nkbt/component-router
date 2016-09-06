@@ -2,6 +2,7 @@ import {
   NAVIGATE_TO,
   RESTORE_LOCATION,
   ADD_DEFAULT_PARAM,
+  ADD_OFF_RECORD_PARAM,
   REMOVE_PARAM,
   ADD_ROUTE,
   REMOVE_ROUTE
@@ -25,6 +26,10 @@ export const addDefaultParam = (namespace, value) => ({
   payload: {namespace, value}
 });
 
+export const addOffRecordParam = namespace => ({
+  type: ADD_OFF_RECORD_PARAM,
+  payload: {namespace}
+});
 
 export const removeParam = namespace => ({
   type: REMOVE_PARAM,

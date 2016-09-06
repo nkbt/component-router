@@ -73,6 +73,7 @@ const ComponentLinks = React.createClass({
   componentDidMount() {
     store.dispatch(actions.addDefaultParam('component', 'baz'));
     store.dispatch(actions.addDefaultParam('sorting', 'Unsorted'));
+    store.dispatch(actions.addOffRecordParam('sorting'));
   },
 
 
@@ -103,28 +104,29 @@ const ComponentLinks = React.createClass({
     return (
       <span>
          <div>
-          <span>
-            <a
-              className={css.sorting}
-              data-active={isActive(routingState, {query: {sorting: 'Unsorted'}})}
-              href={href(routingState, {query: {sorting: 'Unsorted'}})}
-              onClick={navigateTo({query: {sorting: 'Unsorted'}})}>No sorting</a>
-          </span>
-          <span>
-            <a
-              className={css.sorting}
-              data-active={isActive(routingState, {query: {sorting: 'Ascending'}})}
-              href={href(routingState, {query: {sorting: 'Ascending'}})}
-              onClick={navigateTo({query: {sorting: 'Ascending'}})}>Ascending</a>
-          </span>
-          <span>
-            <a
-              className={css.sorting}
-              data-active={isActive(routingState, {query: {sorting: 'Descending'}})}
-              href={href(routingState, {query: {sorting: 'Descending'}})}
-              onClick={navigateTo({query: {sorting: 'Descending'}})}>Descending</a>
-          </span>
-        </div>
+           <span>
+             <a
+               className={css.sorting}
+               data-active={isActive(routingState, {query: {sorting: 'Unsorted'}})}
+               href={href(routingState, {query: {sorting: 'Unsorted'}})}
+               onClick={navigateTo({query: {sorting: 'Unsorted'}})}>No sorting</a>
+           </span>
+           <span>
+             <a
+               className={css.sorting}
+               data-active={isActive(routingState, {query: {sorting: 'Ascending'}})}
+               href={href(routingState, {query: {sorting: 'Ascending'}})}
+               onClick={navigateTo({query: {sorting: 'Ascending'}})}>Ascending</a>
+           </span>
+           <span>
+             <a
+               className={css.sorting}
+               data-active={isActive(routingState, {query: {sorting: 'Descending'}})}
+               href={href(routingState, {query: {sorting: 'Descending'}})}
+               onClick={navigateTo({query: {sorting: 'Descending'}})}>Descending</a>
+           </span>
+           <span>(sorting changes are not going into the browser history)</span>
+         </div>
         <hr />
         <span>
         {
@@ -217,8 +219,8 @@ const App = React.createClass({
     return (
       <div className={css.app}>
         <h1>component-router</h1>
-        <Header routingState={routingState}/>
-        <CurrentComponent routingState={routingState}/>
+        <Header routingState={routingState} />
+        <CurrentComponent routingState={routingState} />
         <section className={css.content}>
           Routing state:
           <pre>{JSON.stringify(routingState, null, 2)}</pre>
