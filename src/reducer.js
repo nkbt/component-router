@@ -1,6 +1,7 @@
 import sortedObject from './sortedObject';
 import {
   ADD_DEFAULT_PARAM,
+  ADD_OFF_RECORD_PARAM,
   ADD_ROUTE,
   REMOVE_PARAM,
   REMOVE_ROUTE,
@@ -17,6 +18,7 @@ import {matchRoute} from './pathname/match';
 export const initialState = {
   pathname: '/',
   hash: '',
+  offRecordParams: [],
   query: {},
   cleanQuery: {},
   defaultParams: {},
@@ -87,6 +89,18 @@ export const addDefaultParam = (state, {namespace, value}) => {
   };
 };
 
+export const addOffRecordParam = (state, {namespace}) => {
+  const {offRecordParams} = state;
+
+  if (offRecordParams.indexOf(namespace) < 0) {
+    offRecordParams.push(namespace);
+  }
+
+  return {
+    ...state,
+    offRecordParams
+  };
+};
 
 export const removeParam = (state, {namespace}) => {
   const {defaultParams, query} = state;
@@ -172,6 +186,9 @@ const reduce = (state, {type, payload}) => {
 
     case ADD_DEFAULT_PARAM:
       return addDefaultParam(state, payload);
+
+    case ADD_OFF_RECORD_PARAM:
+      return addOffRecordParam(state, payload);
 
     case REMOVE_PARAM:
       return removeParam(state, payload);

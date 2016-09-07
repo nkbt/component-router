@@ -7,11 +7,16 @@ const maybePush = callback => {
   let lastQuery;
   let lastPathname;
 
-  return ({pathname, query, hash}) => {
+  return ({pathname, query, hash, offRecordParams}) => {
     if (shallowEqual(lastQuery, query) && lastPathname === pathname) {
       return;
     }
-    const search = stringify(query, {strictNullHandling: true});
+
+    const historyQuery = {...query};
+
+    offRecordParams.forEach(p => delete historyQuery[p]);
+
+    const search = stringify(historyQuery, {strictNullHandling: true});
 
     lastQuery = query;
     lastPathname = pathname;
@@ -57,7 +62,8 @@ export const location = (createHistory, type) => ({
   const storeUnsubscribe = store.subscribe(() => batchedHistoryPush({
     pathname: getState().pathname,
     query: getState().cleanQuery,
-    hash: getState().hash
+    hash: getState().hash,
+    offRecordParams: getState().offRecordParams
   }));
 
   return () => {

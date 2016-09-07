@@ -1,4 +1,5 @@
 export const ADD_DEFAULT_PARAM = 'ADD_DEFAULT_PARAM';
+export const ADD_OFF_RECORD_PARAM = 'ADD_OFF_RECORD_PARAM';
 export const ADD_ROUTE = 'ADD_ROUTE';
 export const REMOVE_PARAM = 'REMOVE_PARAM';
 export const REMOVE_ROUTE = 'REMOVE_ROUTE';

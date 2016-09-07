@@ -7,7 +7,7 @@
     "component": "ComponentRouter"
   },
   "scripts": {
-    "start": "p-s --config react-component-template/package-scripts -s",
+    "start": "react-component-template",
     "test": "npm start test",
     "precommit": "npm start precommit",
     "prepush": "npm start prepush",
@@ -44,12 +44,12 @@
     "qs": "6"
   },
   "devDependencies": {
-    "fbjs": "0.8.3",
-    "history": "3.0.0",
-    "p-s": "2.3.0",
+    "fbjs": "0.8.4",
+    "history": "3.2.1",
+    "p-s": "2.4.4",
     "qs": "6.2.1",
-    "react-component-template": "0.1.5",
-    "redux": "3.5.2",
+    "react-component-template": "0.1.6",
+    "redux": "3.6.0",
     "redux-logger": "2.6.1"
   }
 }

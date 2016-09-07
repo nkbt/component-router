@@ -2,6 +2,7 @@ import {
   navigateTo,
   restoreLocation,
   addDefaultParam,
+  addOffRecordParam,
   removeParam,
   addRoute,
   removeRoute
@@ -11,6 +12,7 @@ export const actions = {
   navigateTo,
   restoreLocation,
   addDefaultParam,
+  addOffRecordParam,
   removeParam,
   addRoute,
   removeRoute
@@ -18,6 +20,7 @@ export const actions = {
 
 import {
   ADD_DEFAULT_PARAM,
+  ADD_OFF_RECORD_PARAM,
   ADD_ROUTE,
   REMOVE_PARAM,
   REMOVE_ROUTE,
@@ -26,8 +29,10 @@ import {
   LOCATION_HASH,
   LOCATION_HISTORY
 } from './constants';
+
 export const Constants = {
   ADD_DEFAULT_PARAM,
+  ADD_OFF_RECORD_PARAM,
   ADD_ROUTE,
   REMOVE_PARAM,
   REMOVE_ROUTE,
