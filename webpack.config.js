@@ -124,7 +124,6 @@ const min = {
   resolve,
   stats,
   externals: {
-    react: {root: 'React', commonjs2: 'react', commonjs: 'react', amd: 'react'},
     history: {root: 'History', commonjs2: 'history', commonjs: 'history', amd: 'history'},
     qs: {root: 'Qs', commonjs2: 'qs', commonjs: 'qs', amd: 'qs'},
     redux: {root: 'Redux', commonjs2: 'redux', commonjs: 'redux', amd: 'redux'}
