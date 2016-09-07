@@ -55,6 +55,13 @@ const GlobalLinks = React.createClass({
         <li>
           <a
             className={css.tab}
+            data-active={isActive(routingState, {pathname: '/cleanHistory'})}
+            href={href(routingState, {pathname: '/cleanHistory'})}
+            onClick={navigateTo({pathname: '/cleanHistory'})}>/cleanHistory</a>
+        </li>
+        <li>
+          <a
+            className={css.tab}
             data-active={isActive(routingState, {pathname: '/404'})}
             href={href(routingState, {pathname: '/404'})}
             onClick={navigateTo({pathname: '/404'})}>/404</a>
@@ -64,7 +71,6 @@ const GlobalLinks = React.createClass({
   }
 });
 
-const componentsList = ['bla', 'baz', 'abc', 'zyx'];
 const ComponentLinks = React.createClass({
   propTypes: {
     routingState: React.PropTypes.object
@@ -72,6 +78,46 @@ const ComponentLinks = React.createClass({
 
   componentDidMount() {
     store.dispatch(actions.addDefaultParam('component', 'baz'));
+  },
+
+
+  shouldComponentUpdate,
+
+
+  componentWillUnmount() {
+    store.dispatch(actions.removeParam('component'));
+  },
+
+
+  render() {
+    const {routingState} = this.props;
+
+    return (
+      <span>
+        <a
+          className={css.link}
+          data-active={isActive(routingState, {query: {component: 'bla'}})}
+          href={href(routingState, {query: {component: 'bla'}})}
+          onClick={navigateTo({query: {component: 'bla'}})}>component: bla</a>
+        <a
+          className={css.link}
+          data-active={isActive(routingState, {query: {component: 'baz'}})}
+          href={href(routingState, {query: {component: 'baz'}})}
+          onClick={navigateTo({query: {component: 'baz'}})}>component: baz</a>
+      </span>
+
+    );
+  }
+});
+
+const componentsList = ['bla', 'baz', 'abc', 'zyx'];
+const SortedComponentLinks = React.createClass({
+  propTypes: {
+    routingState: React.PropTypes.object
+  },
+
+  componentDidMount() {
+    store.dispatch(actions.addDefaultParam('sortedComponent', 'baz'));
     store.dispatch(actions.addDefaultParam('sorting', 'Unsorted'));
     store.dispatch(actions.addOffRecordParam('sorting'));
   },
@@ -81,7 +127,7 @@ const ComponentLinks = React.createClass({
 
 
   componentWillUnmount() {
-    store.dispatch(actions.removeParam('component'));
+    store.dispatch(actions.removeParam('sortedComponent'));
     store.dispatch(actions.removeParam('sorting'));
   },
 
@@ -133,9 +179,9 @@ const ComponentLinks = React.createClass({
           sortIt(componentsList, routingState.query.sorting).map(c => (<a
             key={c}
             className={css.link}
-            data-active={isActive(routingState, {query: {component: c}})}
-            href={href(routingState, {query: {component: c}})}
-            onClick={navigateTo({query: {component: c}})}>component: {c}</a>))
+            data-active={isActive(routingState, {query: {sortedComponent: c}})}
+            href={href(routingState, {query: {sortedComponent: c}})}
+            onClick={navigateTo({query: {sortedComponent: c}})}>component: {c}</a>))
         }
         </span>
       </span>
@@ -168,6 +214,16 @@ const Bar = () => (
   </div>
 );
 
+const CleanHistory = ({...props}) => (
+  <div className={css.content}>
+    <h1>CleanHistory</h1>
+    <section>
+      <SortedComponentLinks {...props} />
+    </section>
+  </div>
+);
+
+
 
 const Home = () => (
   <div className={css.content}>
@@ -186,7 +242,8 @@ const NotFound = () => (
 const routes = {
   '/': Home,
   '/foo': Foo,
-  '/bar': Bar
+  '/bar': Bar,
+  '/cleanHistory': CleanHistory
 };
 // Add routes
 Object.keys(routes).forEach(route => store.dispatch(actions.addRoute(route)));
