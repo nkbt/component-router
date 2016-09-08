@@ -1,72 +1,84 @@
 import shallowEqual from 'fbjs/lib/shallowEqual';
 import {restoreLocation} from './actions';
-import {stringify} from 'qs';
+import {queryToSearch, searchToQuery} from './codec';
 
 
-const maybePush = callback => {
-  let lastQuery;
-  let lastPathname;
+const isReplace = (prevQuery, nextQuery, offRecord) => {
+  if (!offRecord.length) {
+    return false;
+  }
+  const prevQueryOnRecord = {...prevQuery};
+  const nextQueryOnRecord = {...nextQuery};
 
-  return ({pathname, query, hash, offRecordParams}) => {
-    if (shallowEqual(lastQuery, query) && lastPathname === pathname) {
-      return;
-    }
+  offRecord.forEach(param => {
+    delete prevQueryOnRecord[param];
+    delete nextQueryOnRecord[param];
+  });
 
-    const historyQuery = {...query};
-
-    offRecordParams.forEach(p => delete historyQuery[p]);
-
-    const search = stringify(historyQuery, {strictNullHandling: true});
-
-    lastQuery = query;
-    lastPathname = pathname;
-    callback({pathname, search: search.length > 0 ? `?${search}` : '', hash});
-  };
+  return shallowEqual(prevQueryOnRecord, nextQueryOnRecord);
 };
-
-
-const maybeRestore = callback => {
-  let state = {};
-
-  return ({pathname, search, hash}) => {
-    if (shallowEqual(state, {pathname, search, hash})) {
-      return;
-    }
-    state = {pathname, search, hash};
-    callback(state);
-  };
-};
-
-
-const push = history => maybePush(location => history.push(location));
-
 
 export const location = (createHistory, type) => ({
   store, namespace = 'componentRouter', debounceTimeout = 50
 }) => {
   const history = createHistory();
-  const historyPush = push(history);
+  const initialLocation = history.getCurrentLocation();
 
-  let timer;
 
-  const batchedHistoryPush = (...args) => {
-    clearTimeout(timer);
-    timer = setTimeout(() => historyPush(...args), debounceTimeout);
+  let prevQuery = searchToQuery(initialLocation.search);
+  let prevPathname = initialLocation.pathname;
+  const historyPush = () => {
+    const state = store.getState()[namespace];
+
+    if (shallowEqual(prevQuery, state.cleanQuery) && prevPathname === state.pathname) {
+      return;
+    }
+
+    const nextLocation = {
+      pathname: state.pathname,
+      search: queryToSearch(state.cleanQuery),
+      hash: state.hash
+    };
+
+    if (isReplace(prevQuery, state.cleanQuery, state.offRecordParams)) {
+      history.replace(nextLocation);
+    } else {
+      history.push(nextLocation);
+    }
+
+    prevQuery = state.cleanQuery;
+    prevPathname = state.pathname;
   };
 
-  const getState = () => store.getState()[namespace];
 
-  const historyUnsubscribe = history.listen(maybeRestore(({pathname, search, hash}) =>
-    store.dispatch(restoreLocation({pathname, search, hash}, type))));
+  let timer;
+  const historyPushDebounced = () => {
+    clearTimeout(timer);
+    timer = setTimeout(historyPush, debounceTimeout);
+  };
 
-  const storeUnsubscribe = store.subscribe(() => batchedHistoryPush({
-    pathname: getState().pathname,
-    query: getState().cleanQuery,
-    hash: getState().hash,
-    offRecordParams: getState().offRecordParams
-  }));
+
+  const maybeRestoreLocation = ({pathname, search, hash}) => {
+    const state = store.getState()[namespace];
+    const nextCleanQuery = searchToQuery(search);
+
+    if (!shallowEqual(nextCleanQuery, state.cleanQuery) ||
+      pathname !== state.pathname || hash !== state.hash) {
+      store.dispatch(restoreLocation({pathname, query: nextCleanQuery, hash}, type));
+    }
+  };
+
+
+  maybeRestoreLocation(history.getCurrentLocation());
+
+
+  const historyUnsubscribe = history.listen(maybeRestoreLocation);
+  const storeUnsubscribe = store.subscribe(historyPushDebounced);
+
 
   return () => {
+    clearTimeout(timer);
+    timer = null;
     historyUnsubscribe();
     storeUnsubscribe();
   };

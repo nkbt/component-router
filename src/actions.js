@@ -11,40 +11,47 @@ import {
 
 export const navigateTo = ({pathname, query}) => ({
   type: NAVIGATE_TO,
-  payload: {pathname, query}
+  pathname,
+  query
 });
 
 
-export const restoreLocation = ({pathname, search, hash}, locationType) => ({
+export const restoreLocation = ({pathname, query, hash}, locationType) => ({
   type: RESTORE_LOCATION,
-  payload: {location: {pathname, search, hash}, locationType}
+  pathname,
+  query,
+  hash,
+  locationType
 });
 
 
 export const addDefaultParam = (namespace, value) => ({
   type: ADD_DEFAULT_PARAM,
-  payload: {namespace, value}
+  namespace,
+  value
 });
+
 
 export const addOffRecordParam = namespace => ({
   type: ADD_OFF_RECORD_PARAM,
-  payload: {namespace}
+  namespace
 });
+
 
 export const removeParam = namespace => ({
   type: REMOVE_PARAM,
-  payload: {namespace}
+  namespace
 });
 
 
 export const addRoute = route => ({
   type: ADD_ROUTE,
-  payload: {route}
+  route
 });
 
 
 export const removeRoute = route => ({
   type: REMOVE_ROUTE,
-  payload: {route}
+  route
 });
 
