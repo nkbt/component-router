@@ -119,7 +119,7 @@ export const restoreLocation = (state,
 
   const newQuery = sortedObject({
     ...defaultParams,
-    ...query
+    ...safeQuery(query)
   });
 
   return {
