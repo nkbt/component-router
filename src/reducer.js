@@ -10,9 +10,9 @@ import {
   LOCATION_HISTORY
 } from './constants';
 import shallowEqual from 'fbjs/lib/shallowEqual';
-import {parse, stringify} from 'qs';
 import {parseRoute} from './pathname/parse';
 import {matchRoute} from './pathname/match';
+import {safeQuery, queryToSearch} from './codec';
 
 
 export const initialState = {
@@ -27,25 +27,15 @@ export const initialState = {
   locationType: LOCATION_HISTORY
 };
 
+
 export const cleanupQuery = ({query, defaultParams}) =>
   sortedObject(Object.keys(query)
     .reduce((clean, key) => {
-      if (defaultParams.hasOwnProperty(key) && query[key] === defaultParams[key]) {
+      if (key in defaultParams && query[key] === defaultParams[key]) {
         return clean;
       }
       return {...clean, [key]: query[key]};
     }, {}));
-
-
-export const safeQuery = (query = {}) => {
-  const newQuery = query === null ? {} : query;
-
-  Object.keys(newQuery).forEach(key => {
-    newQuery[key] = `${newQuery[key]}`;
-  });
-
-  return newQuery;
-};
 
 
 export const changeParams = (state, params) => {
@@ -74,7 +64,7 @@ export const addDefaultParam = (state, {namespace, value}) => {
   const {defaultParams, query} = state;
   const stringValue = `${value}`;
 
-  if (defaultParams.hasOwnProperty(namespace) && defaultParams[namespace] === stringValue) {
+  if (namespace in defaultParams && defaultParams[namespace] === stringValue) {
     return state;
   }
 
@@ -107,10 +97,10 @@ export const removeParam = (state, {namespace}) => {
   const newDefaultParams = {...defaultParams};
   const newQuery = sortedObject({...defaultParams, ...query});
 
-  if (newDefaultParams.hasOwnProperty(namespace)) {
+  if (namespace in newDefaultParams) {
     delete newDefaultParams[namespace];
   }
-  if (newQuery.hasOwnProperty(namespace)) {
+  if (namespace in newQuery) {
     delete newQuery[namespace];
   }
 
@@ -123,13 +113,13 @@ export const removeParam = (state, {namespace}) => {
 };
 
 
-export const restoreLocation = (state, {location, locationType = LOCATION_HISTORY}) => {
+export const restoreLocation = (state,
+  {pathname, query, hash, locationType = LOCATION_HISTORY}) => {
   const {defaultParams} = state;
-  const {pathname, search, hash} = location;
 
   const newQuery = sortedObject({
     ...defaultParams,
-    ...safeQuery(parse(search.substr(1), {strictNullHandling: true}))
+    ...safeQuery(query)
   });
 
   return {
@@ -162,24 +152,26 @@ export const removeRoute = (state, payload) => ({
 
 export const href = (state, payload) => {
   const {pathname, cleanQuery, hash} = changeParams(state, payload);
-  const search = stringify(cleanQuery, {strictNullHandling: true});
 
-  return [pathname, search.length > 0 ? `?${search}` : '', hash].join('');
+  return [pathname, queryToSearch(cleanQuery), hash].join('');
 };
 
 
 export const isActive = (state, {pathname, query}) => {
   const {
-    pathname: newPathname, cleanQuery
+    pathname: prevPathname,
+    cleanQuery: prevCleanQuery
+  } = state;
+  const {
+    pathname: nextPathname,
+    cleanQuery: nextCleanQuery
   } = changeParams(state, {pathname, query});
 
-
-  return shallowEqual(cleanQuery, state.cleanQuery) &&
-    newPathname === state.pathname;
+  return shallowEqual(nextCleanQuery, prevCleanQuery) && nextPathname === prevPathname;
 };
 
 
-const reduce = (state, {type, payload}) => {
+const reduce = (state, {type, ...payload}) => {
   switch (type) {
     case NAVIGATE_TO:
       return changeParams(state, payload);
@@ -208,8 +200,8 @@ const reduce = (state, {type, payload}) => {
 };
 
 
-export const componentRouter = (state = initialState, {type, payload}) => {
-  const newState = reduce(state, {type, payload});
+export const componentRouter = (state = initialState, {type, ...payload}) => {
+  const newState = reduce(state, {type, ...payload});
 
   return shallowEqual(state, newState) ? state : newState;
 };

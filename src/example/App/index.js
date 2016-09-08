@@ -1,5 +1,4 @@
 import React from 'react';
-import {shouldComponentUpdate} from 'react/lib/ReactComponentWithPureRenderMixin';
 import {locationHistory as location, actions, href, isActive} from '../..';
 import {createStore} from './store';
 import css from './App.css';
@@ -21,9 +20,6 @@ const GlobalLinks = React.createClass({
   propTypes: {
     routingState: React.PropTypes.object
   },
-
-
-  shouldComponentUpdate,
 
 
   render() {
@@ -71,17 +67,15 @@ const GlobalLinks = React.createClass({
   }
 });
 
+
 const ComponentLinks = React.createClass({
   propTypes: {
     routingState: React.PropTypes.object
   },
 
-  componentDidMount() {
+  componentWillMount() {
     store.dispatch(actions.addDefaultParam('component', 'baz'));
   },
-
-
-  shouldComponentUpdate,
 
 
   componentWillUnmount() {
@@ -110,83 +104,42 @@ const ComponentLinks = React.createClass({
   }
 });
 
-const componentsList = ['bla', 'baz', 'abc', 'zyx'];
+
 const SortedComponentLinks = React.createClass({
   propTypes: {
     routingState: React.PropTypes.object
   },
 
-  componentDidMount() {
-    store.dispatch(actions.addDefaultParam('sortedComponent', 'baz'));
-    store.dispatch(actions.addDefaultParam('sorting', 'Unsorted'));
-    store.dispatch(actions.addOffRecordParam('sorting'));
+  componentWillMount() {
+    store.dispatch(actions.addDefaultParam('offRecord', 'bla'));
+    store.dispatch(actions.addOffRecordParam('offRecord'));
   },
 
 
-  shouldComponentUpdate,
-
-
   componentWillUnmount() {
-    store.dispatch(actions.removeParam('sortedComponent'));
-    store.dispatch(actions.removeParam('sorting'));
+    store.dispatch(actions.removeParam('offRecord'));
   },
 
 
   render() {
     const {routingState} = this.props;
 
-    const sortIt = (original, direction) => {
-      if (direction === 'Unsorted') {
-        return original;
-      }
-
-      const sorted = original.slice(0).sort();
-
-      if (direction === 'Descending') {
-        sorted.reverse();
-      }
-
-      return sorted;
-    };
-
     return (
-      <span>
+      <div>
+        <h3>Changes are going to replace browser history</h3>
         <div>
-          <span>
-            <a
-              className={css.sorting}
-              data-active={isActive(routingState, {query: {sorting: 'Unsorted'}})}
-              href={href(routingState, {query: {sorting: 'Unsorted'}})}
-              onClick={navigateTo({query: {sorting: 'Unsorted'}})}>No sorting</a>
-          </span>
-          <span>
-            <a
-              className={css.sorting}
-              data-active={isActive(routingState, {query: {sorting: 'Ascending'}})}
-              href={href(routingState, {query: {sorting: 'Ascending'}})}
-              onClick={navigateTo({query: {sorting: 'Ascending'}})}>Ascending</a>
-          </span>
-          <span>
-            <a
-              className={css.sorting}
-              data-active={isActive(routingState, {query: {sorting: 'Descending'}})}
-              href={href(routingState, {query: {sorting: 'Descending'}})}
-              onClick={navigateTo({query: {sorting: 'Descending'}})}>Descending</a>
-          </span>
-          <span>(sorting changes are not going into the browser history)</span>
-        </div>
-        <hr />
-        <span>
-          {sortIt(componentsList, routingState.query.sorting).map(c =>
+          {['bla', 'baz', 'abc', 'zyx'].map(item =>
             <a
               className={css.link}
-              data-active={isActive(routingState, {query: {sortedComponent: c}})}
-              href={href(routingState, {query: {sortedComponent: c}})}
-              key={c}
-              onClick={navigateTo({query: {sortedComponent: c}})}>component: {c}</a>
+              data-active={isActive(routingState, {query: {offRecord: item}})}
+              href={href(routingState, {query: {offRecord: item}})}
+              key={item}
+              onClick={navigateTo({query: {offRecord: item}})}>
+              off-record: {item}
+            </a>
           )}
-        </span>
-      </span>
+        </div>
+      </div>
     );
   }
 });
@@ -208,10 +161,12 @@ const Foo = ({...props}) =>
     </section>
   </div>;
 
+
 const Bar = () =>
   <div className={css.content}>
     <h1>Bar</h1>
   </div>;
+
 
 const CleanHistory = ({...props}) =>
   <div className={css.content}>
@@ -241,6 +196,7 @@ const routes = {
   '/cleanHistory': CleanHistory
 };
 
+
 // Add routes
 Object.keys(routes).forEach(route => store.dispatch(actions.addRoute(route)));
 
@@ -251,13 +207,10 @@ const App = React.createClass({
   },
 
 
-  componentDidMount() {
+  componentWillMount() {
     this.unsubscribe = store.subscribe(() =>
       this.setState({routingState: store.getState().componentRouter}));
   },
-
-
-  shouldComponentUpdate,
 
 
   componentWillUnmount() {

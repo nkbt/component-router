@@ -13,31 +13,31 @@ test('actions', t => {
     actions.navigateTo({query: {some: 'thing'}}),
     {
       type: NAVIGATE_TO,
-      payload: {pathname: undefined, query: {some: 'thing'}}
+      pathname: undefined, query: {some: 'thing'}
     },
     'should return a NAVIGATE_TO action'
   );
 
   t.deepEqual(
     actions.addDefaultParam('namespace', 'value'),
-    {type: ADD_DEFAULT_PARAM, payload: {namespace: 'namespace', value: 'value'}},
+    {type: ADD_DEFAULT_PARAM, namespace: 'namespace', value: 'value'},
     'should return an ADD_DEFAULT_PARAM action'
   );
 
   t.deepEqual(
     actions.removeParam('param'),
-    {type: REMOVE_PARAM, payload: {namespace: 'param'}},
+    {type: REMOVE_PARAM, namespace: 'param'},
     'should return a REMOVE_PARAM action'
   );
 
   t.deepEqual(
-    actions.restoreLocation({search: ''}),
+    actions.restoreLocation({query: {}}),
     {
       type: RESTORE_LOCATION,
-      payload: {
-        location: {pathname: undefined, search: '', hash: undefined},
-        locationType: undefined
-      }
+      pathname: undefined,
+      query: {},
+      hash: undefined,
+      locationType: undefined
     },
     'should return an appropriate RESTORE_LOCATION action'
   );
