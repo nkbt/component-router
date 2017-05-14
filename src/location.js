@@ -1,4 +1,4 @@
-import shallowEqual from 'fbjs/lib/shallowEqual';
+import shallowEqual from 'shallow-equal/objects';
 import {restoreLocation} from './actions';
 import {queryToSearch, searchToQuery} from './codec';
 

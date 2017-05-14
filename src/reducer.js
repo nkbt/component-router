@@ -9,7 +9,7 @@ import {
   RESTORE_LOCATION,
   LOCATION_HISTORY
 } from './constants';
-import shallowEqual from 'fbjs/lib/shallowEqual';
+import shallowEqual from 'shallow-equal/objects';
 import {parseRoute} from './pathname/parse';
 import {matchRoute} from './pathname/match';
 import {safeQuery, queryToSearch} from './codec';

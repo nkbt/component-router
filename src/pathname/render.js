@@ -16,8 +16,12 @@ export const renderRoute = (route = '/') => (params = {}) => {
     const name = part.substr(1);
 
     if (process.env.NODE_ENV !== 'production') {
-      require('fbjs/lib/invariant')(params.hasOwnProperty(name),
-        `Param :${name} is not specified for route ${route}`);
+      if (!(name in params)) {
+        throw Object.assign(
+          new Error(`Param :${name} is not specified for route ${route}`),
+          {name: 'Invariant Violation'}
+        );
+      }
     }
 
     return `${pathname}/${encodeURIComponent(params[name])}`;
