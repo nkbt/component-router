@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {locationHistory as location, actions, href, isActive} from '../../src';
 import {createStore} from './store';
 
@@ -15,71 +16,64 @@ const navigateTo = params => event => {
 };
 
 
-const GlobalLinks = React.createClass({
-  propTypes: {
-    routingState: React.PropTypes.object
-  },
+const GlobalLinks = ({routingState}) => (
+  <ul>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/'})}
+        href={href(routingState, {pathname: '/'})}
+        onClick={navigateTo({pathname: '/'})}>Home</a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/foo'})}
+        href={href(routingState, {pathname: '/foo'})}
+        onClick={navigateTo({pathname: '/foo'})}>/foo</a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/bar'})}
+        href={href(routingState, {pathname: '/bar'})}
+        onClick={navigateTo({pathname: '/bar'})}>/bar</a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/cleanHistory'})}
+        href={href(routingState, {pathname: '/cleanHistory'})}
+        onClick={navigateTo({pathname: '/cleanHistory'})}>/cleanHistory</a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/404'})}
+        href={href(routingState, {pathname: '/404'})}
+        onClick={navigateTo({pathname: '/404'})}>/404</a>
+    </li>
+  </ul>
+);
+GlobalLinks.propTypes = {
+  routingState: PropTypes.object.isRequired
+};
 
 
-  render() {
-    const {routingState} = this.props;
+class ComponentLinks extends React.Component {
+  static propTypes = {
+    routingState: PropTypes.object.isRequired
+  };
 
-    return (
-      <ul>
-        <li>
-          <a
-            className="tab"
-            data-active={isActive(routingState, {pathname: '/'})}
-            href={href(routingState, {pathname: '/'})}
-            onClick={navigateTo({pathname: '/'})}>Home</a>
-        </li>
-        <li>
-          <a
-            className="tab"
-            data-active={isActive(routingState, {pathname: '/foo'})}
-            href={href(routingState, {pathname: '/foo'})}
-            onClick={navigateTo({pathname: '/foo'})}>/foo</a>
-        </li>
-        <li>
-          <a
-            className="tab"
-            data-active={isActive(routingState, {pathname: '/bar'})}
-            href={href(routingState, {pathname: '/bar'})}
-            onClick={navigateTo({pathname: '/bar'})}>/bar</a>
-        </li>
-        <li>
-          <a
-            className="tab"
-            data-active={isActive(routingState, {pathname: '/cleanHistory'})}
-            href={href(routingState, {pathname: '/cleanHistory'})}
-            onClick={navigateTo({pathname: '/cleanHistory'})}>/cleanHistory</a>
-        </li>
-        <li>
-          <a
-            className="tab"
-            data-active={isActive(routingState, {pathname: '/404'})}
-            href={href(routingState, {pathname: '/404'})}
-            onClick={navigateTo({pathname: '/404'})}>/404</a>
-        </li>
-      </ul>
-    );
-  }
-});
-
-
-const ComponentLinks = React.createClass({
-  propTypes: {
-    routingState: React.PropTypes.object
-  },
 
   componentWillMount() {
     store.dispatch(actions.addDefaultParam('component', 'baz'));
-  },
+  }
 
 
   componentWillUnmount() {
     store.dispatch(actions.removeParam('component'));
-  },
+  }
 
 
   render() {
@@ -101,23 +95,24 @@ const ComponentLinks = React.createClass({
 
     );
   }
-});
+}
 
 
-const SortedComponentLinks = React.createClass({
-  propTypes: {
-    routingState: React.PropTypes.object
-  },
+class SortedComponentLinks extends React.Component {
+  static propTypes = {
+    routingState: PropTypes.object.isRequired
+  };
+
 
   componentWillMount() {
     store.dispatch(actions.addDefaultParam('offRecord', 'bla'));
     store.dispatch(actions.addOffRecordParam('offRecord'));
-  },
+  }
 
 
   componentWillUnmount() {
     store.dispatch(actions.removeParam('offRecord'));
-  },
+  }
 
 
   render() {
@@ -127,7 +122,7 @@ const SortedComponentLinks = React.createClass({
       <div>
         <h3>Changes are going to replace browser history</h3>
         <div>
-          {['bla', 'baz', 'abc', 'zyx'].map(item =>
+          {['bla', 'baz', 'abc', 'zyx'].map(item => (
             <a
               className="link"
               data-active={isActive(routingState, {query: {offRecord: item}})}
@@ -136,56 +131,62 @@ const SortedComponentLinks = React.createClass({
               onClick={navigateTo({query: {offRecord: item}})}>
               off-record: {item}
             </a>
-          )}
+          ))}
         </div>
       </div>
     );
   }
-});
+}
 
 
-const Header = ({...props}) =>
+const Header = ({...props}) => (
   <header className="header">
     <nav className="nav">
       <GlobalLinks {...props} />
     </nav>
-  </header>;
+  </header>
+);
 
 
-const Foo = ({...props}) =>
+const Foo = ({...props}) => (
   <div className="content">
     <h1>Foo</h1>
     <section>
       <ComponentLinks {...props} />
     </section>
-  </div>;
+  </div>
+);
 
 
-const Bar = () =>
+const Bar = () => (
   <div className="content">
     <h1>Bar</h1>
-  </div>;
+  </div>
+);
 
 
-const CleanHistory = ({...props}) =>
+const CleanHistory = ({...props}) => (
   <div className="content">
     <h1>CleanHistory</h1>
     <section>
       <SortedComponentLinks {...props} />
     </section>
-  </div>;
+  </div>
+);
 
 
-const Home = () =>
+const Home = () => (
   <div className="content">
     <h1>Home</h1>
-  </div>;
+  </div>
+);
 
 
-const NotFound = () =>
+const NotFound = () => (
   <div className="content">
     <h1>Not Found</h1>
-  </div>;
+  </div>
+);
 
 
 const routes = {
@@ -200,21 +201,21 @@ const routes = {
 Object.keys(routes).forEach(route => store.dispatch(actions.addRoute(route)));
 
 
-const App = React.createClass({
-  getInitialState() {
-    return {routingState: store.getState().componentRouter};
-  },
+class App extends React.Component {
+  state = {
+    routingState: store.getState().componentRouter
+  };
 
 
   componentWillMount() {
     this.unsubscribe = store.subscribe(() =>
       this.setState({routingState: store.getState().componentRouter}));
-  },
+  }
 
 
   componentWillUnmount() {
     this.unsubscribe();
-  },
+  }
 
 
   render() {
@@ -233,7 +234,7 @@ const App = React.createClass({
       </div>
     );
   }
-});
+}
 
 
 export default App;

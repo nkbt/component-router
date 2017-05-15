@@ -82,5 +82,4 @@ exports.resolve = {
 exports.stats = {colors: true};
 
 
-console.log(`COMPONENT_EXTERNALS`, COMPONENT_EXTERNALS)
 exports.externals = COMPONENT_EXTERNALS;

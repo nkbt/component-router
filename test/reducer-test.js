@@ -58,11 +58,13 @@ test('componentRouter / Default params', t => {
 
     state = componentRouter(state, {
       type: ADD_DEFAULT_PARAM,
-      namespace: 'z', value: 100
+      namespace: 'z',
+      value: 100
     });
     state = componentRouter(state, {
       type: ADD_DEFAULT_PARAM,
-      namespace: 'y', value: 10
+      namespace: 'y',
+      value: 10
     });
     return state;
   };
@@ -77,7 +79,9 @@ test('componentRouter / Default params', t => {
 
   t.deepEqual(
     componentRouter(prepare(), {
-      type: ADD_DEFAULT_PARAM, namespace: 'x', value: 123
+      type: ADD_DEFAULT_PARAM,
+      namespace: 'x',
+      value: 123
     }).query,
     {x: '1', y: '10', z: '100'},
     'should not override existing query param with default one');
@@ -85,7 +89,8 @@ test('componentRouter / Default params', t => {
   t.deepEqual(
     Object.keys(componentRouter(prepare(), {
       type: ADD_DEFAULT_PARAM,
-      namespace: 'a', value: 0
+      namespace: 'a',
+      value: 0
     }).query),
     ['a', 'x', 'y', 'z'],
     'should sort query params when adding default ones');
@@ -103,7 +108,8 @@ test('componentRouter / Remove param', t => {
 
     state = componentRouter(state, {
       type: ADD_DEFAULT_PARAM,
-      namespace: 'z', value: 100
+      namespace: 'z',
+      value: 100
     });
     return state;
   };
@@ -134,7 +140,8 @@ test('componentRouter / Remove param', t => {
 test('componentRouter / Navigate to', t => {
   const prepare = () => componentRouter(undefined, {
     type: ADD_DEFAULT_PARAM,
-    namespace: 'y', value: 2
+    namespace: 'y',
+    value: 2
   });
 
   t.deepEqual(
