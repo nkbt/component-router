@@ -11,7 +11,7 @@ import {
   LOCATION_HISTORY
 } from './constants';
 import {parseRoute} from './pathname/parse';
-import {matchRoute} from './pathname/match';
+import {matchRoute, emptyRoute} from './pathname/match';
 import {safeQuery, queryToSearch} from './codec';
 
 
@@ -23,7 +23,7 @@ export const initialState = {
   cleanQuery: {},
   defaultParams: {},
   routes: {},
-  currentRoute: null,
+  currentRoute: emptyRoute,
   locationType: LOCATION_HISTORY
 };
 
