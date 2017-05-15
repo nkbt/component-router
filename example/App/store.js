@@ -1,6 +1,8 @@
+/* global window */
+
 import {createStore as createReduxStore, combineReducers, applyMiddleware, compose} from 'redux';
-import logger from 'redux-logger';
-import {componentRouter} from './../../reducer';
+import {createLogger} from 'redux-logger';
+import {componentRouter} from '../../src';
 
 
 const factory = initialState => {
@@ -10,7 +12,7 @@ const factory = initialState => {
 
   const devTools = typeof window !== 'undefined' && window.devToolsExtension;
   const middleware = applyMiddleware(
-    logger({
+    createLogger({
       level: 'info',
       collapsed: true,
       timestamp: false,

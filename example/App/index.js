@@ -1,7 +1,6 @@
 import React from 'react';
-import {locationHistory as location, actions, href, isActive} from '../..';
+import {locationHistory as location, actions, href, isActive} from '../../src';
 import {createStore} from './store';
-import css from './App.css';
 
 
 const store = createStore();
@@ -29,35 +28,35 @@ const GlobalLinks = React.createClass({
       <ul>
         <li>
           <a
-            className={css.tab}
+            className="tab"
             data-active={isActive(routingState, {pathname: '/'})}
             href={href(routingState, {pathname: '/'})}
             onClick={navigateTo({pathname: '/'})}>Home</a>
         </li>
         <li>
           <a
-            className={css.tab}
+            className="tab"
             data-active={isActive(routingState, {pathname: '/foo'})}
             href={href(routingState, {pathname: '/foo'})}
             onClick={navigateTo({pathname: '/foo'})}>/foo</a>
         </li>
         <li>
           <a
-            className={css.tab}
+            className="tab"
             data-active={isActive(routingState, {pathname: '/bar'})}
             href={href(routingState, {pathname: '/bar'})}
             onClick={navigateTo({pathname: '/bar'})}>/bar</a>
         </li>
         <li>
           <a
-            className={css.tab}
+            className="tab"
             data-active={isActive(routingState, {pathname: '/cleanHistory'})}
             href={href(routingState, {pathname: '/cleanHistory'})}
             onClick={navigateTo({pathname: '/cleanHistory'})}>/cleanHistory</a>
         </li>
         <li>
           <a
-            className={css.tab}
+            className="tab"
             data-active={isActive(routingState, {pathname: '/404'})}
             href={href(routingState, {pathname: '/404'})}
             onClick={navigateTo({pathname: '/404'})}>/404</a>
@@ -89,12 +88,12 @@ const ComponentLinks = React.createClass({
     return (
       <span>
         <a
-          className={css.link}
+          className="link"
           data-active={isActive(routingState, {query: {component: 'bla'}})}
           href={href(routingState, {query: {component: 'bla'}})}
           onClick={navigateTo({query: {component: 'bla'}})}>component: bla</a>
         <a
-          className={css.link}
+          className="link"
           data-active={isActive(routingState, {query: {component: 'baz'}})}
           href={href(routingState, {query: {component: 'baz'}})}
           onClick={navigateTo({query: {component: 'baz'}})}>component: baz</a>
@@ -130,7 +129,7 @@ const SortedComponentLinks = React.createClass({
         <div>
           {['bla', 'baz', 'abc', 'zyx'].map(item =>
             <a
-              className={css.link}
+              className="link"
               data-active={isActive(routingState, {query: {offRecord: item}})}
               href={href(routingState, {query: {offRecord: item}})}
               key={item}
@@ -146,15 +145,15 @@ const SortedComponentLinks = React.createClass({
 
 
 const Header = ({...props}) =>
-  <header className={css.header}>
-    <nav className={css.nav}>
+  <header className="header">
+    <nav className="nav">
       <GlobalLinks {...props} />
     </nav>
   </header>;
 
 
 const Foo = ({...props}) =>
-  <div className={css.content}>
+  <div className="content">
     <h1>Foo</h1>
     <section>
       <ComponentLinks {...props} />
@@ -163,13 +162,13 @@ const Foo = ({...props}) =>
 
 
 const Bar = () =>
-  <div className={css.content}>
+  <div className="content">
     <h1>Bar</h1>
   </div>;
 
 
 const CleanHistory = ({...props}) =>
-  <div className={css.content}>
+  <div className="content">
     <h1>CleanHistory</h1>
     <section>
       <SortedComponentLinks {...props} />
@@ -178,13 +177,13 @@ const CleanHistory = ({...props}) =>
 
 
 const Home = () =>
-  <div className={css.content}>
+  <div className="content">
     <h1>Home</h1>
   </div>;
 
 
 const NotFound = () =>
-  <div className={css.content}>
+  <div className="content">
     <h1>Not Found</h1>
   </div>;
 
@@ -223,11 +222,11 @@ const App = React.createClass({
     const CurrentComponent = routes[routingState.currentRoute.route] || NotFound;
 
     return (
-      <div className={css.app}>
+      <div className="app">
         <h1>component-router</h1>
         <Header routingState={routingState} />
         <CurrentComponent routingState={routingState} />
-        <section className={css.content}>
+        <section className="content">
           Routing state:
           <pre>{JSON.stringify(routingState, null, 2)}</pre>
         </section>
