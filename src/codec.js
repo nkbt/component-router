@@ -21,5 +21,3 @@ export const queryToSearch = query => {
 
 export const searchToQuery = search =>
   safeQuery(parse(search.substr(1), {strictNullHandling: true}));
-
-

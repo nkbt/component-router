@@ -1,3 +1,4 @@
+import shallowEqual from 'shallow-equal/objects';
 import sortedObject from './sortedObject';
 import {
   ADD_DEFAULT_PARAM,
@@ -9,7 +10,6 @@ import {
   RESTORE_LOCATION,
   LOCATION_HISTORY
 } from './constants';
-import shallowEqual from 'fbjs/lib/shallowEqual';
 import {parseRoute} from './pathname/parse';
 import {matchRoute} from './pathname/match';
 import {safeQuery, queryToSearch} from './codec';

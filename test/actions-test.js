@@ -13,7 +13,8 @@ test('actions', t => {
     actions.navigateTo({query: {some: 'thing'}}),
     {
       type: NAVIGATE_TO,
-      pathname: undefined, query: {some: 'thing'}
+      pathname: undefined,
+      query: {some: 'thing'}
     },
     'should return a NAVIGATE_TO action'
   );

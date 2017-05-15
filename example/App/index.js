@@ -1,13 +1,18 @@
 import React from 'react';
-import {locationHistory as location, actions, href, isActive} from '../..';
+import PropTypes from 'prop-types';
+import {locationHistory, locationHash, actions, href, isActive} from '../../src';
 import {createStore} from './store';
-import css from './App.css';
 
 
 const store = createStore();
 
 
-location({store, namespace: 'componentRouter'});
+if (process.env.HISTORY === 'HASH') {
+  // When publishing to GitHub Pages we cannon use HTML5 history navigation
+  locationHash({store, namespace: 'componentRouter'});
+} else {
+  locationHistory({store, namespace: 'componentRouter'});
+}
 
 
 const navigateTo = params => event => {
@@ -16,71 +21,64 @@ const navigateTo = params => event => {
 };
 
 
-const GlobalLinks = React.createClass({
-  propTypes: {
-    routingState: React.PropTypes.object
-  },
+const GlobalLinks = ({routingState}) => (
+  <ul>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/'})}
+        href={href(routingState, {pathname: '/'})}
+        onClick={navigateTo({pathname: '/'})}>Home</a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/foo'})}
+        href={href(routingState, {pathname: '/foo'})}
+        onClick={navigateTo({pathname: '/foo'})}>/foo</a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/bar'})}
+        href={href(routingState, {pathname: '/bar'})}
+        onClick={navigateTo({pathname: '/bar'})}>/bar</a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/cleanHistory'})}
+        href={href(routingState, {pathname: '/cleanHistory'})}
+        onClick={navigateTo({pathname: '/cleanHistory'})}>/cleanHistory</a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/404'})}
+        href={href(routingState, {pathname: '/404'})}
+        onClick={navigateTo({pathname: '/404'})}>/404</a>
+    </li>
+  </ul>
+);
+GlobalLinks.propTypes = {
+  routingState: PropTypes.object.isRequired
+};
 
 
-  render() {
-    const {routingState} = this.props;
+class ComponentLinks extends React.Component {
+  static propTypes = {
+    routingState: PropTypes.object.isRequired
+  };
 
-    return (
-      <ul>
-        <li>
-          <a
-            className={css.tab}
-            data-active={isActive(routingState, {pathname: '/'})}
-            href={href(routingState, {pathname: '/'})}
-            onClick={navigateTo({pathname: '/'})}>Home</a>
-        </li>
-        <li>
-          <a
-            className={css.tab}
-            data-active={isActive(routingState, {pathname: '/foo'})}
-            href={href(routingState, {pathname: '/foo'})}
-            onClick={navigateTo({pathname: '/foo'})}>/foo</a>
-        </li>
-        <li>
-          <a
-            className={css.tab}
-            data-active={isActive(routingState, {pathname: '/bar'})}
-            href={href(routingState, {pathname: '/bar'})}
-            onClick={navigateTo({pathname: '/bar'})}>/bar</a>
-        </li>
-        <li>
-          <a
-            className={css.tab}
-            data-active={isActive(routingState, {pathname: '/cleanHistory'})}
-            href={href(routingState, {pathname: '/cleanHistory'})}
-            onClick={navigateTo({pathname: '/cleanHistory'})}>/cleanHistory</a>
-        </li>
-        <li>
-          <a
-            className={css.tab}
-            data-active={isActive(routingState, {pathname: '/404'})}
-            href={href(routingState, {pathname: '/404'})}
-            onClick={navigateTo({pathname: '/404'})}>/404</a>
-        </li>
-      </ul>
-    );
-  }
-});
-
-
-const ComponentLinks = React.createClass({
-  propTypes: {
-    routingState: React.PropTypes.object
-  },
 
   componentWillMount() {
     store.dispatch(actions.addDefaultParam('component', 'baz'));
-  },
+  }
 
 
   componentWillUnmount() {
     store.dispatch(actions.removeParam('component'));
-  },
+  }
 
 
   render() {
@@ -89,12 +87,12 @@ const ComponentLinks = React.createClass({
     return (
       <span>
         <a
-          className={css.link}
+          className="link"
           data-active={isActive(routingState, {query: {component: 'bla'}})}
           href={href(routingState, {query: {component: 'bla'}})}
           onClick={navigateTo({query: {component: 'bla'}})}>component: bla</a>
         <a
-          className={css.link}
+          className="link"
           data-active={isActive(routingState, {query: {component: 'baz'}})}
           href={href(routingState, {query: {component: 'baz'}})}
           onClick={navigateTo({query: {component: 'baz'}})}>component: baz</a>
@@ -102,23 +100,24 @@ const ComponentLinks = React.createClass({
 
     );
   }
-});
+}
 
 
-const SortedComponentLinks = React.createClass({
-  propTypes: {
-    routingState: React.PropTypes.object
-  },
+class SortedComponentLinks extends React.Component {
+  static propTypes = {
+    routingState: PropTypes.object.isRequired
+  };
+
 
   componentWillMount() {
     store.dispatch(actions.addDefaultParam('offRecord', 'bla'));
     store.dispatch(actions.addOffRecordParam('offRecord'));
-  },
+  }
 
 
   componentWillUnmount() {
     store.dispatch(actions.removeParam('offRecord'));
-  },
+  }
 
 
   render() {
@@ -128,65 +127,71 @@ const SortedComponentLinks = React.createClass({
       <div>
         <h3>Changes are going to replace browser history</h3>
         <div>
-          {['bla', 'baz', 'abc', 'zyx'].map(item =>
+          {['bla', 'baz', 'abc', 'zyx'].map(item => (
             <a
-              className={css.link}
+              className="link"
               data-active={isActive(routingState, {query: {offRecord: item}})}
               href={href(routingState, {query: {offRecord: item}})}
               key={item}
               onClick={navigateTo({query: {offRecord: item}})}>
               off-record: {item}
             </a>
-          )}
+          ))}
         </div>
       </div>
     );
   }
-});
+}
 
 
-const Header = ({...props}) =>
-  <header className={css.header}>
-    <nav className={css.nav}>
+const Header = ({...props}) => (
+  <header className="header">
+    <nav className="nav">
       <GlobalLinks {...props} />
     </nav>
-  </header>;
+  </header>
+);
 
 
-const Foo = ({...props}) =>
-  <div className={css.content}>
+const Foo = ({...props}) => (
+  <div className="content">
     <h1>Foo</h1>
     <section>
       <ComponentLinks {...props} />
     </section>
-  </div>;
+  </div>
+);
 
 
-const Bar = () =>
-  <div className={css.content}>
+const Bar = () => (
+  <div className="content">
     <h1>Bar</h1>
-  </div>;
+  </div>
+);
 
 
-const CleanHistory = ({...props}) =>
-  <div className={css.content}>
+const CleanHistory = ({...props}) => (
+  <div className="content">
     <h1>CleanHistory</h1>
     <section>
       <SortedComponentLinks {...props} />
     </section>
-  </div>;
+  </div>
+);
 
 
-const Home = () =>
-  <div className={css.content}>
+const Home = () => (
+  <div className="content">
     <h1>Home</h1>
-  </div>;
+  </div>
+);
 
 
-const NotFound = () =>
-  <div className={css.content}>
+const NotFound = () => (
+  <div className="content">
     <h1>Not Found</h1>
-  </div>;
+  </div>
+);
 
 
 const routes = {
@@ -201,21 +206,21 @@ const routes = {
 Object.keys(routes).forEach(route => store.dispatch(actions.addRoute(route)));
 
 
-const App = React.createClass({
-  getInitialState() {
-    return {routingState: store.getState().componentRouter};
-  },
+class App extends React.Component {
+  state = {
+    routingState: store.getState().componentRouter
+  };
 
 
   componentWillMount() {
     this.unsubscribe = store.subscribe(() =>
       this.setState({routingState: store.getState().componentRouter}));
-  },
+  }
 
 
   componentWillUnmount() {
     this.unsubscribe();
-  },
+  }
 
 
   render() {
@@ -223,18 +228,18 @@ const App = React.createClass({
     const CurrentComponent = routes[routingState.currentRoute.route] || NotFound;
 
     return (
-      <div className={css.app}>
+      <div className="app">
         <h1>component-router</h1>
         <Header routingState={routingState} />
         <CurrentComponent routingState={routingState} />
-        <section className={css.content}>
+        <section className="content">
           Routing state:
           <pre>{JSON.stringify(routingState, null, 2)}</pre>
         </section>
       </div>
     );
   }
-});
+}
 
 
 export default App;
