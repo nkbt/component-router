@@ -144,7 +144,7 @@ class SortedComponentLinks extends React.Component {
 }
 
 
-const Header = ({...props}) => (
+const Header = props => (
   <header className="header">
     <nav className="nav">
       <GlobalLinks {...props} />
@@ -153,7 +153,7 @@ const Header = ({...props}) => (
 );
 
 
-const Foo = ({...props}) => (
+const Foo = props => (
   <div className="content">
     <h1>Foo</h1>
     <section>
@@ -170,7 +170,7 @@ const Bar = () => (
 );
 
 
-const CleanHistory = ({...props}) => (
+const CleanHistory = props => (
   <div className="content">
     <h1>CleanHistory</h1>
     <section>
