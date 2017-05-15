@@ -1,0 +1,150 @@
+/**
+* Eric Meyer's Reset CSS v2.0 (http://meyerweb.com/eric/tools/css/reset/)
+* http://cssreset.com
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+.app {
+  padding: 2em 0;
+  font-family: Helvetica, Arial, sans-serif;
+}
+
+.app h1 {
+  padding: 0.2em 1em 0.7em 1em;
+  font-size: 2em;
+}
+
+.app h2 {
+  padding: 0.2em 0 0.7em 0;
+  font-size: 1.6em;
+}
+
+.app h3 {
+  padding: 0.2em 0 0.7em 0;
+  font-size: 1.2em;
+}
+
+.content {
+  padding: 2em;
+}
+
+.content pre {
+  margin-top: 0.5em;
+  font-family: Monospaced, monospace;
+}
+
+.content section {
+  margin: 1em 0;
+}
+
+.header {
+  display: flex;
+  height: 44px;
+  background: #06c;
+  justify-content: space-between;
+}
+
+.nav {
+  margin-left: 36px;
+  line-height: 2em;
+  flex: 1;
+}
+
+.nav ul {
+  list-style: none;
+}
+
+.nav li {
+  display: inline-block;
+}
+
+.tab {
+  display: inline-block;
+  margin-top: 9px;
+  margin-right: 5px;
+  padding: 0 2em;
+  height: 36px;
+  border-radius: 5px 5px 0 0;
+  color: #fff;
+  text-decoration: none;
+  transition: background-color 200ms;
+
+}
+
+.tab:hover:not([data-active="true"]) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.tab[data-active="true"] {
+  background-color: #fff;
+  color: #06c;
+}
+
+.github {
+  float: right;
+}
+
+.link {
+  padding: 0.5em 1em;
+  color: #06c;
+}
+
+.link[data-active="true"] {
+  border: 1px solid #06c;
+}
+
+.sorting {
+  padding: 0.5em 1em;
+  color: #06c;
+}
+
+.sorting[data-active="true"] {
+  color: red;
+}
