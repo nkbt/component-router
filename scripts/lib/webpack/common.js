@@ -5,25 +5,26 @@ const webpack = require(`webpack`);
 const HtmlWebpackPlugin = require(`html-webpack-plugin`);
 const HtmlWebpackIncludeAssetsPlugin = require(`html-webpack-include-assets-plugin`);
 const path = require(`path`);
-const {
-  NODE_ENV = `development`,
-  npm_package_config_component: COMPONENT_NAME,
-  npm_package_config_externals: COMPONENT_EXTERNALS
-} = process.env;
-exports.COMPONENT_NAME = COMPONENT_NAME;
-
-
-if (!COMPONENT_NAME) {
-  throw Error(`<package.json>.config.component name is required`);
-}
+const {NODE_ENV = `development`} = process.env;
 
 
 const pathTo = p => path.join(process.cwd(), p);
 exports.pathTo = pathTo;
 
 
-const {name: PACKAGE_NAME} = require(pathTo(`package.json`));
+const {
+  config: {
+    component: COMPONENT_NAME,
+    externals: COMPONENT_EXTERNALS
+  }, name: PACKAGE_NAME
+} = require(pathTo(`package.json`));
 exports.PACKAGE_NAME = PACKAGE_NAME;
+exports.COMPONENT_NAME = COMPONENT_NAME;
+
+
+if (!COMPONENT_NAME) {
+  throw Error(`<package.json>.config.component name is required`);
+}
 
 
 exports.loaders = {
@@ -81,4 +82,5 @@ exports.resolve = {
 exports.stats = {colors: true};
 
 
+console.log(`COMPONENT_EXTERNALS`, COMPONENT_EXTERNALS)
 exports.externals = COMPONENT_EXTERNALS;

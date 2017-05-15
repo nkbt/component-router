@@ -1,13 +1,17 @@
 machine:
   node:
-    version: v6.4.0
+    version: 7
+  environment:
+    NODE_ENV: development
+
+dependencies:
+  pre:
+    - npm set progress=false
+  override:
+    - npm install
 
 test:
   override:
-    - npm start ci.lint
-    - npm start ci.test
-    - npm start ci.cov
-    - npm start ci.e2e
-
-  post:
-    - npm start ci.codecov
+    - npm start -s lint
+    - npm start -s test
+    - npm start -s e2e

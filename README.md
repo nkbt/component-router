@@ -162,7 +162,7 @@ You can see the full QuickStart example on Demo page http://in-flux.github.io/co
 
 Currently is being developed and tested with the latest stable `Node 7` on `OSX`.
 
-To run example covering all `ComponentRouter` features, use `npm start dev`, which will compile `example/Example.js`
+To run example covering all `ComponentRouter` features, use `npm start dev`, which will compile `example/index.js`
 
 ```bash
 git clone git@github.com:in-flux/component-router.git

@@ -4,15 +4,18 @@
   "description": "Redux-based component routing solution",
   "main": "lib/index.js",
   "config": {
-    "component": "ComponentRouter"
+    "component": "ComponentRouter",
+    "externals": {
+      "react": "React",
+      "react-dom": "ReactDOM",
+      "history": "History",
+      "qs": "Qs",
+      "redux": "Redux"
+    }
   },
   "scripts": {
-    "start": "react-component-template",
-    "test": "npm start test",
-    "precommit": "npm start precommit",
-    "prepush": "npm start prepush",
-    "postversion": "npm start postversion",
-    "prepublish": "npm start prepublish"
+    "start": "./scripts/start.js",
+    "prepublish": "npm start -s build"
   },
   "repository": {
     "type": "git",
@@ -37,19 +40,59 @@
     "url": "https://github.com/in-flux/component-router/issues"
   },
   "homepage": "https://github.com/in-flux/component-router",
+  "peerDependencies": {
+    "history": "4",
+    "qs": "6",
+    "redux": "3"
+  },
   "dependencies": {
-    "fbjs": "*",
-    "redux": "3",
-    "history": "3",
-    "qs": "6"
+    "shallow-equal": "1.0.0"
   },
   "devDependencies": {
-    "fbjs": "0.8.4",
-    "history": "3.2.1",
-    "p-s": "2.4.4",
-    "qs": "6.2.1",
-    "react-component-template": "0.1.6",
+    "babel-cli": "6.24.1",
+    "babel-eslint": "7.2.3",
+    "babel-loader": "7.0.0",
+    "babel-plugin-transform-class-properties": "6.24.1",
+    "babel-plugin-transform-object-rest-spread": "6.23.0",
+    "babel-plugin-transform-react-remove-prop-types": "0.4.5",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-node7": "1.5.0",
+    "babel-preset-react": "6.24.1",
+    "babel-register": "6.24.1",
+    "concurrently": "3.4.0",
+    "css-loader": "0.28.1",
+    "eslint": "3.19.0",
+    "eslint-config-airbnb": "15.0.0",
+    "eslint-plugin-babel": "4.1.1",
+    "eslint-plugin-import": "2.2.0",
+    "eslint-plugin-jsx-a11y": "5.0.1",
+    "eslint-plugin-react": "7.0.1",
+    "extract-text-webpack-plugin": "2.1.0",
+    "gh-pages": "1.0.0",
+    "glob": "7.1.1",
+    "history": "4.6.1",
+    "html-webpack-include-assets-plugin": "0.0.5",
+    "html-webpack-plugin": "2.28.0",
+    "nightwatch-autorun": "3.1.0",
+    "qs": "6.4.0",
+    "react": "15.5.4",
+    "react-dom": "15.5.4",
     "redux": "3.6.0",
-    "redux-logger": "2.6.1"
-  }
+    "redux-logger": "3.0.1",
+    "rimraf": "2.6.1",
+    "sinon": "2.2.0",
+    "style-loader": "0.17.0",
+    "tap-xunit": "1.7.0",
+    "tape": "4.6.3",
+    "webpack": "2.5.1",
+    "webpack-dev-server": "2.4.5"
+  },
+  "files": [
+    "build",
+    "lib",
+    "src",
+    "LICENSE",
+    "package.json",
+    "README.md"
+  ]
 }
