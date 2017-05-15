@@ -72,28 +72,26 @@ Key feature is to update all links on the page if any of visible blocks changed 
 
 ### NPM
 ```sh
-npm install --save redux fbjs history qs component-router
+npm install --save redux history qs component-router
 ```
 
-Don't forget to manually install peer dependencies (`redux`, `fbjs`, `history`, `qs`) if you use npm@3.
-
-
-### Bower:
-```sh
-bower install --save https://npmcdn.com/component-router/bower.zip
-```
+Don't forget to manually install peer dependencies (`redux`, `history`, `qs`) if you use npm@3.
 
 
 ### 1998 Script Tag:
 ```html
-<script src="https://npmcdn.com/component-router/build/component-router.js"></script>
+<script src="https://unpkg.com/qs/dist/qs.js"></script>
+<script src="https://unpkg.com/history/umd/history.min.js"></script>
+<script src="https://unpkg.com/component-router/build/component-router.min.js"></script>
 (Module exposed as `ComponentRouter`)
 ```
 
 
 ## Demo
 
+
 [http://in-flux.github.io/component-router](http://in-flux.github.io/component-router)
+
 
 ## Codepen demo
 
@@ -106,36 +104,13 @@ to debug router in Codepen's Editor mode, but completely possible in Debug mode:
 
 ## Minimal Example
 
-  ```js
-import React from 'react';
-import {ComponentRouter, Url, LocationHtml5} from 'component-router';
+```js
+// TODO
+```
 
+![foobar.gif](foobar.gif)
 
-const Baz = React.createClass({
-  render() {
-    const {value} = this.props.componentRouter;
-    return <h1>{value && value.toUpperCase()}</h1>;
-  }
-});
-
-const App = React.createClass({
-  render() {
-    return (
-      <div>
-        <LocationHtml5 />
-        <Url query={{baz: 'foo'}}>Foo</Url> | <Url query={{baz: 'bar'}}>Bar</Url>
-        <ComponentRouter config={Baz} namespace="baz" />
-      </div>
-    );
-  }
-});
-
-React.render(<App />, document.body);
-  ```
-
-  ![foobar.gif](src/example/foobar.gif)
-
-  You can see the Minimal example on demo page http://in-flux.github.io/component-router/example/#/?page=foobar.
+You can see the Minimal example on demo page http://in-flux.github.io/component-router/#/?page=foobar.
 
 
 ## Quick-start
@@ -144,193 +119,50 @@ Quick-start is a step-by-step walk-through to implement UI based on ASCII exampl
 
 ### 1. Add App and main blocks: Chart, Filter, Data
 
-  ```js
-import React from 'react';
-import ReactDOM from 'react-dom';
-
-const Chart = React.createClass({
-  render() {
-    return <h2>Chart</h2>;
-  }
-});
-
-
-const Filter = React.createClass({
-  render() {
-    return <h2>Filter</h2>;
-  }
-});
-
-
-const Data = React.createClass({
-  render() {
-    return <h2>Data</h2>;
-  }
-});
-
-
-const App = React.createClass({
-  render() {
-    return (
-      <div>
-        <Chart />
-        <Filter />
-        <Data />
-      </div>
-    );
-  }
-});
-
-const appRoot = document.createElement('div');
-document.body.appendChild(appRoot);
-ReactDOM.render(<App />, appRoot);
+```js
+// TODO
 ```
 
 ### 2. Add second-level blocks (not yet used for now)
-  ```js
-const ChartBar = React.createClass({
-  render() {
-    return <h3>Bar</h3>;
-  }
-});
 
-const ChartPie = React.createClass({
-  render() {
-    return <h3>Pie</h3>;
-  }
-});
-
-const FilterClosed = React.createClass({
-  render() {
-    return <h3>Closed</h3>;
-  }
-});
-
-const FilterOpened = React.createClass({
-  render() {
-    return <h3>Opened</h3>;
-  }
-});
-
-const DataSources = React.createClass({
-  render() {
-    return <h3>Sources</h3>;
-  }
-});
-
-const DataDestinations = React.createClass({
-  render() {
-    return <h3>Destinations</h3>;
-  }
-});
-  ```
+```js
+// TODO
+```
 
 ### 3. Add ComponentRouter
 
-  Wrap each main component, give it a namespace and config
+Wrap each main component, give it a namespace and config
 
-  Also render Location provider (LocationHtml5 for History-API links or LocationHtml4 for hash-links).
+Also render Location provider (locationHistory for History-API links or locationHash for hash-links).
 
-  ```js
-import {ComponentRouter, LocationHtml5} from 'component-router';
-//...
-
-const App = React.createClass({
-  render() {
-    return (
-      <div>
-        <ComponentRouter namespace="chart"
-          config={{bar: ChartBar, pie: ChartPie}}>
-          <Chart />
-        </ComponentRouter>
-        <ComponentRouter namespace="filter"
-          config={{opened: FilterOpened, closed: FilterClosed}}>
-          <Filter />
-        </ComponentRouter>
-        <ComponentRouter namespace="data"
-          config={{sources: DataSources, destinations: DataDestinations}}>
-          <Data />
-        </ComponentRouter>
-      </div>
-    );
-  }
-});
-  ```
+```js
+// TODO
+```
 
 ### 4. Update your main components with links
 
-Note that <ComponentRouter> wrapper will provide `componentRouter` object to the props of container component.
-
-For now we will use only `namespace` and `Component`. First just passes namespace down, second should be rendered wherever we want to have our route handler component.
-
-
-We will also use `Url` component provided by `component-router` to render dynamic links (they will be updated when any of ComponentRouter blocks changes its state.
-
-  ```js
-import {Url} from 'component-router';
-
-const Chart = React.createClass({
-  render() {
-    const {namespace, Component} = this.props.componentRouter;
-    return (
-      <div>
-        <h2>Chart</h2>
-        <Url query={{[namespace]: 'bar'}}>Bar</Url>
-        <Url query={{[namespace]: 'pie'}}>Pie</Url>
-        <Component />
-      </div>
-    );
-  }
-});
-
-
-const Filter = React.createClass({
-  render() {
-    const {namespace, Component} = this.props.componentRouter;
-    return (
-      <div>
-        <h2>Filter</h2>
-        <Url query={{[namespace]: 'opened'}}>Open</Url>
-        <Url query={{[namespace]: 'closed'}}>Close</Url>
-        <Component />
-      </div>
-    );
-  }
-});
-
-
-const Data = React.createClass({
-  render() {
-    const {namespace, Component} = this.props.componentRouter;
-    return (
-      <div>
-        <h2>Data</h2>
-        <Url query={{[namespace]: 'sources'}}>Sources</Url>
-        <Url query={{[namespace]: 'destinations'}}>Destinations</Url>
-        <Component />
-      </div>
-    );
-  }
-});
-  ```
+```js
+// TODO
+```
 
 ### 5. PROFIT
 
-  Compile your code, the routing is now completed.
+Compile your code, the routing is now completed.
 
 
-  ![Quickstart.gif](./src/example/quickstart.gif)
+![Quickstart.gif](quickstart.gif)
 
-  **NOTE** href changes, so we can open link in new tab.
+**NOTE** href changes, so we can open link in new tab.
 
 
-  You can see the full QuickStart example on Demo page http://in-flux.github.io/component-router/example/#/?page=quickstart.
+You can see the full QuickStart example on Demo page http://in-flux.github.io/component-router/#/?page=quickstart.
+
 
 ## Development and testing
 
-Currently is being developed and tested with the latest stable `Node 6` on `OSX` and `Windows`.
+Currently is being developed and tested with the latest stable `Node 7` on `OSX`.
 
-To run example covering all `ComponentRouter` features, use `npm start dev`, which will compile `src/example/Example.js`
+To run example covering all `ComponentRouter` features, use `npm start dev`, which will compile `example/Example.js`
 
 ```bash
 git clone git@github.com:in-flux/component-router.git
