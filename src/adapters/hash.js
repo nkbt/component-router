@@ -1,6 +1,6 @@
-import {createHashHistory as createHistory} from 'history';
+import {createHashHistory} from 'history';
 import {location} from './../location';
 import {LOCATION_HASH} from './../constants';
 
 
-export const locationHash = location(createHistory, LOCATION_HASH);
+export const locationHash = location(createHashHistory, LOCATION_HASH);

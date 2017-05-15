@@ -22,7 +22,7 @@ export const location = (createHistory, type) => ({
   store, namespace = 'componentRouter', debounceTimeout = 50
 }) => {
   const history = createHistory();
-  const initialLocation = history.getCurrentLocation();
+  const initialLocation = history.location;
 
 
   let prevQuery = searchToQuery(initialLocation.search);
@@ -69,7 +69,7 @@ export const location = (createHistory, type) => ({
   };
 
 
-  maybeRestoreLocation(history.getCurrentLocation());
+  maybeRestoreLocation(history.location);
 
 
   const historyUnsubscribe = history.listen(maybeRestoreLocation);
