@@ -59,6 +59,19 @@ As you can see each of these blocks has its own independent navigation and, for 
 Key feature is to update all links on the page if any of visible blocks changed its state. If lets all links to stay links, so it is possible to open link in a new tab, for instance. It is fixed by ComponentRouter.
 
 
+# Minimal example
+
+
+![Minimal example](minimal.gif)
+
+
+# Better example
+
+**NOTE** href changes, so we can open link in new tab.
+
+![Better example](moar.gif)
+
+
 ## Installation
 
 ### NPM
@@ -94,60 +107,9 @@ to debug router in Codepen's Editor mode, but completely possible in Debug mode:
 [http://s.codepen.io/nkbt/debug/BNXamG] (http://s.codepen.io/nkbt/debug/BNXamG)
 
 
-## Minimal Example
+## Usage
 
-```js
-// TODO
-```
-
-![foobar.gif](foobar.gif)
-
-You can see the Minimal example on demo page http://in-flux.github.io/component-router/#/?page=foobar.
-
-
-## Quick-start
-
-Quick-start is a step-by-step walk-through to implement UI based on ASCII example from above.
-
-### 1. Add App and main blocks: Chart, Filter, Data
-
-```js
-// TODO
-```
-
-### 2. Add second-level blocks (not yet used for now)
-
-```js
-// TODO
-```
-
-### 3. Add ComponentRouter
-
-Wrap each main component, give it a namespace and config
-
-Also render Location provider (locationHistory for History-API links or locationHash for hash-links).
-
-```js
-// TODO
-```
-
-### 4. Update your main components with links
-
-```js
-// TODO
-```
-
-### 5. PROFIT
-
-Compile your code, the routing is now completed.
-
-
-![Quickstart.gif](quickstart.gif)
-
-**NOTE** href changes, so we can open link in new tab.
-
-
-You can see the full QuickStart example on Demo page http://in-flux.github.io/component-router/#/?page=quickstart.
+See [example/App/index.js](example/App/index.js)
 
 
 ## Development and testing
