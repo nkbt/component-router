@@ -1,6 +1,6 @@
 # component-router [![npm](https://img.shields.io/npm/v/component-router.svg?style=flat-square)](https://www.npmjs.com/package/component-router)
 
-Flux-based routing solution for components
+Redux-based routing solution for components
 
 [![Gitter](https://img.shields.io/gitter/room/nkbt/help.svg?style=flat-square)](https://gitter.im/nkbt/help)
 [![Build](https://img.shields.io/circleci/project/in-flux/component-router.svg?style=flat-square)](https://circleci.com/gh/in-flux/component-router)
@@ -52,7 +52,7 @@ Here is an example of such interface.
 As you can see each of these blocks has its own independent navigation and, for example, Filter can be closed or opened independently from currently displayed Chart type or Data tab selected.
 
 1. We can always keep the state of each block, but you will loose that state on page refresh.
-2. We can keep their states in some specialized Flux Store and cache in `localStorage` or even user settings in database on the server. But we are losing ability to share this page with someone else (unless we have some special "copy/paste state" functionality)
+2. We can keep their states in some specialized Redux Store and cache in `localStorage` or even user settings in database on the server. But we are losing ability to share this page with someone else (unless we have some special "copy/paste state" functionality)
 3. At last we can keep state of each component in the URL as query parameter, which solves both problems.
   Current URL will be: `/app?chart=bar&filter=opened&data=sources`
 

@@ -24,7 +24,7 @@
   "keywords": [
     "component",
     "react-component",
-    "flux-component",
+    "redux-component",
     "react",
     "component router",
     "redux router",
