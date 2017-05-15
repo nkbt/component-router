@@ -1,13 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {locationHistory as location, actions, href, isActive} from '../../src';
+import {locationHistory, locationHash, actions, href, isActive} from '../../src';
 import {createStore} from './store';
 
 
 const store = createStore();
 
 
-location({store, namespace: 'componentRouter'});
+if (process.env.HISTORY === 'HASH') {
+  // When publishing to GitHub Pages we cannon use HTML5 history navigation
+  locationHash({store, namespace: 'componentRouter'});
+} else {
+  locationHistory({store, namespace: 'componentRouter'});
+}
 
 
 const navigateTo = params => event => {

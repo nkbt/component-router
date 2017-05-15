@@ -1,21 +1,12 @@
 # component-router [![npm](https://img.shields.io/npm/v/component-router.svg?style=flat-square)](https://www.npmjs.com/package/component-router)
 
-[![Gitter](https://img.shields.io/gitter/room/nkbt/help.svg?style=flat-square)](https://gitter.im/nkbt/help)
+Flux-based routing solution for components
 
-[![CircleCI](https://img.shields.io/circleci/project/in-flux/component-router.svg?style=flat-square&label=nix-build)](https://circleci.com/gh/in-flux/component-router)
-[![AppVeyor](https://img.shields.io/appveyor/ci/nkbt/component-router.svg?style=flat-square&label=win-build)](https://ci.appveyor.com/project/nkbt/component-router)
+[![Gitter](https://img.shields.io/gitter/room/nkbt/help.svg?style=flat-square)](https://gitter.im/nkbt/help)
+[![Build](https://img.shields.io/circleci/project/in-flux/component-router.svg?style=flat-square)](https://circleci.com/gh/in-flux/component-router)
 [![Coverage](https://img.shields.io/codecov/c/github/in-flux/component-router.svg?style=flat-square)](https://codecov.io/github/in-flux/component-router?branch=master)
 [![Dependencies](https://img.shields.io/david/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router)
 [![Dev Dependencies](https://img.shields.io/david/dev/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router#info=devDependencies)
-
-
-Flux-based routing solution for components
-
-**Not a replacement for `react-router`.** Could be used as addition to it. Or standalone.
-
-**WARNING** Work in progress, though most of the functionality is there.
-
-See [issues](https://github.com/in-flux/component-router/issues) for more info on what is going to happen.
 
 
 ## Idea
@@ -80,6 +71,7 @@ Don't forget to manually install peer dependencies (`redux`, `history`, `qs`) if
 
 ### 1998 Script Tag:
 ```html
+<script src="https://unpkg.com/redux/dist/redux.min.js"></script>
 <script src="https://unpkg.com/qs/dist/qs.js"></script>
 <script src="https://unpkg.com/history/umd/history.min.js"></script>
 <script src="https://unpkg.com/component-router/build/component-router.min.js"></script>

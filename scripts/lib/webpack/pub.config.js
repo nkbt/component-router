@@ -2,6 +2,7 @@
 
 
 const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
+const webpack = require(`webpack`);
 
 const {
   pathTo,
@@ -22,10 +23,16 @@ module.exports = {
   },
   plugins: [
     plugins.define,
+    new webpack.DefinePlugin({
+      'process.env.HISTORY': JSON.stringify('HASH')
+    }),
     plugins.html,
     plugins.include([
-      `https://unpkg.com/react@15.5.4/dist/react.min.js`,
-      `https://unpkg.com/react-dom@15.5.4/dist/react-dom.min.js`,
+      `https://unpkg.com/react/dist/react.min.js`,
+      `https://unpkg.com/react-dom/dist/react-dom.min.js`,
+      `https://unpkg.com/redux/dist/redux.min.js`,
+      `https://unpkg.com/qs/dist/qs.js`,
+      `https://unpkg.com/history/umd/history.min.js`,
       `styles.css`
     ]),
     new ExtractTextPlugin(`styles.css`)
