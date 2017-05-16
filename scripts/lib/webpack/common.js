@@ -38,6 +38,7 @@ exports.loaders = {
     loader: `babel-loader`,
     include: [pathTo(`src`), pathTo(`example`)],
     options: {
+      babelrc: false,
       presets: [
         [`es2015`, {modules: false}],
         `react`
