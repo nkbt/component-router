@@ -15,7 +15,8 @@
   },
   "scripts": {
     "start": "./scripts/start.js",
-    "prepublish": "npm start -s build"
+    "prepublish": "npm start -s build",
+    "postversion": "git push --follow-tags"
   },
   "repository": {
     "type": "git",
