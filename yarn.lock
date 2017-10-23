@@ -1542,12 +1542,6 @@ commondir@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npmjs.org/commondir/-/commondir-1.0.1.tgz#ddd800da0c66127393cca5950ea968a3aaf1253b"
 
-component-router@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.npmjs.org/component-router/-/component-router-3.0.1.tgz#52c79ac95e27312d63bdf372c5682a35efb5c1d7"
-  dependencies:
-    shallow-equal "1.0.0"
-
 compressible@~2.0.11:
   version "2.0.12"
   resolved "https://registry.npmjs.org/compressible/-/compressible-2.0.12.tgz#c59a5c99db76767e9876500e271ef63b3493bd66"
@@ -5191,7 +5185,7 @@ sha.js@^2.4.0, sha.js@^2.4.8:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-shallow-equal@1.0.0, shallow-equal@^1.0.0:
+shallow-equal@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/shallow-equal/-/shallow-equal-1.0.0.tgz#508d1838b3de590ab8757b011b25e430900945f7"
 
