@@ -34,8 +34,8 @@ const bash = (cmd, options = {}) => {
 exports.bash = bash;
 
 
-const NPM_BIN = bash(`npm bin`, {
-  cwd: resolve(__dirname, `..`),
+const NPM_BIN = bash(`yarn bin`, {
+  cwd: resolve(__dirname, `..`, `..`),
   stdio: `pipe`
 });
 exports.NPM_BIN = NPM_BIN;
