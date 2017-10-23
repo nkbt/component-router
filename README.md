@@ -3,8 +3,7 @@
 Redux-based routing solution for components
 
 [![Gitter](https://img.shields.io/gitter/room/nkbt/help.svg?style=flat-square)](https://gitter.im/nkbt/help)
-[![Build](https://img.shields.io/circleci/project/in-flux/component-router.svg?style=flat-square)](https://circleci.com/gh/in-flux/component-router)
-[![Coverage](https://img.shields.io/codecov/c/github/in-flux/component-router.svg?style=flat-square)](https://codecov.io/github/in-flux/component-router?branch=master)
+[![CircleCI](https://img.shields.io/circleci/project/in-flux/component-router.svg?style=flat-square)](https://circleci.com/gh/in-flux/component-router)
 [![Dependencies](https://img.shields.io/david/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router)
 [![Dev Dependencies](https://img.shields.io/david/dev/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router#info=devDependencies)
 
@@ -75,6 +74,7 @@ Key feature is to update all links on the page if any of visible blocks changed 
 ## Installation
 
 ### NPM
+
 ```sh
 npm install --save redux history qs component-router
 ```
@@ -114,15 +114,15 @@ See [example/App/index.js](example/App/index.js)
 
 ## Development and testing
 
-Currently is being developed and tested with the latest stable `Node 7` on `OSX`.
+Currently is being developed and tested with the latest stable `Node 8` on `OSX`.
 
-To run example covering all `ComponentRouter` features, use `npm start dev`, which will compile `example/index.js`
+To run example covering all `ComponentRouter` features, use `yarn start`, which will compile `example/index.js`
 
 ```bash
 git clone git@github.com:in-flux/component-router.git
 cd component-router
-npm install
-npm start dev
+yarn install
+yarn start
 
 # then
 open http://localhost:8080
@@ -131,14 +131,17 @@ open http://localhost:8080
 ## Tests
 
 ```bash
-# to run tests
-npm start test
+# to run ESLint check
+yarn lint
 
-# to generate test coverage (./reports/coverage)
-npm start test.cov
+# to run tests
+yarn test
 
 # to run end-to-end tests
-npm start test.e2e
+# first, run `selenium/standalone-firefox:3.4.0` docker image
+docker run -p 4444:4444 selenium/standalone-firefox:3.4.0
+# then run test
+yarn e2e
 ```
 
 ## License

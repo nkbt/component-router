@@ -2,9 +2,7 @@
 'use strict';
 
 
-const {npm, CWD} = require(`./lib/bash`);
+const {npm, CWD} = require(`./utils/bash`);
 
 
-npm(`eslint .`, {
-  cwd: CWD
-});
+npm(`eslint .`, {cwd: CWD});

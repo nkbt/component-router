@@ -4,7 +4,7 @@
 
 const path = require(`path`);
 const {publish} = require(`gh-pages`);
-const {CWD} = require(`./lib/bash`);
+const {CWD} = require(`./utils/bash`);
 
 
 require(`./pub`);

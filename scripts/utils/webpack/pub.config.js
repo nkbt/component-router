@@ -1,8 +1,8 @@
 'use strict';
 
 
-const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
 const webpack = require(`webpack`);
+const ExtractTextPlugin = require(`extract-text-webpack-plugin`);
 
 const {
   pathTo,
@@ -10,7 +10,8 @@ const {
   loaders,
   resolve,
   stats,
-  externals
+  externals,
+  INCLUDE_JS
 } = require(`./common`);
 
 
@@ -22,19 +23,12 @@ module.exports = {
     path: pathTo(`pub`)
   },
   plugins: [
-    plugins.define,
     new webpack.DefinePlugin({
       'process.env.HISTORY': JSON.stringify('HASH')
     }),
+    plugins.define,
     plugins.html,
-    plugins.include([
-      `https://unpkg.com/react/dist/react.min.js`,
-      `https://unpkg.com/react-dom/dist/react-dom.min.js`,
-      `https://unpkg.com/redux/dist/redux.min.js`,
-      `https://unpkg.com/qs/dist/qs.js`,
-      `https://unpkg.com/history/umd/history.min.js`,
-      `styles.css`
-    ]),
+    plugins.include(INCLUDE_JS.concat([`styles.css`])),
     new ExtractTextPlugin(`styles.css`)
   ],
   module: {

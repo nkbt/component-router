@@ -5,6 +5,9 @@ const webpack = require(`webpack`);
 const HtmlWebpackPlugin = require(`html-webpack-plugin`);
 const HtmlWebpackIncludeAssetsPlugin = require(`html-webpack-include-assets-plugin`);
 const path = require(`path`);
+const BabiliPlugin = require(`babili-webpack-plugin`);
+
+
 const {NODE_ENV = `development`} = process.env;
 
 
@@ -15,16 +18,28 @@ exports.pathTo = pathTo;
 const {
   config: {
     component: COMPONENT_NAME,
-    externals: COMPONENT_EXTERNALS
-  }, name: PACKAGE_NAME
+    externals: COMPONENT_EXTERNALS = {
+      [`react`]: `React`,
+      [`react-dom`]: `ReactDOM`
+    },
+    include: INCLUDE_JS = [
+      `https://unpkg.com/react@16.0.0/umd/react.production.min.js`,
+      `https://unpkg.com/react-dom@16.0.0/umd/react-dom.production.min.js`
+    ]
+  },
+  name: PACKAGE_NAME
 } = require(pathTo(`package.json`));
 exports.PACKAGE_NAME = PACKAGE_NAME;
 exports.COMPONENT_NAME = COMPONENT_NAME;
+exports.INCLUDE_JS = INCLUDE_JS;
 
 
 if (!COMPONENT_NAME) {
   throw Error(`<package.json>.config.component name is required`);
 }
+
+
+exports.PACKAGE_NAME = PACKAGE_NAME;
 
 
 exports.loaders = {
@@ -40,8 +55,8 @@ exports.loaders = {
     options: {
       babelrc: false,
       presets: [
-        [`es2015`, {modules: false}],
-        `react`
+        `react`,
+        [`env`, {modules: false}]
       ],
       plugins: [
         `transform-object-rest-spread`,
@@ -59,12 +74,17 @@ exports.loaders = {
 };
 
 
+const babiliPlugin = new BabiliPlugin({
+  mergeVars: false
+}, {sourceMap: false});
+
+
 exports.plugins = {
   define: new webpack.DefinePlugin({
     'process.env.NODE_ENV': JSON.stringify(NODE_ENV)
   }),
   html: new HtmlWebpackPlugin(),
-  uglify: new webpack.optimize.UglifyJsPlugin(),
+  uglify: babiliPlugin,
   include: assets => new HtmlWebpackIncludeAssetsPlugin({
     assets,
     append: false
@@ -75,9 +95,7 @@ exports.plugins = {
 };
 
 
-exports.resolve = {
-  extensions: [`.js`]
-};
+exports.resolve = {};
 
 
 exports.stats = {colors: true};
