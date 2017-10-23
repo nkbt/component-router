@@ -31,7 +31,7 @@
     "lint": "scripts/lint.js",
     "pub": "scripts/pub.js",
     "test": "scripts/test.js",
-    "prepublish": "yarn build",
+    "prepare": "scripts/build.js",
     "postversion": "git push --follow-tags",
     "nuke": "rm -rf node_modules yarn.lock",
     "postnuke": "yarn install"
