@@ -14,15 +14,21 @@ test('componentRouter', t => {
 
 
 test('componentRouter / Init', t => {
-  t.deepEqual(componentRouter(undefined, {}).query, {},
-    'should initialize with empty query');
+  t.deepEqual(
+    componentRouter(undefined, {}).query, {},
+    'should initialize with empty query'
+  );
 
-  t.deepEqual(componentRouter(undefined, {}).query, {},
-    'should initialize with empty cleanQuery');
+  t.deepEqual(
+    componentRouter(undefined, {}).query, {},
+    'should initialize with empty cleanQuery'
+  );
 
 
-  t.deepEqual(componentRouter(undefined, {}).defaultParams, {},
-    'should initialize with empty defaultParams');
+  t.deepEqual(
+    componentRouter(undefined, {}).defaultParams, {},
+    'should initialize with empty defaultParams'
+  );
 
   t.end();
 });
@@ -32,18 +38,22 @@ test('componentRouter / Restore location', t => {
   t.deepEqual(
     restoreLocation(initialState, {query: {world: '123', name: 'barry'}}).query,
     {world: '123', name: 'barry'},
-    'should restore query from location');
+    'should restore query from location'
+  );
 
   t.deepEqual(
     Object.keys(restoreLocation(initialState, {query: {world: '123', name: 'barry'}}).query),
     ['name', 'world'],
-    'should sort query params alphabetically when restoring location');
+    'should sort query params alphabetically when restoring location'
+  );
 
   const state = restoreLocation(initialState, {query: {world: '123', name: 'barry'}});
 
-  t.deepEqual(restoreLocation(state, {query: {something: 'else'}}).query,
+  t.deepEqual(
+    restoreLocation(state, {query: {something: 'else'}}).query,
     {something: 'else'},
-    'should override query upon restore');
+    'should override query upon restore'
+  );
 
   t.end();
 });
@@ -69,13 +79,17 @@ test('componentRouter / Default params', t => {
     return state;
   };
 
-  t.deepEqual(prepare().defaultParams,
+  t.deepEqual(
+    prepare().defaultParams,
     {y: '10', z: '100'},
-    'should add default params');
+    'should add default params'
+  );
 
-  t.deepEqual(prepare().query,
+  t.deepEqual(
+    prepare().query,
     {x: '1', y: '10', z: '100'},
-    'should merge current query with default params');
+    'should merge current query with default params'
+  );
 
   t.deepEqual(
     componentRouter(prepare(), {
@@ -84,7 +98,8 @@ test('componentRouter / Default params', t => {
       value: 123
     }).query,
     {x: '1', y: '10', z: '100'},
-    'should not override existing query param with default one');
+    'should not override existing query param with default one'
+  );
 
   t.deepEqual(
     Object.keys(componentRouter(prepare(), {
@@ -93,7 +108,8 @@ test('componentRouter / Default params', t => {
       value: 0
     }).query),
     ['a', 'x', 'y', 'z'],
-    'should sort query params when adding default ones');
+    'should sort query params when adding default ones'
+  );
 
   t.end();
 });
@@ -117,21 +133,24 @@ test('componentRouter / Remove param', t => {
   t.deepEqual(
     componentRouter(prepare(), {type: REMOVE_PARAM, namespace: 'x'}).query,
     {y: '10', z: '100'},
-    'should remove param from query');
+    'should remove param from query'
+  );
 
   t.deepEqual(
     componentRouter(prepare(), {
       type: REMOVE_PARAM, namespace: 'z'
     }).defaultParams,
     {},
-    'should remove param from default params');
+    'should remove param from default params'
+  );
 
   t.deepEqual(
     Object.keys(componentRouter(prepare(), {
       type: REMOVE_PARAM, namespace: 'x'
     }).query),
     ['y', 'z'],
-    'should keep query sorted upon removal');
+    'should keep query sorted upon removal'
+  );
 
   t.end();
 });
@@ -147,19 +166,22 @@ test('componentRouter / Navigate to', t => {
   t.deepEqual(
     componentRouter(prepare(), {type: NAVIGATE_TO, query: {x: 0}}).query,
     {x: '0', y: '2'},
-    'should merge query params');
+    'should merge query params'
+  );
 
   t.deepEqual(
     componentRouter(prepare(), {type: NAVIGATE_TO, query: {y: 10}}).query,
     {y: '10'},
-    'should override existing query params');
+    'should override existing query params'
+  );
 
   t.deepEqual(
     Object.keys(componentRouter(prepare(), {
       type: NAVIGATE_TO, query: {x: 0, a: 'a'}
     }).query),
     ['a', 'x', 'y'],
-    'should sort query params');
+    'should sort query params'
+  );
 
   t.end();
 });
