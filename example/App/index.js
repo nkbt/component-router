@@ -28,35 +28,40 @@ const GlobalLinks = ({routingState}) => (
         className="tab"
         data-active={isActive(routingState, {pathname: '/'})}
         href={href(routingState, {pathname: '/'})}
-        onClick={navigateTo({pathname: '/'})}>Home</a>
+        onClick={navigateTo({pathname: '/'})}>Home
+      </a>
     </li>
     <li>
       <a
         className="tab"
         data-active={isActive(routingState, {pathname: '/foo'})}
         href={href(routingState, {pathname: '/foo'})}
-        onClick={navigateTo({pathname: '/foo'})}>/foo</a>
+        onClick={navigateTo({pathname: '/foo'})}>/foo
+      </a>
     </li>
     <li>
       <a
         className="tab"
         data-active={isActive(routingState, {pathname: '/bar'})}
         href={href(routingState, {pathname: '/bar'})}
-        onClick={navigateTo({pathname: '/bar'})}>/bar</a>
+        onClick={navigateTo({pathname: '/bar'})}>/bar
+      </a>
     </li>
     <li>
       <a
         className="tab"
         data-active={isActive(routingState, {pathname: '/cleanHistory'})}
         href={href(routingState, {pathname: '/cleanHistory'})}
-        onClick={navigateTo({pathname: '/cleanHistory'})}>/cleanHistory</a>
+        onClick={navigateTo({pathname: '/cleanHistory'})}>/cleanHistory
+      </a>
     </li>
     <li>
       <a
         className="tab"
         data-active={isActive(routingState, {pathname: '/404'})}
         href={href(routingState, {pathname: '/404'})}
-        onClick={navigateTo({pathname: '/404'})}>/404</a>
+        onClick={navigateTo({pathname: '/404'})}>/404
+      </a>
     </li>
   </ul>
 );
@@ -90,12 +95,14 @@ class ComponentLinks extends React.Component {
           className="link"
           data-active={isActive(routingState, {query: {component: 'bla'}})}
           href={href(routingState, {query: {component: 'bla'}})}
-          onClick={navigateTo({query: {component: 'bla'}})}>component: bla</a>
+          onClick={navigateTo({query: {component: 'bla'}})}>component: bla
+        </a>
         <a
           className="link"
           data-active={isActive(routingState, {query: {component: 'baz'}})}
           href={href(routingState, {query: {component: 'baz'}})}
-          onClick={navigateTo({query: {component: 'baz'}})}>component: baz</a>
+          onClick={navigateTo({query: {component: 'baz'}})}>component: baz
+        </a>
       </span>
 
     );

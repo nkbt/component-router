@@ -2,15 +2,17 @@
 
 
 const {
+  mode,
   pathTo,
   plugins,
   loaders,
   resolve,
   stats
-} = require(`./common`);
+} = require('./common');
 
 
 module.exports = {
+  mode,
   devtool: `#source-map`,
 
   entry: [
@@ -22,8 +24,7 @@ module.exports = {
     path: pathTo(`dev`)
   },
   plugins: [
-    plugins.html,
-    plugins.define
+    plugins.html
   ],
   module: {
     rules: [

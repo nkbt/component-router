@@ -2,18 +2,19 @@
 
 
 const {
+  mode,
   pathTo,
   PACKAGE_NAME,
   COMPONENT_NAME,
-  plugins,
   loaders,
   resolve,
   stats,
   externals
-} = require(`./common`);
+} = require('./common');
 
 
 module.exports = {
+  mode,
   devtool: false,
   entry: pathTo(`src`, `index.js`),
   output: {
@@ -22,12 +23,12 @@ module.exports = {
     library: COMPONENT_NAME,
     libraryTarget: `umd`
   },
-  plugins: [
-    plugins.define
-  ],
+  optimization: {
+    minimize: false
+  },
   module: {
     rules: [
-      loaders.babel
+      loaders.babelProd
     ]
   },
   resolve,

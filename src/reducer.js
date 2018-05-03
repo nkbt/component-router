@@ -113,8 +113,12 @@ export const removeParam = (state, {namespace}) => {
 };
 
 
-export const restoreLocation = (state,
-  {pathname, query, hash, locationType = LOCATION_HISTORY}) => {
+export const restoreLocation = (
+  state,
+  {
+    pathname, query, hash, locationType = LOCATION_HISTORY
+  }
+) => {
   const {defaultParams} = state;
 
   const newQuery = sortedObject({

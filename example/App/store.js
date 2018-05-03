@@ -11,14 +11,12 @@ const factory = initialState => {
   });
 
   const devTools = typeof window !== 'undefined' && window.devToolsExtension;
-  const middleware = applyMiddleware(
-    createLogger({
-      level: 'info',
-      collapsed: true,
-      timestamp: false,
-      duration: true
-    })
-  );
+  const middleware = applyMiddleware(createLogger({
+    level: 'info',
+    collapsed: true,
+    timestamp: false,
+    duration: true
+  }));
 
   if (!devTools) {
     return createReduxStore(rootReducer, initialState, middleware);
