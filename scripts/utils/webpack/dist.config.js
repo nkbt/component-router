@@ -1,6 +1,5 @@
 'use strict';
 
-
 const {
   mode,
   pathTo,
@@ -16,12 +15,12 @@ const {
 module.exports = {
   mode,
   devtool: false,
-  entry: pathTo(`src`, `index.js`),
+  entry: pathTo('src', 'index.js'),
   output: {
     filename: `${PACKAGE_NAME}.js`,
-    path: pathTo(`build`),
+    path: pathTo('build'),
     library: COMPONENT_NAME,
-    libraryTarget: `umd`
+    libraryTarget: 'umd'
   },
   optimization: {
     minimize: false

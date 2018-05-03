@@ -34,7 +34,8 @@
     "prepare": "scripts/build.js",
     "postversion": "git push --follow-tags",
     "nuke": "rm -rf node_modules yarn.lock",
-    "postnuke": "yarn install"
+    "postnuke": "yarn install",
+    "babelHelpers": "babel-external-helpers --whitelist defineProperty,extends,objectWithoutProperties,slicedToArray --output-type global > scripts/utils/webpack/babelHelpers.js"
   },
   "repository": {
     "type": "git",
@@ -72,6 +73,7 @@
     "babel-core": "^6.26.3",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.1",
+    "babel-plugin-external-helpers": "^6.22.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-plugin-transform-object-rest-spread": "^6.23.0",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.8",

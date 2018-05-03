@@ -1,3 +1,5 @@
+import '../scripts/utils/webpack/babelHelpers';
+
 import {
   navigateTo,
   restoreLocation,
