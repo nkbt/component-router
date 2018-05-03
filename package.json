@@ -62,7 +62,7 @@
   "peerDependencies": {
     "history": "^4",
     "qs": "^6",
-    "redux": "^3"
+    "redux": "^3 || ^4"
   },
   "dependencies": {
     "shallow-equal": "^1.0.0"
