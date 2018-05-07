@@ -17,7 +17,7 @@ const {
 module.exports = {
   mode,
   devtool: false,
-  entry: `${__dirname}/dist.js`,
+  entry: pathTo('src', 'index.js'),
   output: {
     filename: `${PACKAGE_NAME}.min.js`,
     path: pathTo('build'),

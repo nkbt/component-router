@@ -68,7 +68,6 @@ exports.loaders = {
       babelrc: false,
       presets: ['react', ['env', {modules: false}]],
       plugins: [
-        'external-helpers',
         'transform-object-rest-spread',
         'transform-class-properties',
         ['transform-react-remove-prop-types', {removeImport: true}]
