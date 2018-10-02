@@ -17,19 +17,19 @@ test('Utils / router / parseRoute', t => {
 
   t.deepEquals(
     parseRoute('/dossier'),
-    {route: '/dossier', regex: '^/dossier$', params: {}},
+    {route: '/dossier', regex: '^/dossier/*$', params: {}},
     'should parse static route /dossier'
   );
 
   t.deepEquals(
     parseRoute('/some/very/deep/url'),
-    {route: '/some/very/deep/url', regex: '^/some/very/deep/url$', params: {}},
+    {route: '/some/very/deep/url', regex: '^/some/very/deep/url/*$', params: {}},
     'should parse deep static route /some/very/deep/url'
   );
 
   t.deepEquals(
     parseRoute('/dossier/:host'),
-    {route: '/dossier/:host', regex: '^/dossier/([^/]+)$', params: {host: null}},
+    {route: '/dossier/:host', regex: '^/dossier/([^/]+)/*$', params: {host: null}},
     'should parse route with param /dossier/:host'
   );
 
@@ -37,7 +37,7 @@ test('Utils / router / parseRoute', t => {
     parseRoute('/dossier/:host/:somethingElse'),
     {
       route: '/dossier/:host/:somethingElse',
-      regex: '^/dossier/([^/]+)/([^/]+)$',
+      regex: '^/dossier/([^/]+)/([^/]+)/*$',
       params: {host: null, somethingElse: null}
     },
     'should parse route with multiple params /dossier/:host/:somethingElse'
@@ -47,7 +47,7 @@ test('Utils / router / parseRoute', t => {
     parseRoute('/I-am-dashed/:with~tilde/o\\uch'),
     {
       route: '/I-am-dashed/:with~tilde/o\\uch',
-      regex: '^/I-am-dashed/([^/]+)/o\\\\uch$',
+      regex: '^/I-am-dashed/([^/]+)/o\\\\uch/*$',
       params: {'with~tilde': null}
     },
     'should parse route with awkward parts /I-am-dashed/:with~tilde/o\\uch'
