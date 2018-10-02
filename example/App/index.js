@@ -63,6 +63,30 @@ const GlobalLinks = ({routingState}) => (
         onClick={navigateTo({pathname: '/404'})}>/404
       </a>
     </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/bar/x/z'})}
+        href={href(routingState, {pathname: '/bar/x/z'})}
+        onClick={navigateTo({pathname: '/bar/x/z'})}>/bar/x/z
+      </a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/foo/x/z'})}
+        href={href(routingState, {pathname: '/foo/x/z'})}
+        onClick={navigateTo({pathname: '/foo/x/z'})}>/foo/x/z
+      </a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/foo/x/z/more'})}
+        href={href(routingState, {pathname: '/foo/x/z/more'})}
+        onClick={navigateTo({pathname: '/foo/x/z/more'})}>/foo/x/z/more
+      </a>
+    </li>
   </ul>
 );
 GlobalLinks.propTypes = {
@@ -201,10 +225,14 @@ const NotFound = () => (
 );
 
 
+// First matching route wins, so they should be ordered
+// from the most specific to the least specific in case of overlap
 const routes = {
   '/': Home,
-  '/foo': Foo,
-  '/bar': Bar,
+  '/foo/:*/:something/more': Foo,
+  '/foo/:*/:something': Foo,
+  '/foo/:*': Foo,
+  '/bar/:*': Bar,
   '/cleanHistory': CleanHistory
 };
 
