@@ -225,6 +225,8 @@ const NotFound = () => (
 );
 
 
+// First matching route wins, so they should be ordered
+// from the most specific to the least specific in case of overlap
 const routes = {
   '/': Home,
   '/foo/:*/:something/more': Foo,
