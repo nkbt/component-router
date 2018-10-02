@@ -87,6 +87,14 @@ const GlobalLinks = ({routingState}) => (
         onClick={navigateTo({pathname: '/foo/x/z/more'})}>/foo/x/z/more
       </a>
     </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/foo/'})}
+        href={href(routingState, {pathname: '/foo/'})}
+        onClick={navigateTo({pathname: '/foo/'})}>/foo/
+      </a>
+    </li>
   </ul>
 );
 GlobalLinks.propTypes = {
@@ -128,7 +136,6 @@ class ComponentLinks extends React.Component {
           onClick={navigateTo({query: {component: 'baz'}})}>component: baz
         </a>
       </span>
-
     );
   }
 }
@@ -229,6 +236,7 @@ const NotFound = () => (
 // from the most specific to the least specific in case of overlap
 const routes = {
   '/': Home,
+  '/foo': Foo,
   '/foo/:*/:something/more': Foo,
   '/foo/:*/:something': Foo,
   '/foo/:*': Foo,
