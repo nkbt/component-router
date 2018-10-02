@@ -63,6 +63,22 @@ const GlobalLinks = ({routingState}) => (
         onClick={navigateTo({pathname: '/404'})}>/404
       </a>
     </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/bar/x/z'})}
+        href={href(routingState, {pathname: '/bar/x/z'})}
+        onClick={navigateTo({pathname: '/bar/x/z'})}>/bar/x/z
+      </a>
+    </li>
+    <li>
+      <a
+        className="tab"
+        data-active={isActive(routingState, {pathname: '/foo/x/z'})}
+        href={href(routingState, {pathname: '/foo/x/z'})}
+        onClick={navigateTo({pathname: '/foo/x/z'})}>/foo/x/z
+      </a>
+    </li>
   </ul>
 );
 GlobalLinks.propTypes = {
@@ -203,8 +219,8 @@ const NotFound = () => (
 
 const routes = {
   '/': Home,
-  '/foo': Foo,
-  '/bar': Bar,
+  '/foo/:*/:something': Foo,
+  '/bar/:*': Bar,
   '/cleanHistory': CleanHistory
 };
 

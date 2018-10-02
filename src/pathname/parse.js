@@ -15,6 +15,12 @@ export const parseRoute = (route = '/') => {
   }
 
   const parsedRoute = parts.reduce(({regex, params}, part) => {
+    if (part === ':*') {
+      return {
+        regex: regex.concat('(.*)'),
+        params: {...params, [part.substr(1)]: null}
+      };
+    }
     if (part.substr(0, 1) === ':') {
       return {
         regex: regex.concat('/([^/]+)'),
