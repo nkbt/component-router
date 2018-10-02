@@ -45,5 +45,18 @@ test('Utils / router / renderRoute', t => {
     'should throw on missing param'
   );
 
+  // TODO: make sure we can have symmetric two way parse <-> render, without extra encoding
+  t.equals(
+    renderRoute('/foo/:*/:something/more')({something: 123, '*': '/many/slashes/'}),
+    '/foo/%2Fmany%2Fslashes%2F/123/more',
+    'should render route /foo/:*/:something/more as /foo/%2Fmany%2Fslashes%2F/123/more'
+  );
+
+  t.throws(
+    () => renderRoute('/foo/:*/:something/more')({something: 123}),
+    'Param :* is not specified',
+    'should throw on missing param'
+  );
+
   t.end();
 });

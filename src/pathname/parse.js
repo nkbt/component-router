@@ -14,10 +14,18 @@ export const parseRoute = (route = '/') => {
     return defaultRoute;
   }
 
-  const parsedRoute = parts.reduce(({regex, params}, part) => {
+  const parsedRoute = parts.reduce(({regex, params}, part, i) => {
     if (part === ':*') {
+      // if `/:*` is the last part, do not require leading `/`
+      // so `/bar/:*` would match both `/bar` and `/bar/`
+      if (i === parts.length - 1) {
+        return {
+          regex: regex.concat('(.*)'),
+          params: {...params, [part.substr(1)]: null}
+        };
+      }
       return {
-        regex: regex.concat('(.*)'),
+        regex: regex.concat('(/.*)'),
         params: {...params, [part.substr(1)]: null}
       };
     }
@@ -36,7 +44,7 @@ export const parseRoute = (route = '/') => {
 
   return {
     route,
-    regex: `^${parsedRoute.regex}$`,
+    regex: `^${parsedRoute.regex}/*$`,
     params: parsedRoute.params
   };
 };
