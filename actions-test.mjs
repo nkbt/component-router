@@ -1,11 +1,13 @@
 import test from 'tape';
-import * as actions from '../src/actions';
-import {
+import * as actions from './actions';
+
+
+const {
   ADD_DEFAULT_PARAM,
   REMOVE_PARAM,
   NAVIGATE_TO,
   RESTORE_LOCATION
-} from '../src/constants';
+} = actions;
 
 
 test('actions', t => {

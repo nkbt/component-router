@@ -1,5 +1,5 @@
 import test from 'tape';
-import sortedObject from '../src/sortedObject';
+import sortedObject from './sortedObject';
 
 
 test('sortedObject', t => {

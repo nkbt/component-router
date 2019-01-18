@@ -1,11 +1,13 @@
 import test from 'tape';
-import {initialState, restoreLocation, componentRouter, href, isActive} from '../src/reducer';
+import {
+  initialState, restoreLocation, componentRouter, href, isActive
+} from './reducer';
 import {
   ADD_DEFAULT_PARAM,
   REMOVE_PARAM,
   NAVIGATE_TO,
   RESTORE_LOCATION
-} from '../src/constants';
+} from './actions';
 
 test('componentRouter', t => {
   t.ok(componentRouter instanceof Function, 'should be function');

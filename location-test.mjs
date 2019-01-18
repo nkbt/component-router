@@ -1,5 +1,5 @@
 import test from 'tape';
-import {location} from '../src/location';
+import {location} from './location';
 
 
 test('location', t => {
