@@ -1,41 +1,20 @@
-version: 2
-
-
+version: 2.1
 jobs:
   build:
-    working_directory: ~/app
     docker:
-      - image: circleci/node:8.11.1
-
-
+      - image: circleci/node:10.15.0
+    working_directory: ~/app
     steps:
       - checkout
-
-
       - restore_cache:
           key: deps-{{ checksum "yarn.lock" }}
-
-
       - run: yarn install --pure-lockfile --offline
-
-
       - save_cache:
           key: deps-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-
-
       - run: yarn lint
-
-
       - run: yarn test
-
-
       - run: yarn depcheck
-
-
+      - run: yarn pub
       - run: yarn e2e
-          name: yarn e2e
-          command: |
-            yarn pub
-            yarn e2e
