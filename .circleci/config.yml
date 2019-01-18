@@ -6,7 +6,7 @@ jobs:
     working_directory: ~/app
     docker:
       - image: circleci/node:8.11.1
-      - image: selenium/standalone-firefox:3.4.0
+
 
     steps:
       - checkout
@@ -34,8 +34,8 @@ jobs:
       - run: yarn depcheck
 
 
-      - run:
+      - run: yarn e2e
           name: yarn e2e
           command: |
-            export DOCKER_IP=$(ifconfig | grep "inet addr:" | grep "Bcast:0.0.0.0" | cut -d: -f2 | awk '{ print $1}')
+            yarn pub
             yarn e2e
