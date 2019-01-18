@@ -1,6 +1,4 @@
 /node_modules/
 /build/
-/lib/
 /pub/
 /reports/
-/scripts/utils/webpack/babelHelpers.js

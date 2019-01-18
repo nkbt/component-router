@@ -7,8 +7,8 @@ const nightwatch = require('nightwatch');
 const finalhandler = require('finalhandler');
 const http = require('http');
 const serveStatic = require('serve-static');
-const {CWD} = require('./utils/bash');
 const portfinder = require('portfinder');
+const {CWD} = require('./utils/bash');
 
 
 const {
@@ -53,8 +53,9 @@ const createServer = async ({cwd}) => {
 };
 
 
-const wait = func =>
-  new Promise((resolve, reject) => func((err, ...args) => err ? reject(err) : resolve(...args)));
+const wait = func => new Promise((resolve, reject) => func(
+  (err, ...args) => err ? reject(err) : resolve(...args)
+));
 
 
 const run = async ({cwd}) => {

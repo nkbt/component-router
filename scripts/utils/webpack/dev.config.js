@@ -1,6 +1,7 @@
 'use strict';
 
 
+const webpack = require('webpack');
 const {
   mode,
   pathTo,
@@ -16,7 +17,7 @@ module.exports = {
   devtool: '#source-map',
 
   entry: [
-    pathTo('example', 'index.js'),
+    pathTo('example', 'index.mjs'),
     'webpack-dev-server/client?http://localhost:8080'
   ],
   output: {
@@ -25,6 +26,7 @@ module.exports = {
     publicPath: '/'
   },
   plugins: [
+    new webpack.DefinePlugin({'process.env.HISTORY': '"HASH"'}),
     plugins.html
   ],
   module: {

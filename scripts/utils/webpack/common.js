@@ -44,34 +44,38 @@ exports.PACKAGE_NAME = PACKAGE_NAME;
 exports.loaders = {
   css: {
     test: /\.css$/,
-    loader: 'style-loader!css-loader',
-    include: [pathTo('src'), pathTo('example')]
+    use: [
+      {loader: require.resolve('style-loader')},
+      {loader: require.resolve('css-loader')}
+    ]
   },
   babel: {
-    test: /\.js$/,
-    loader: 'babel-loader',
-    include: [pathTo('src'), pathTo('example')],
+    test: /\.mjs$/,
+    loader: require.resolve('babel-loader'),
     options: {
       babelrc: false,
-      presets: ['react', ['env', {modules: false}]],
+      presets: [
+        require.resolve('@babel/preset-react'),
+        [require.resolve('@babel/preset-env'), {
+          targets: {browsers: ['defaults', 'not dead']},
+          modules: false,
+          loose: true
+        }]
+      ],
       plugins: [
-        'transform-object-rest-spread',
-        'transform-class-properties'
-      ]
-    }
-  },
-  babelProd: {
-    test: /\.js$/,
-    loader: 'babel-loader',
-    include: [pathTo('src'), pathTo('example')],
-    options: {
-      babelrc: false,
-      presets: ['react', ['env', {modules: false}]],
-      plugins: [
-        'transform-object-rest-spread',
-        'transform-class-properties',
-        ['transform-react-remove-prop-types', {removeImport: true}]
-      ]
+        require.resolve('@babel/plugin-proposal-object-rest-spread'),
+        require.resolve('@babel/plugin-proposal-class-properties')
+      ],
+      env: {
+        production: {
+          plugins: [
+            [
+              require.resolve('babel-plugin-transform-react-remove-prop-types'),
+              {removeImport: true}
+            ]
+          ]
+        }
+      }
     }
   }
 };

@@ -2,5 +2,4 @@
 'use strict';
 
 
-require('./lib');
 require('./dist');

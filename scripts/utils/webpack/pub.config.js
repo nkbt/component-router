@@ -2,8 +2,8 @@
 
 
 const webpack = require('webpack');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const autoprefixer = require('autoprefixer');
 const {
   pathTo,
   plugins,
@@ -18,7 +18,7 @@ const {
 module.exports = {
   mode: 'development',
   devtool: false,
-  entry: pathTo('example', 'index.js'),
+  entry: pathTo('example', 'index.mjs'),
   output: {
     filename: 'bundle.js',
     path: pathTo('pub')
@@ -27,22 +27,26 @@ module.exports = {
     minimize: false
   },
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.HISTORY': '"HASH"'
-    }),
+    new webpack.DefinePlugin({'process.env.HISTORY': '"HASH"'}),
     plugins.html,
     plugins.include(INCLUDE_JS.concat(['styles.css'])),
-    new ExtractTextPlugin('styles.css')
+    new MiniCssExtractPlugin({filename: 'styles.css'})
   ],
   module: {
     rules: [
       loaders.babel,
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: 'css-loader'
-        })
+        use: [
+          MiniCssExtractPlugin.loader,
+          {loader: require.resolve('css-loader')},
+          {
+            loader: require.resolve('postcss-loader'),
+            options: {
+              plugins: () => ([autoprefixer({browsers: ['defaults', 'not dead']})])
+            }
+          }
+        ]
       }
     ]
   },

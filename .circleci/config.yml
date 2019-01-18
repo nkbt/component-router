@@ -16,7 +16,7 @@ jobs:
           key: deps-{{ checksum "yarn.lock" }}
 
 
-      - run: yarn install --pure-lockfile
+      - run: yarn install --pure-lockfile --offline
 
 
       - save_cache:
@@ -29,6 +29,9 @@ jobs:
 
 
       - run: yarn test
+
+
+      - run: yarn depcheck
 
 
       - run:

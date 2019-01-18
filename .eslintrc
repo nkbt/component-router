@@ -1,6 +1,18 @@
 {
   "extends": "airbnb",
   "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [
+          ".mjs",
+          ".js",
+          ".jsx",
+          ".json"
+        ]
+      }
+    }
+  },
   "env": {
     "browser": true
   },
@@ -19,6 +31,7 @@
     "strict": 0,
     "global-require": 0,
     "lines-around-directive": [2, {"before": "never", "after": "always"}],
+    "import/extensions": [2, "ignorePackages", {"mjs": "never"}],
     "import/no-dynamic-require": 0,
     "import/prefer-default-export": 0,
     "import/no-extraneous-dependencies": 0,
@@ -30,12 +43,15 @@
     "jsx-a11y/label-has-for": 0,
     "jsx-a11y/click-events-have-key-events": 0,
     "react/forbid-prop-types": 0,
-    "react/jsx-filename-extension": [2, {"extensions": [".js"]}],
-    "react/jsx-closing-bracket-location": [2, {"nonEmpty": "after-props", "selfClosing": "after-props"}],
+    "react/jsx-filename-extension": [2, {"extensions": [".mjs"]}],
+    "react/jsx-closing-bracket-location": [
+      2,
+      {"nonEmpty": "after-props", "selfClosing": "after-props"}
+    ],
     "react/jsx-sort-props": 0,
     "react/no-multi-comp": 0,
     "react/prefer-es6-class": 2,
-    "react/no-array-index-key": 0
-
+    "react/no-array-index-key": 0,
+    "react/jsx-one-expression-per-line": 0
   }
 }

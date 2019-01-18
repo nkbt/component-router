@@ -2,11 +2,11 @@
 'use strict';
 
 
-const {npm, CWD} = require('./utils/bash');
+const {bash, CWD} = require('./utils/bash');
 
 
-npm('rimraf lib', {cwd: CWD});
-npm(`webpack --config ${require.resolve('./utils/webpack/pub.config.js')}`, {
+bash(`${require.resolve('rimraf/bin')} pub`, {cwd: CWD});
+bash(`${require.resolve('webpack-cli')} --config ${require.resolve('./utils/webpack/pub.config.js')}`, {
   cwd: CWD,
   env: {NODE_ENV: 'production'}
 });

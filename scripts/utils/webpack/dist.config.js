@@ -15,7 +15,7 @@ const {
 module.exports = {
   mode,
   devtool: false,
-  entry: pathTo('src', 'index.js'),
+  entry: pathTo('index.mjs'),
   output: {
     filename: `${PACKAGE_NAME}.js`,
     path: pathTo('build'),
@@ -27,7 +27,7 @@ module.exports = {
   },
   module: {
     rules: [
-      loaders.babelProd
+      loaders.babel
     ]
   },
   resolve,

@@ -2,7 +2,6 @@
 
 
 const {execSync} = require('child_process');
-const {resolve} = require('path');
 
 
 const {NODE_DEBUG = ''} = process.env;
@@ -33,19 +32,3 @@ const bash = (cmd, options = {}) => {
   return stringResult;
 };
 exports.bash = bash;
-
-
-const NPM_BIN = bash('yarn bin', {
-  cwd: resolve(__dirname, '..', '..'),
-  stdio: 'pipe'
-});
-exports.NPM_BIN = NPM_BIN;
-
-
-const npm = (cmd, options) => bash(`${NPM_BIN}/${cmd}`, options);
-exports.npm = npm;
-
-
-const rsync = (from, to, options) => bash(`rsync --quiet --archive ${from} ${to}`, options);
-exports.rsync = rsync;
-

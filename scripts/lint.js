@@ -2,6 +2,6 @@
 'use strict';
 
 
-const {npm, CWD} = require('./utils/bash');
+const {bash, CWD} = require('./utils/bash');
 
-npm(`eslint . ${process.argv.slice(2).join(' ')}`, {cwd: CWD});
+bash(`${require.resolve('eslint/bin/eslint')} . ${process.argv.slice(2).join(' ')}`, {cwd: CWD});
