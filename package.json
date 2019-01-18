@@ -103,11 +103,9 @@
     "/adapters/hash.mjs",
     "/adapters/history.mjs",
     "/adapters/node.mjs",
-
     "/pathname/match.mjs",
     "/pathname/render.mjs",
     "/pathname/parse.mjs",
-
     "/actions.mjs",
     "/codec.mjs",
     "/index.mjs",
@@ -115,7 +113,6 @@
     "/reducer.mjs",
     "/shallowEqual.mjs",
     "/sortedObject.mjs",
-
     "/build",
     "/LICENSE",
     "/package.json",

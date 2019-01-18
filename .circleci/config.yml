@@ -1,6 +1,6 @@
 version: 2.1
 jobs:
-  build:
+  install:
     docker:
       - image: circleci/node:10.15.0
     working_directory: ~/app
@@ -13,8 +13,69 @@ jobs:
           key: deps-{{ checksum "yarn.lock" }}
           paths:
             - node_modules
-      - run: yarn lint
+            - ~/.npm
+            - ~/.cache
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - app
+            - .npm
+            - .cache
+
+  test:
+    docker:
+      - image: circleci/node:10.15.0
+    working_directory: ~/app
+    steps:
+      - attach_workspace:
+          at: ~/
       - run: yarn test
-      - run: yarn depcheck
+
+
+  lint:
+    docker:
+      - image: circleci/node:10.15.0
+    working_directory: ~/app
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: yarn lint
+
+
+  depcheck:
+    docker:
+      - image: circleci/node:10.15.0
+    working_directory: ~/app
+    steps:
+      - attach_workspace:
+          at: ~/
+
+  e2e:
+    docker:
+      - image: cypress/base:10
+    working_directory: ~/app
+    steps:
+      - attach_workspace:
+          at: ~/
       - run: yarn pub
       - run: yarn e2e
+
+
+
+workflows:
+  version: 2.1
+  build:
+    jobs:
+      - install
+      - lint:
+          requires:
+            - install
+      - test:
+          requires:
+            - install
+      - depcheck:
+          requires:
+            - install
+      - e2e:
+          requires:
+            - install
