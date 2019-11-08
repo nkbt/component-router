@@ -1,5 +1,3 @@
-'use strict';
-
 
 const {
   mode,
@@ -13,7 +11,7 @@ const {
 
 module.exports = {
   mode,
-  devtool: '#source-map',
+  devtool: 'eval',
 
   entry: [
     pathTo('example', 'index.js'),
@@ -21,8 +19,7 @@ module.exports = {
   ],
   output: {
     filename: 'bundle.js',
-    path: pathTo('dev'),
-    publicPath: '/'
+    path: pathTo('dev')
   },
   plugins: [
     plugins.html

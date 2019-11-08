@@ -1,5 +1,3 @@
-'use strict';
-
 
 const {
   mode,
@@ -25,6 +23,7 @@ module.exports = {
     libraryTarget: 'umd'
   },
   plugins: [
+    plugins.emptyPropTypes,
     plugins.loaderOptions
   ],
   module: {
