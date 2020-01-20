@@ -1,5 +1,5 @@
 import {test} from 'tape';
-import {renderRoute} from './../../src/pathname/render';
+import {renderRoute} from '../../src/pathname/render';
 
 
 test('Utils / router / renderRoute', t => {

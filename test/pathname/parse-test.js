@@ -1,5 +1,5 @@
 import {test} from 'tape';
-import {parseRoute} from './../../src/pathname/parse';
+import {parseRoute} from '../../src/pathname/parse';
 
 
 test('Utils / router / parseRoute', t => {

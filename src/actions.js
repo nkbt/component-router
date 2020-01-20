@@ -54,4 +54,3 @@ export const removeRoute = route => ({
   type: REMOVE_ROUTE,
   route
 });
-

@@ -62,8 +62,8 @@ export const location = (createHistory, type) => ({
     const state = store.getState()[namespace];
     const nextCleanQuery = searchToQuery(search);
 
-    if (!shallowEqual(nextCleanQuery, state.cleanQuery) ||
-      pathname !== state.pathname || hash !== state.hash) {
+    if (!shallowEqual(nextCleanQuery, state.cleanQuery)
+      || pathname !== state.pathname || hash !== state.hash) {
       store.dispatch(restoreLocation({pathname, query: nextCleanQuery, hash}, type));
     }
   };

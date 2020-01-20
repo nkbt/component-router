@@ -6,4 +6,3 @@ test('locationHash', t => {
   t.ok(locationHash instanceof Function, 'should be function');
   t.end();
 });
-

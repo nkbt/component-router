@@ -14,8 +14,7 @@ export const matchRoute = routes => (pathname = '') => {
     matchedRoute = {
       ...routes[r],
       params: Object.keys(routes[r].params)
-        .reduce((params, param, i) =>
-          ({...params, [param]: decodeURIComponent(match[i + 1])}), {})
+        .reduce((params, param, i) => ({...params, [param]: decodeURIComponent(match[i + 1])}), {})
 
     };
     return true;
