@@ -28,14 +28,13 @@ export const initialState = {
 };
 
 
-export const cleanupQuery = ({query, defaultParams}) =>
-  sortedObject(Object.keys(query)
-    .reduce((clean, key) => {
-      if (key in defaultParams && query[key] === defaultParams[key]) {
-        return clean;
-      }
-      return {...clean, [key]: query[key]};
-    }, {}));
+export const cleanupQuery = ({query, defaultParams}) => sortedObject(Object.keys(query)
+  .reduce((clean, key) => {
+    if (key in defaultParams && query[key] === defaultParams[key]) {
+      return clean;
+    }
+    return {...clean, [key]: query[key]};
+  }, {}));
 
 
 export const changeParams = (state, params) => {

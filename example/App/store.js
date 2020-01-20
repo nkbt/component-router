@@ -1,5 +1,3 @@
-/* global window */
-
 import {createStore as createReduxStore, combineReducers, applyMiddleware, compose} from 'redux';
 import {createLogger} from 'redux-logger';
 import {componentRouter} from '../../src';

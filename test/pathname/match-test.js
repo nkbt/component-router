@@ -1,6 +1,6 @@
 import {test} from 'tape';
-import {matchRoute} from './../../src/pathname/match';
-import {parseRoute} from './../../src/pathname/parse';
+import {matchRoute} from '../../src/pathname/match';
+import {parseRoute} from '../../src/pathname/parse';
 
 
 const routes = [

@@ -1,6 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
+
 import React from 'react';
 import PropTypes from 'prop-types';
-import {locationHistory, locationHash, actions, href, isActive} from '../../src';
+import {actions, href, isActive, locationHash, locationHistory} from '../../src';
 import {createStore} from './store';
 
 
@@ -108,7 +110,7 @@ class ComponentLinks extends React.Component {
   };
 
 
-  componentWillMount() {
+  componentDidMount() {
     store.dispatch(actions.addDefaultParam('component', 'baz'));
   }
 
@@ -147,7 +149,7 @@ class SortedComponentLinks extends React.Component {
   };
 
 
-  componentWillMount() {
+  componentDidMount() {
     store.dispatch(actions.addDefaultParam('offRecord', 'bla'));
     store.dispatch(actions.addOffRecordParam('offRecord'));
   }
@@ -255,9 +257,10 @@ class App extends React.Component {
   };
 
 
-  componentWillMount() {
-    this.unsubscribe = store.subscribe(() =>
-      this.setState({routingState: store.getState().componentRouter}));
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(
+      () => this.setState({routingState: store.getState().componentRouter})
+    );
   }
 
 

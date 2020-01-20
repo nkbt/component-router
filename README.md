@@ -1,12 +1,8 @@
 # component-router [![npm](https://img.shields.io/npm/v/component-router.svg?style=flat-square)](https://www.npmjs.com/package/component-router)
 
-Redux-based routing solution for components
-
-[![Gitter](https://img.shields.io/gitter/room/nkbt/help.svg?style=flat-square)](https://gitter.im/nkbt/help)
-[![CircleCI](https://img.shields.io/circleci/project/in-flux/component-router.svg?style=flat-square)](https://circleci.com/gh/in-flux/component-router)
-[![Dependencies](https://img.shields.io/david/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router)
-[![Dev Dependencies](https://img.shields.io/david/dev/in-flux/component-router.svg?style=flat-square)](https://david-dm.org/in-flux/component-router#info=devDependencies)
-
+[![CircleCI](https://img.shields.io/circleci/project/nkbt/component-router.svg?style=flat-square&label=build)](https://circleci.com/gh/nkbt/component-router)
+[![Dependencies](https://img.shields.io/david/nkbt/component-router.svg?style=flat-square)](https://david-dm.org/nkbt/component-router)
+[![Dev Dependencies](https://img.shields.io/david/dev/nkbt/component-router.svg?style=flat-square)](https://david-dm.org/nkbt/component-router#info=devDependencies)
 
 ## Idea
 
@@ -61,14 +57,29 @@ Key feature is to update all links on the page if any of visible blocks changed 
 # Minimal example
 
 
-![Minimal example](minimal.gif)
+![Minimal example](./example/minimal.gif)
 
 
 # Better example
 
 **NOTE** href changes, so we can open link in new tab.
 
-![Better example](moar.gif)
+![Better example](./example/moar.gif)
+
+
+## Demo
+
+
+[http://nkbt.github.io/component-router](http://nkbt.github.io/component-router)
+
+
+## Codepen demo
+
+[http://codepen.io/nkbt/pen/BNXamG?editors=101](http://codepen.io/nkbt/pen/BNXamG)
+
+Since ComponentRouter is working with browser location and navigation, it is not really possible
+to debug router in Codepen's Editor mode, but completely possible in Debug mode:
+[http://s.codepen.io/nkbt/debug/BNXamG] (http://s.codepen.io/nkbt/debug/BNXamG)
 
 
 ## Installation
@@ -81,6 +92,9 @@ npm install --save redux history qs component-router
 
 Don't forget to manually install peer dependencies (`redux`, `history`, `qs`) if you use npm@3.
 
+```sh
+yarn add component-router 
+```
 
 ### 1998 Script Tag:
 ```html
@@ -92,21 +106,6 @@ Don't forget to manually install peer dependencies (`redux`, `history`, `qs`) if
 ```
 
 
-## Demo
-
-
-[http://in-flux.github.io/component-router](http://in-flux.github.io/component-router)
-
-
-## Codepen demo
-
-[http://codepen.io/nkbt/pen/BNXamG?editors=101](http://codepen.io/nkbt/pen/BNXamG)
-
-Since ComponentRouter is working with browser location and navigation, it is not really possible
-to debug router in Codepen's Editor mode, but completely possible in Debug mode:
-[http://s.codepen.io/nkbt/debug/BNXamG] (http://s.codepen.io/nkbt/debug/BNXamG)
-
-
 ## Usage
 
 See [example/App/index.js](example/App/index.js)
@@ -114,12 +113,12 @@ See [example/App/index.js](example/App/index.js)
 
 ## Development and testing
 
-Currently is being developed and tested with the latest stable `Node 8` on `OSX`.
+Currently is being developed and tested with the latest stable `Node` on `OSX`.
 
 To run example covering all `ComponentRouter` features, use `yarn start`, which will compile `example/index.js`
 
 ```bash
-git clone git@github.com:in-flux/component-router.git
+git clone git@github.com:nkbt/component-router.git
 cd component-router
 yarn install
 yarn start
@@ -136,12 +135,6 @@ yarn lint
 
 # to run tests
 yarn test
-
-# to run end-to-end tests
-# first, run `selenium/standalone-firefox:3.4.0` docker image
-docker run -p 4444:4444 selenium/standalone-firefox:3.4.0
-# then run test
-yarn e2e
 ```
 
 ## License
